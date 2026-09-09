@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EDE8DE;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#D85A30;text-decoration:none}
+a:hover{color:#B8481F}
+input,button,textarea{font-family:'Inter',system-ui,sans-serif}
+input::placeholder,textarea::placeholder{color:#A79E92}
+input:focus,textarea:focus{outline:none}
+.sc::-webkit-scrollbar{height:0;width:0}
+</style>
+</helmet>
+
+<div style="padding:56px 48px 40px;font-family:'Inter',system-ui,sans-serif;color:#2B2621;max-width:1500px">
+  <div style="font:500 11px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#8A8177;margin-bottom:12px">Chef Finder · flow 04</div>
+  <h1 style="margin:0 0 12px;font:700 34px/1.15 'Poppins';letter-spacing:-.02em">Chef app</h1>
+  <p style="margin:0;max-width:660px;font:400 15px/1.6 'Inter';color:#6B6259;text-wrap:pretty">Eight frames at 390×844, same tokens as the customer app. Tab roots (Dashboard, Calendar, Requests, Earnings, Profile) carry the bottom nav; booking detail, reviews and messages are pushed screens. Teal carries accept and payout-complete states, clay red carries decline.</p>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:44px;padding:0 48px 96px;align-items:flex-start;font-family:'Inter',system-ui,sans-serif">
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">01</span><span style="font:600 13px/1.2 'Inter'">Chef dashboard</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="padding:8px 16px 14px;display:flex;align-items:center;gap:12px;flex:none">
+        <div style="position:relative;width:46px;height:46px;flex:none">
+          <div style="width:46px;height:46px;border-radius:50%;background:repeating-linear-gradient(135deg,#EBE4D9 0 6px,#F5F0E7 6px 12px);border:1px solid #DCD4C7"></div>
+          <div style="position:absolute;right:-2px;bottom:-2px;width:18px;height:18px;border-radius:50%;background:#0F6E56;border:2px solid #FAF7F2;display:flex;align-items:center;justify-content:center">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+          </div>
+        </div>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+          <span style="font:400 13px/1.2 'Inter';color:#8A8177">Friday, 29 August</span>
+          <span style="font:600 19px/1.2 'Poppins'">Salam, Sana</span>
+        </div>
+        <button onClick="{{ toggleOnline }}" style="display:flex;align-items:center;gap:8px;height:38px;padding:0 6px 0 12px;border:1px solid {{ onlineBorder }};border-radius:19px;background:{{ onlineBg }};cursor:pointer;flex:none">
+          <span style="font:600 12px/1 'Inter';color:{{ onlineColor }}">{{ onlineLabel }}</span>
+          <span style="width:34px;height:22px;border-radius:11px;background:{{ onlineTrack }};padding:2px;display:flex;justify-content:{{ onlineJustify }};transition:background .15s">
+            <span style="width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(43,38,33,.25);display:block"></span>
+          </span>
+        </button>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:14px">
+        <div style="background:#0F6E56;border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)">Earnings this month</span>
+            <span style="display:inline-flex;align-items:center;height:24px;padding:0 9px;border-radius:12px;background:rgba(255,255,255,.16);color:#fff;font:600 11px/1 'Inter'">August</span>
+          </div>
+          <span style="font:700 34px/1 'Poppins';color:#fff;letter-spacing:-.02em">Rs 186,400</span>
+          <div style="display:flex;gap:10px">
+            <div style="flex:1;padding:11px 13px;border-radius:12px;background:rgba(255,255,255,.12);display:flex;flex-direction:column;gap:3px">
+              <span style="font:400 11.5px/1.2 'Inter';color:rgba(255,255,255,.7)">Paid out</span>
+              <span style="font:600 15px/1.2 'Inter';color:#fff">Rs 148,900</span>
+            </div>
+            <div style="flex:1;padding:11px 13px;border-radius:12px;background:rgba(255,255,255,.12);display:flex;flex-direction:column;gap:3px">
+              <span style="font:400 11.5px/1.2 'Inter';color:rgba(255,255,255,.7)">Pending</span>
+              <span style="font:600 15px/1.2 'Inter';color:#fff">Rs 37,500</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <div style="flex:1;background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;align-items:center;gap:5px"><span style="color:#BA7517;font-size:15px">★</span><span style="font:700 22px/1 'Poppins'">4.9</span></div>
+            <span style="font:400 12.5px/1.3 'Inter';color:#8A8177">128 reviews</span>
+          </div>
+          <div style="flex:1;background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px">
+            <span style="font:700 22px/1 'Poppins'">214</span>
+            <span style="font:400 12.5px/1.3 'Inter';color:#8A8177">events completed</span>
+          </div>
+          <div style="flex:1;background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:6px">
+            <span style="font:700 22px/1 'Poppins';color:#0F6E56">96%</span>
+            <span style="font:400 12.5px/1.3 'Inter';color:#8A8177">rebook rate</span>
+          </div>
+        </div>
+        <div style="background:#FBEDE7;border:1px solid #F2D9CE;border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px">
+          <span style="width:38px;height:38px;border-radius:12px;background:#D85A30;color:#fff;font:700 15px/38px 'Poppins';text-align:center;flex:none">2</span>
+          <span style="flex:1;font:400 13.5px/1.45 'Inter';color:#8A4A32">Two new requests waiting. One expires in 5 hours.</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D85A30" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><polyline points="9.5,5 16.5,12 9.5,19"></polyline></svg>
+        </div>
+        <div style="display:flex;align-items:baseline;justify-content:space-between;padding-top:2px">
+          <h2 style="margin:0;font:600 19px/1.2 'Poppins'">Today</h2>
+          <span style="font:500 12.5px/1 'Inter';color:#8A8177">2 events</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;overflow:hidden">
+            <div style="height:4px;background:#D85A30"></div>
+            <div style="padding:14px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px">
+                <div style="display:flex;flex-direction:column;gap:4px">
+                  <span style="font:600 16px/1.25 'Poppins'">Priya Raman</span>
+                  <span style="font:400 13px/1.4 'Inter';color:#6B6259">Mughlai feast · 6 guests</span>
+                </div>
+                <span style="display:inline-flex;align-items:center;height:24px;padding:0 9px;border-radius:12px;background:#FBEDE7;color:#B8481F;font:600 11px/1 'Inter';flex:none">In 4 hrs</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8A8177" stroke-width="1.9" stroke-linecap="round" style="flex:none"><circle cx="12" cy="12" r="8.5"></circle><polyline points="12,7.5 12,12 15.5,14"></polyline></svg>
+                  <span style="font:500 13.5px/1.3 'Inter'">19:00 · arrive 17:30</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8A8177" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M12 21s6.5-6.2 6.5-10.5A6.5 6.5 0 0 0 5.5 10.5C5.5 14.8 12 21 12 21z"></path><circle cx="12" cy="10.4" r="2.2"></circle></svg>
+                  <span style="font:400 13.5px/1.3 'Inter';color:#6B6259">DHA Phase 5 · 6.2 km</span>
+                </div>
+              </div>
+              <div style="display:flex;gap:9px">
+                <button style="flex:1;height:44px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff;font:600 14px/1 'Inter';color:#2B2621;cursor:pointer" style-hover="border-color:#A79E92">Message</button>
+                <button style="flex:1;height:44px;border:none;border-radius:12px;background:#D85A30;font:600 14px/1 'Inter';color:#fff;cursor:pointer" style-hover="background:#C24E27">Start prep</button>
+              </div>
+            </div>
+          </div>
+          <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:14px;display:flex;gap:12px;align-items:center">
+            <div style="width:44px;height:44px;border-radius:13px;background:#F1EDE5;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none">
+              <span style="font:600 13px/1 'Poppins'">21</span>
+              <span style="font:500 9px/1.4 'Inter';color:#8A8177">:30</span>
+            </div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+              <span style="font:600 15px/1.25 'Poppins'">Umair Sheikh</span>
+              <span style="font:400 12.5px/1.4 'Inter';color:#6B6259">Late BBQ · 4 guests · Clifton</span>
+            </div>
+            <span style="display:inline-flex;align-items:center;height:24px;padding:0 9px;border-radius:12px;background:#F1EDE5;color:#6B6259;font:600 11px/1 'Inter';flex:none">Confirmed</span>
+          </div>
+        </div>
+      </div>
+      <nav style="border-top:1px solid #EBE4D9;background:rgba(255,255,255,.94);padding:8px 4px 0;flex:none">
+        <div style="display:flex">
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#D85A30">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.8"></rect><rect x="13" y="4" width="7" height="7" rx="1.8"></rect><rect x="4" y="13" width="7" height="7" rx="1.8"></rect><rect x="13" y="13" width="7" height="7" rx="1.8"></rect></svg>
+            <span style="font:600 10px/1 'Inter'">Dashboard</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="15" rx="2.6"></rect><line x1="3.5" y1="10.5" x2="20.5" y2="10.5"></line><line x1="8.5" y1="3.5" x2="8.5" y2="6.5"></line><line x1="15.5" y1="3.5" x2="15.5" y2="6.5"></line></svg>
+            <span style="font:600 10px/1 'Inter'">Calendar</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92;position:relative">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="3.5,13 8,13 9.5,16 14.5,16 16,13 20.5,13"></polyline><path d="M3.5 13 6 5.5h12L20.5 13v5.5a1.5 1.5 0 0 1-1.5 1.5H5a1.5 1.5 0 0 1-1.5-1.5z"></path></svg>
+            <span style="position:absolute;top:2px;right:50%;margin-right:-18px;min-width:17px;height:17px;padding:0 5px;border-radius:9px;background:#D85A30;color:#fff;font:600 10px/17px 'Inter';text-align:center">2</span>
+            <span style="font:600 10px/1 'Inter'">Requests</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6.5" width="18" height="11" rx="2.4"></rect><circle cx="12" cy="12" r="2.6"></circle></svg>
+            <span style="font:600 10px/1 'Inter'">Earnings</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="3.6"></circle><path d="M5.6 19.6a6.6 6.6 0 0 1 12.8 0"></path></svg>
+            <span style="font:600 10px/1 'Inter'">Profile</span>
+          </div>
+        </div>
+        <div style="height:22px;display:flex;align-items:center;justify-content:center"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+      </nav>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">accepting-work switch top right · teal earnings card</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">02</span><span style="font:600 13px/1.2 'Inter'">Profile &amp; menu setup</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="padding:8px 16px 12px;display:flex;align-items:center;justify-content:space-between;flex:none">
+        <h1 style="margin:0;font:600 24px/1.2 'Poppins';letter-spacing:-.01em">My profile</h1>
+        <span style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px 0 8px;border-radius:14px;background:#E5F0EC;color:#0F6E56;font:600 12px/1 'Inter'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="8,12.4 11,15.4 16.2,9.6"></polyline></svg>
+          Verified
+        </span>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:20px">
+        <div style="display:flex;gap:14px;align-items:center">
+          <div style="position:relative;width:82px;height:82px;flex:none">
+            <div style="width:82px;height:82px;border-radius:26px;background:repeating-linear-gradient(135deg,#EBE4D9 0 8px,#F5F0E7 8px 16px);border:1px solid #DCD4C7;display:flex;align-items:center;justify-content:center">
+              <span style="font:500 9.5px/1 ui-monospace,Menlo,monospace;color:#A0968A">profile</span>
+            </div>
+            <button style="position:absolute;right:-5px;bottom:-5px;width:30px;height:30px;border:2.5px solid #FAF7F2;border-radius:50%;background:#2B2621;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="2.4"></rect><circle cx="12" cy="13" r="3"></circle></svg>
+            </button>
+          </div>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px">
+            <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Cover &amp; gallery</span>
+            <div style="display:flex;gap:7px">
+              <div style="flex:1;height:44px;border-radius:11px;background:repeating-linear-gradient(135deg,#EBE4D9 0 7px,#F3EEE5 7px 14px);border:1px solid #E4DCD0"></div>
+              <div style="flex:1;height:44px;border-radius:11px;background:repeating-linear-gradient(135deg,#EBE4D9 0 7px,#F3EEE5 7px 14px);border:1px solid #E4DCD0"></div>
+              <button style="width:44px;height:44px;border:1.5px dashed #DCD4C7;border-radius:11px;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="border-color:#D85A30">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#8A8177" stroke-width="2" stroke-linecap="round"><line x1="12" y1="6" x2="12" y2="18"></line><line x1="6" y1="12" x2="18" y2="12"></line></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label style="font:500 13px/1.2 'Inter';color:#6B6259">Display name</label>
+          <input value="Sana Kausar" style="height:52px;padding:0 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff;font:400 15px/1 'Inter';color:#2B2621;transition:border-color .15s,box-shadow .15s" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7">
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <label style="font:500 13px/1.2 'Inter';color:#6B6259">Bio</label>
+            <span style="font:500 11.5px/1 'Inter';color:#A79E92">{{ bioCount }}/240</span>
+          </div>
+          <textarea value="{{ bio }}" onChange="{{ onBio }}" rows="4" style="padding:14px 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff;font:400 14.5px/1.55 'Inter';color:#2B2621;resize:none;transition:border-color .15s,box-shadow .15s" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7"></textarea>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <label style="font:500 13px/1.2 'Inter';color:#6B6259">Cuisine specialties</label>
+            <span style="font:500 12px/1 'Inter';color:#8A8177">{{ tagCount }} of 5</span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ tags }}" as="t" hint-placeholder-count="3">
+              <span style="display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 8px 0 14px;border-radius:19px;background:#FBEDE7;border:1px solid #F2D9CE;color:#B8481F;font:500 14px/1 'Inter'">
+                {{ t.name }}
+                <button onClick="{{ t.onRemove }}" style="width:22px;height:22px;border:none;border-radius:50%;background:rgba(216,90,48,.14);color:#B8481F;font:500 13px/1 'Inter';cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0">×</button>
+              </span>
+            </sc-for>
+            <sc-for list="{{ tagSuggestions }}" as="t" hint-placeholder-count="3">
+              <button onClick="{{ t.onAdd }}" style="height:38px;padding:0 14px;border-radius:19px;border:1.5px dashed #DCD4C7;background:#fff;color:#6B6259;font:500 14px/1 'Inter';cursor:pointer" style-hover="border-color:#D85A30;color:#B8481F">+ {{ t.name }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <label style="font:500 13px/1.2 'Inter';color:#6B6259">Menu packages</label>
+            <button style="border:none;background:transparent;padding:0;font:600 13px/1 'Inter';color:#D85A30;cursor:pointer">+ Add package</button>
+          </div>
+          <sc-for list="{{ packages }}" as="p" hint-placeholder-count="3">
+            <div style="background:#fff;border:1px solid {{ p.border }};border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:11px">
+              <div style="display:flex;align-items:flex-start;gap:12px">
+                <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+                  <span style="font:600 15.5px/1.3 'Poppins';color:{{ p.titleColor }}">{{ p.name }}</span>
+                  <span style="font:400 13px/1.45 'Inter';color:#6B6259">{{ p.desc }}</span>
+                </div>
+                <button onClick="{{ p.onToggle }}" style="width:44px;height:26px;border:none;border-radius:13px;background:{{ p.track }};padding:3px;display:flex;justify-content:{{ p.justify }};cursor:pointer;flex:none;transition:background .15s">
+                  <span style="width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(43,38,33,.2);display:block"></span>
+                </button>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:2px;border-top:1px solid #F5F1E9">
+                <div style="display:flex;align-items:baseline;gap:6px;padding-top:10px">
+                  <span style="font:600 17px/1 'Poppins';color:#D85A30">Rs {{ p.price }}</span>
+                  <span style="font:400 12px/1 'Inter';color:#8A8177">per guest</span>
+                </div>
+                <div style="display:flex;gap:8px;padding-top:8px">
+                  <button style="height:36px;padding:0 13px;border:1.5px solid #DCD4C7;border-radius:11px;background:#FAF7F2;font:600 13px/1 'Inter';color:#2B2621;cursor:pointer" style-hover="border-color:#A79E92">Edit</button>
+                  <button style="width:36px;height:36px;border:1.5px solid #DCD4C7;border-radius:11px;background:#FAF7F2;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#B33A28" style-hover="border-color:#B33A28">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="5,7 19,7"></polyline><path d="M7.5 7v11.5a1.5 1.5 0 0 0 1.5 1.5h6a1.5 1.5 0 0 0 1.5-1.5V7"></path><line x1="10" y1="4" x2="14" y2="4"></line></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="padding:14px 16px;border-top:1px solid #EBE4D9;background:#fff;flex:none">
+        <button style="width:100%;height:52px;border:none;border-radius:14px;background:#D85A30;color:#fff;font:600 16px/1 'Inter';cursor:pointer" style-hover="background:#C24E27">Save changes</button>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:#fff"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">tags add and remove · package switches mute inactive rows</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">03</span><span style="font:600 13px/1.2 'Inter'">Availability calendar</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="padding:8px 16px 14px;display:flex;flex-direction:column;gap:6px;flex:none">
+        <h1 style="margin:0;font:600 24px/1.2 'Poppins';letter-spacing:-.01em">Availability</h1>
+        <span style="font:400 13.5px/1.4 'Inter';color:#6B6259">Tap a date to cycle open → blocked. Booked dates are locked.</span>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:16px">
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font:600 16px/1.2 'Poppins'">September 2026</span>
+            <div style="display:flex;gap:8px">
+              <button style="width:34px;height:34px;border:1px solid #DCD4C7;border-radius:11px;background:#FAF7F2;cursor:pointer;display:flex;align-items:center;justify-content:center">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+              </button>
+              <button style="width:34px;height:34px;border:1px solid #DCD4C7;border-radius:11px;background:#FAF7F2;cursor:pointer;display:flex;align-items:center;justify-content:center">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9.5,5 16.5,12 9.5,19"></polyline></svg>
+              </button>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px">
+            <span style="text-align:center;font:600 11px/1 'Inter';color:#A79E92">M</span>
+            <span style="text-align:center;font:600 11px/1 'Inter';color:#A79E92">T</span>
+            <span style="text-align:center;font:600 11px/1 'Inter';color:#A79E92">W</span>
+            <span style="text-align:center;font:600 11px/1 'Inter';color:#A79E92">T</span>
+            <span style="text-align:center;font:600 11px/1 'Inter';color:#A79E92">F</span>
+            <span style="text-align:center;font:600 11px/1 'Inter';color:#A79E92">S</span>
+            <span style="text-align:center;font:600 11px/1 'Inter';color:#A79E92">S</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px">
+            <sc-for list="{{ calDays }}" as="d" hint-placeholder-count="31">
+              <button onClick="{{ d.onClick }}" style="height:46px;border:1.5px solid {{ d.border }};border-radius:12px;background:{{ d.bg }};color:{{ d.color }};font:{{ d.font }};cursor:{{ d.cursor }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:0">
+                {{ d.label }}
+                <span style="width:5px;height:5px;border-radius:50%;background:{{ d.dot }};opacity:{{ d.dotOpacity }};display:block"></span>
+              </button>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;padding-top:2px">
+            <div style="display:flex;align-items:center;gap:7px"><span style="width:12px;height:12px;border-radius:4px;background:#E5F0EC;border:1.5px solid #0F6E56"></span><span style="font:500 11.5px/1 'Inter';color:#6B6259">Open</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><span style="width:12px;height:12px;border-radius:4px;background:#F1EDE5;border:1.5px solid #DCD4C7"></span><span style="font:500 11.5px/1 'Inter';color:#6B6259">Blocked</span></div>
+            <div style="display:flex;align-items:center;gap:7px"><span style="width:12px;height:12px;border-radius:4px;background:#D85A30;border:1.5px solid #D85A30"></span><span style="font:500 11.5px/1 'Inter';color:#6B6259">Booked</span></div>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:14px">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Weekly defaults</span>
+          <sc-for list="{{ weekdays }}" as="w" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+              <span style="font:500 14.5px/1.3 'Inter'">{{ w.label }}</span>
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="font:400 13px/1 'Inter';color:#8A8177">{{ w.hint }}</span>
+                <button onClick="{{ w.onToggle }}" style="width:44px;height:26px;border:none;border-radius:13px;background:{{ w.track }};padding:3px;display:flex;justify-content:{{ w.justify }};cursor:pointer;flex:none;transition:background .15s">
+                  <span style="width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(43,38,33,.2);display:block"></span>
+                </button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="padding:12px 16px;border-top:1px solid #EBE4D9;background:#fff;display:flex;align-items:center;gap:12px;flex:none">
+        <span style="flex:1;font:500 13px/1.4 'Inter';color:#6B6259">{{ openCount }} open days in September</span>
+        <button style="height:48px;padding:0 22px;border:none;border-radius:14px;background:#0F6E56;color:#fff;font:600 15px/1 'Inter';cursor:pointer" style-hover="background:#0C5C48">Publish</button>
+      </div>
+      <nav style="border-top:1px solid #EBE4D9;background:rgba(255,255,255,.94);padding:8px 4px 0;flex:none">
+        <div style="display:flex">
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.8"></rect><rect x="13" y="4" width="7" height="7" rx="1.8"></rect><rect x="4" y="13" width="7" height="7" rx="1.8"></rect><rect x="13" y="13" width="7" height="7" rx="1.8"></rect></svg>
+            <span style="font:600 10px/1 'Inter'">Dashboard</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#D85A30">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="15" rx="2.6"></rect><line x1="3.5" y1="10.5" x2="20.5" y2="10.5"></line><line x1="8.5" y1="3.5" x2="8.5" y2="6.5"></line><line x1="15.5" y1="3.5" x2="15.5" y2="6.5"></line></svg>
+            <span style="font:600 10px/1 'Inter'">Calendar</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92;position:relative">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="3.5,13 8,13 9.5,16 14.5,16 16,13 20.5,13"></polyline><path d="M3.5 13 6 5.5h12L20.5 13v5.5a1.5 1.5 0 0 1-1.5 1.5H5a1.5 1.5 0 0 1-1.5-1.5z"></path></svg>
+            <span style="position:absolute;top:2px;right:50%;margin-right:-18px;min-width:17px;height:17px;padding:0 5px;border-radius:9px;background:#D85A30;color:#fff;font:600 10px/17px 'Inter';text-align:center">2</span>
+            <span style="font:600 10px/1 'Inter'">Requests</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6.5" width="18" height="11" rx="2.4"></rect><circle cx="12" cy="12" r="2.6"></circle></svg>
+            <span style="font:600 10px/1 'Inter'">Earnings</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="3.6"></circle><path d="M5.6 19.6a6.6 6.6 0 0 1 12.8 0"></path></svg>
+            <span style="font:600 10px/1 'Inter'">Profile</span>
+          </div>
+        </div>
+        <div style="height:22px;display:flex;align-items:center;justify-content:center"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+      </nav>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">tap dates to toggle · count updates in the footer</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#D85A30;color:#fff;padding:4px 7px;border-radius:4px">04</span><span style="font:600 13px/1.2 'Inter'">Incoming request</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="height:52px;display:flex;align-items:center;gap:12px;padding:0 16px;flex:none">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+        <span style="flex:1;font:600 17px/1.2 'Poppins'">Request 1 of 2</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px;border-radius:14px;background:#F6EDDC;color:#7A5314;font:600 12px/1 'Inter';flex:none">Expires 5h 12m</span>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:8px 16px 16px;display:flex;flex-direction:column;gap:14px">
+        <sc-if value="{{ requestDecided }}" hint-placeholder-val="{{ false }}">
+          <div style="background:{{ decisionBg }};border:1px solid {{ decisionBorder }};border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px">
+            <span style="width:34px;height:34px;border-radius:50%;background:{{ decisionIconBg }};display:flex;align-items:center;justify-content:center;flex:none">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4" style="opacity:{{ decisionCheck }}"></polyline><line x1="7" y1="7" x2="17" y2="17" style="opacity:{{ decisionCross }}"></line><line x1="17" y1="7" x2="7" y2="17" style="opacity:{{ decisionCross }}"></line></svg>
+            </span>
+            <span style="flex:1;font:500 14px/1.45 'Inter';color:{{ decisionColor }}">{{ decisionText }}</span>
+            <button onClick="{{ resetDecision }}" style="border:none;background:transparent;padding:0;font:600 12.5px/1 'Inter';color:#8A8177;cursor:pointer;flex:none">Undo</button>
+          </div>
+        </sc-if>
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:18px;box-shadow:0 2px 8px rgba(43,38,33,.05);padding:18px;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;gap:13px;align-items:center">
+            <div style="width:56px;height:56px;border-radius:50%;background:repeating-linear-gradient(135deg,#EBE4D9 0 6px,#F5F0E7 6px 12px);border:1px solid #DCD4C7;flex:none"></div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+              <span style="font:600 18px/1.2 'Poppins'">Priya Raman</span>
+              <span style="font:400 13px/1.4 'Inter';color:#6B6259">3 previous bookings · joined 2024</span>
+            </div>
+            <span style="display:inline-flex;align-items:center;height:24px;padding:0 9px;border-radius:12px;background:#E5F0EC;color:#0F6E56;font:600 11px/1 'Inter';flex:none">Repeat</span>
+          </div>
+          <div style="display:flex;gap:10px">
+            <div style="flex:1;padding:13px;border-radius:14px;background:#FAF7F2;display:flex;flex-direction:column;gap:4px">
+              <span style="font:500 11px/1.2 'Inter';color:#8A8177">Date</span>
+              <span style="font:600 14.5px/1.3 'Poppins'">Sat 14 Sep</span>
+              <span style="font:400 12px/1.3 'Inter';color:#6B6259">19:00 start</span>
+            </div>
+            <div style="flex:1;padding:13px;border-radius:14px;background:#FAF7F2;display:flex;flex-direction:column;gap:4px">
+              <span style="font:500 11px/1.2 'Inter';color:#8A8177">Guests</span>
+              <span style="font:600 14.5px/1.3 'Poppins'">6 people</span>
+              <span style="font:400 12px/1.3 'Inter';color:#6B6259">2 no beef</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <div style="padding:11px 0;display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #F5F1E9"><span style="font:400 14px/1.4 'Inter';color:#6B6259">Menu</span><span style="font:500 14px/1.4 'Inter'">Mughlai feast</span></div>
+            <div style="padding:11px 0;display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #F5F1E9"><span style="font:400 14px/1.4 'Inter';color:#6B6259">Area</span><span style="font:500 14px/1.4 'Inter'">DHA Phase 5 · 6.2 km</span></div>
+            <div style="padding:11px 0;display:flex;justify-content:space-between;gap:12px"><span style="font:400 14px/1.4 'Inter';color:#6B6259">Kitchen</span><span style="font:500 14px/1.4 'Inter'">Gas, 4 burners</span></div>
+          </div>
+          <div style="padding:13px;background:#F1EDE5;border-radius:14px;display:flex;flex-direction:column;gap:5px">
+            <span style="font:500 11.5px/1.2 'Inter';color:#8A8177">Note from Priya</span>
+            <span style="font:400 13.5px/1.5 'Inter';color:#3D3630">Anniversary dinner. Two guests avoid beef, and please keep the spice medium for the kids.</span>
+          </div>
+        </div>
+        <div style="background:#0F6E56;border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)">You earn</span>
+          <span style="font:700 30px/1 'Poppins';color:#fff;letter-spacing:-.02em">Rs 24,570</span>
+          <div style="height:1px;background:rgba(255,255,255,.14)"></div>
+          <div style="display:flex;justify-content:space-between"><span style="font:400 13px/1.4 'Inter';color:rgba(255,255,255,.65)">Booking total</span><span style="font:500 13px/1.4 'Inter';color:#fff">Rs 28,200</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font:400 13px/1.4 'Inter';color:rgba(255,255,255,.65)">Platform fee 12.9%</span><span style="font:500 13px/1.4 'Inter';color:#fff">− Rs 3,630</span></div>
+        </div>
+      </div>
+      <div style="padding:14px 16px;border-top:1px solid #EBE4D9;background:#fff;flex:none;display:flex;gap:10px">
+        <button onClick="{{ decline }}" style="flex:none;width:120px;height:52px;border:1.5px solid #DCD4C7;border-radius:14px;background:#fff;font:600 15px/1 'Inter';color:#B33A28;cursor:pointer" style-hover="border-color:#B33A28;background:#FBEDE7">Decline</button>
+        <button onClick="{{ accept }}" style="flex:1;height:52px;border:none;border-radius:14px;background:#0F6E56;color:#fff;font:600 16px/1 'Inter';cursor:pointer" style-hover="background:#0C5C48">Accept booking</button>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:#fff"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">accept / decline post a banner at the top · undo restores</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">05</span><span style="font:600 13px/1.2 'Inter'">Chef booking detail</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="height:52px;display:flex;align-items:center;gap:12px;padding:0 16px;flex:none">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+          <span style="font:600 16px/1.2 'Poppins'">CF-20418</span>
+          <span style="font:400 12px/1.2 'Inter';color:#8A8177">Confirmed · today 19:00</span>
+        </div>
+        <span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:13px;background:#E5F0EC;color:#0F6E56;font:600 12px/1 'Inter';flex:none">Paid advance</span>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:8px 16px 16px;display:flex;flex-direction:column;gap:14px">
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:18px;overflow:hidden">
+          <div style="height:150px;background:repeating-linear-gradient(135deg,#E4DCD0 0 12px,#EDE7DC 12px 24px);position:relative;display:flex;align-items:center;justify-content:center">
+            <span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:#A0968A">map · route preview</span>
+            <span style="position:absolute;bottom:10px;left:10px;display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:13px;background:rgba(255,255,255,.94);font:600 11.5px/1 'Inter';color:#2B2621">6.2 km · 18 min</span>
+          </div>
+          <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <span style="font:500 11.5px/1.2 'Inter';color:#8A8177">Event address</span>
+              <span style="font:500 15px/1.5 'Inter'">House 42, Street 12, DHA Phase 5, Karachi</span>
+              <span style="font:400 13px/1.4 'Inter';color:#6B6259">Gate code 4402 · park on the street side</span>
+            </div>
+            <div style="display:flex;gap:10px">
+              <button style="flex:1;height:46px;border:none;border-radius:12px;background:#2B2621;color:#fff;font:600 14px/1 'Inter';cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px" style-hover="background:#1F1B17">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="12,3 20.5,20.5 12,16.5 3.5,20.5"></polyline></svg>
+                Directions
+              </button>
+              <button style="flex:none;width:46px;height:46px;border:1.5px solid #DCD4C7;border-radius:12px;background:#FAF7F2;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="border-color:#A79E92">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3.5" width="12" height="14" rx="2.2"></rect><path d="M5 6.5v11A2.5 2.5 0 0 0 7.5 20H15"></path></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;gap:13px;align-items:center">
+            <div style="width:52px;height:52px;border-radius:50%;background:repeating-linear-gradient(135deg,#EBE4D9 0 6px,#F5F0E7 6px 12px);border:1px solid #DCD4C7;flex:none"></div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+              <span style="font:600 16.5px/1.2 'Poppins'">Priya Raman</span>
+              <span style="font:400 13px/1.4 'Inter';color:#6B6259">0300 555 0134 · 4th booking</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <button style="flex:1;height:46px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff;font:600 14px/1 'Inter';color:#2B2621;cursor:pointer" style-hover="border-color:#A79E92">Call</button>
+            <button style="flex:1;height:46px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff;font:600 14px/1 'Inter';color:#2B2621;cursor:pointer" style-hover="border-color:#A79E92">Message</button>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:2px">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177;margin-bottom:8px">Event brief</span>
+          <div style="padding:10px 0;display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #F5F1E9"><span style="font:400 14px/1.4 'Inter';color:#6B6259">Menu</span><span style="font:500 14px/1.4 'Inter'">Mughlai feast · 7 dishes</span></div>
+          <div style="padding:10px 0;display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #F5F1E9"><span style="font:400 14px/1.4 'Inter';color:#6B6259">Guests</span><span style="font:500 14px/1.4 'Inter'">6 · 2 no beef</span></div>
+          <div style="padding:10px 0;display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #F5F1E9"><span style="font:400 14px/1.4 'Inter';color:#6B6259">Spice level</span><span style="font:500 14px/1.4 'Inter'">Medium</span></div>
+          <div style="padding:10px 0;display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #F5F1E9"><span style="font:400 14px/1.4 'Inter';color:#6B6259">Advance received</span><span style="font:500 14px/1.4 'Inter';color:#0F6E56">Rs 8,460</span></div>
+          <div style="padding:10px 0;display:flex;justify-content:space-between;gap:12px"><span style="font:400 14px/1.4 'Inter';color:#6B6259">Collect on site</span><span style="font:600 15px/1.4 'Inter';color:#D85A30">Rs 19,740</span></div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Prep checklist</span>
+          <sc-for list="{{ checklist }}" as="c" hint-placeholder-count="4">
+            <button onClick="{{ c.onToggle }}" style="display:flex;align-items:center;gap:11px;border:none;background:transparent;padding:0;cursor:pointer;text-align:left">
+              <span style="width:24px;height:24px;border-radius:8px;border:1.5px solid {{ c.border }};background:{{ c.bg }};flex:none;display:flex;align-items:center;justify-content:center">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="opacity:{{ c.opacity }}"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+              </span>
+              <span style="font:400 14.5px/1.4 'Inter';color:{{ c.color }};text-decoration:{{ c.deco }}">{{ c.label }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="padding:14px 16px;border-top:1px solid #EBE4D9;background:#fff;flex:none">
+        <button style="width:100%;height:52px;border:none;border-radius:14px;background:#D85A30;color:#fff;font:600 16px/1 'Inter';cursor:pointer" style-hover="background:#C24E27">I'm on my way</button>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:#fff"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">checklist ticks off · map is a placeholder for the real route</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#0F6E56;color:#fff;padding:4px 7px;border-radius:4px">06</span><span style="font:600 13px/1.2 'Inter'">Earnings &amp; payouts</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="padding:8px 16px 12px;flex:none">
+        <h1 style="margin:0;font:600 24px/1.2 'Poppins';letter-spacing:-.01em">Earnings</h1>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:14px">
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Next payout · Mon 1 Sep</span>
+          <span style="font:700 32px/1 'Poppins';letter-spacing:-.02em">Rs 37,500</span>
+          <div style="display:flex;gap:10px">
+            <div style="flex:1;padding:12px 13px;border-radius:12px;background:#F6EDDC;display:flex;flex-direction:column;gap:3px">
+              <span style="font:400 11.5px/1.2 'Inter';color:#7A5314">Advances held</span>
+              <span style="font:600 15px/1.2 'Inter';color:#7A5314">Rs 16,920</span>
+            </div>
+            <div style="flex:1;padding:12px 13px;border-radius:12px;background:#E5F0EC;display:flex;flex-direction:column;gap:3px">
+              <span style="font:400 11.5px/1.2 'Inter';color:#265446">Balances due</span>
+              <span style="font:600 15px/1.2 'Inter';color:#265446">Rs 20,580</span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:12px 13px;background:#FAF7F2;border-radius:12px">
+            <span style="width:34px;height:34px;border-radius:10px;background:#0F6E56;color:#fff;font:700 11px/34px 'Poppins';text-align:center;flex:none">JC</span>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+              <span style="font:500 13.5px/1.3 'Inter'">JazzCash · 0300 ••• 0134</span>
+              <span style="font:400 12px/1.3 'Inter';color:#8A8177">Payouts every Monday</span>
+            </div>
+            <button style="border:none;background:transparent;padding:0;font:600 12.5px/1 'Inter';color:#D85A30;cursor:pointer;flex:none">Change</button>
+          </div>
+        </div>
+        <div style="display:flex;gap:4px;padding:4px;background:#F1EDE5;border-radius:14px">
+          <sc-for list="{{ payTabs }}" as="t" hint-placeholder-count="3">
+            <button onClick="{{ t.onClick }}" style="flex:1;height:38px;border:none;border-radius:11px;background:{{ t.bg }};color:{{ t.color }};font:{{ t.font }};cursor:pointer;box-shadow:{{ t.shadow }}">{{ t.label }}</button>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ payouts }}" as="p" hint-placeholder-count="5">
+            <div style="background:#fff;border:1px solid #EBE4D9;border-radius:14px;padding:14px;display:flex;gap:12px;align-items:center">
+              <span style="width:40px;height:40px;border-radius:12px;background:{{ p.iconBg }};display:flex;align-items:center;justify-content:center;flex:none;color:{{ p.iconColor }}">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4" style="opacity:{{ p.checkOpacity }}"></polyline><circle cx="12" cy="12" r="8.5" style="opacity:{{ p.clockOpacity }}"></circle><polyline points="12,7.5 12,12 15.5,14" style="opacity:{{ p.clockOpacity }}"></polyline></svg>
+              </span>
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+                <span style="font:600 14.5px/1.3 'Inter'">{{ p.client }}</span>
+                <span style="font:400 12.5px/1.3 'Inter';color:#8A8177">{{ p.meta }}</span>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex:none">
+                <span style="font:600 15px/1.2 'Inter';color:{{ p.amountColor }}">Rs {{ p.amount }}</span>
+                <span style="font:500 11px/1 'Inter';color:{{ p.statusColor }}">{{ p.status }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <nav style="border-top:1px solid #EBE4D9;background:rgba(255,255,255,.94);padding:8px 4px 0;flex:none">
+        <div style="display:flex">
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.8"></rect><rect x="13" y="4" width="7" height="7" rx="1.8"></rect><rect x="4" y="13" width="7" height="7" rx="1.8"></rect><rect x="13" y="13" width="7" height="7" rx="1.8"></rect></svg>
+            <span style="font:600 10px/1 'Inter'">Dashboard</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="15" rx="2.6"></rect><line x1="3.5" y1="10.5" x2="20.5" y2="10.5"></line><line x1="8.5" y1="3.5" x2="8.5" y2="6.5"></line><line x1="15.5" y1="3.5" x2="15.5" y2="6.5"></line></svg>
+            <span style="font:600 10px/1 'Inter'">Calendar</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92;position:relative">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="3.5,13 8,13 9.5,16 14.5,16 16,13 20.5,13"></polyline><path d="M3.5 13 6 5.5h12L20.5 13v5.5a1.5 1.5 0 0 1-1.5 1.5H5a1.5 1.5 0 0 1-1.5-1.5z"></path></svg>
+            <span style="position:absolute;top:2px;right:50%;margin-right:-18px;min-width:17px;height:17px;padding:0 5px;border-radius:9px;background:#D85A30;color:#fff;font:600 10px/17px 'Inter';text-align:center">2</span>
+            <span style="font:600 10px/1 'Inter'">Requests</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#D85A30">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6.5" width="18" height="11" rx="2.4"></rect><circle cx="12" cy="12" r="2.6"></circle></svg>
+            <span style="font:600 10px/1 'Inter'">Earnings</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="3.6"></circle><path d="M5.6 19.6a6.6 6.6 0 0 1 12.8 0"></path></svg>
+            <span style="font:600 10px/1 'Inter'">Profile</span>
+          </div>
+        </div>
+        <div style="height:22px;display:flex;align-items:center;justify-content:center"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+      </nav>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">All / Paid / Pending tabs filter the payout list</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#BA7517;color:#fff;padding:4px 7px;border-radius:4px">07</span><span style="font:600 13px/1.2 'Inter'">Reviews received</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="height:52px;display:flex;align-items:center;gap:12px;padding:0 16px;flex:none">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+        <span style="font:600 17px/1.2 'Poppins'">Reviews received</span>
+      </div>
+      <div style="padding:8px 16px 14px;flex:none">
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:16px;display:flex;align-items:center;gap:16px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:none">
+            <span style="font:700 30px/1 'Poppins'">4.9</span>
+            <span style="letter-spacing:1px;font-size:12px;color:#BA7517">★★★★★</span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;justify-content:space-between"><span style="font:400 12.5px/1.3 'Inter';color:#6B6259">Food quality</span><span style="font:600 12.5px/1.3 'Inter'">5.0</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="font:400 12.5px/1.3 'Inter';color:#6B6259">Punctuality</span><span style="font:600 12.5px/1.3 'Inter'">4.7</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="font:400 12.5px/1.3 'Inter';color:#6B6259">Cleanliness</span><span style="font:600 12.5px/1.3 'Inter'">4.9</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ chefReviews }}" as="r" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:11px">
+            <div style="display:flex;gap:11px;align-items:center">
+              <div style="width:40px;height:40px;border-radius:50%;background:repeating-linear-gradient(135deg,#EBE4D9 0 6px,#F5F0E7 6px 12px);border:1px solid #DCD4C7;flex:none"></div>
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+                <span style="font:600 14.5px/1.2 'Inter'">{{ r.name }}</span>
+                <span style="font:400 12px/1.2 'Inter';color:#8A8177">{{ r.meta }}</span>
+              </div>
+              <span style="letter-spacing:1px;font-size:12px;color:#BA7517;flex:none">{{ r.stars }}</span>
+            </div>
+            <p style="margin:0;font:400 14.5px/1.55 'Inter';color:#3D3630;text-wrap:pretty">{{ r.text }}</p>
+            <sc-if value="{{ r.hasReply }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:12px 13px;background:#F1EDE5;border-radius:12px;display:flex;flex-direction:column;gap:4px">
+                <span style="font:600 11.5px/1.2 'Inter';color:#8A8177">Your reply</span>
+                <span style="font:400 13.5px/1.5 'Inter';color:#3D3630">{{ r.reply }}</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ r.canReply }}" hint-placeholder-val="{{ true }}">
+              <button onClick="{{ r.onReply }}" style="align-self:flex-start;height:36px;padding:0 14px;border:1.5px solid #DCD4C7;border-radius:11px;background:#FAF7F2;font:600 13px/1 'Inter';color:#2B2621;cursor:pointer" style-hover="border-color:#A79E92">Reply</button>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:rgba(255,255,255,.6)"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">tap Reply to attach a canned response inline</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">08</span><span style="font:600 13px/1.2 'Inter'">Messages inbox</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="padding:8px 16px 14px;display:flex;align-items:center;gap:12px;flex:none">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+        <h1 style="margin:0;flex:1;font:600 22px/1.2 'Poppins';letter-spacing:-.01em">Messages</h1>
+        <sc-if value="{{ hasUnread }}" hint-placeholder-val="{{ true }}">
+          <span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:13px;background:#D85A30;color:#fff;font:600 12px/1 'Inter';flex:none">{{ unreadCount }} new</span>
+        </sc-if>
+      </div>
+      <div style="padding:0 16px 14px;flex:none">
+        <div style="display:flex;align-items:center;gap:10px;height:46px;padding:0 14px;border:1.5px solid #DCD4C7;border-radius:13px;background:#fff">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A79E92" stroke-width="1.9" stroke-linecap="round" style="flex:none"><circle cx="11" cy="11" r="6.5"></circle><line x1="16" y1="16" x2="20.5" y2="20.5"></line></svg>
+          <input placeholder="Search conversations" style="flex:1;min-width:0;height:100%;border:none;background:transparent;font:400 14.5px/1 'Inter';color:#2B2621">
+        </div>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:8px">
+        <sc-for list="{{ threads }}" as="t" hint-placeholder-count="5">
+          <button onClick="{{ t.onOpen }}" style="background:{{ t.bg }};border:1px solid {{ t.border }};border-radius:16px;padding:13px;display:flex;gap:12px;align-items:center;cursor:pointer;text-align:left;width:100%">
+            <div style="position:relative;width:48px;height:48px;flex:none">
+              <div style="width:48px;height:48px;border-radius:50%;background:repeating-linear-gradient(135deg,#EBE4D9 0 6px,#F5F0E7 6px 12px);border:1px solid #DCD4C7"></div>
+              <sc-if value="{{ t.online }}" hint-placeholder-val="{{ false }}">
+                <span style="position:absolute;right:0;bottom:0;width:13px;height:13px;border-radius:50%;background:#0F6E56;border:2px solid #fff;display:block"></span>
+              </sc-if>
+            </div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                <span style="font:{{ t.nameFont }};color:#2B2621;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.name }}</span>
+                <span style="font:500 11.5px/1 'Inter';color:{{ t.timeColor }};flex:none">{{ t.time }}</span>
+              </div>
+              <span style="font:{{ t.previewFont }};color:{{ t.previewColor }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ t.preview }}</span>
+              <span style="font:500 11.5px/1 'Inter';color:#8A8177">{{ t.tag }}</span>
+            </div>
+            <span style="width:10px;height:10px;border-radius:50%;background:#D85A30;opacity:{{ t.dotOpacity }};flex:none;display:block"></span>
+          </button>
+        </sc-for>
+      </div>
+      <nav style="border-top:1px solid #EBE4D9;background:rgba(255,255,255,.94);padding:8px 4px 0;flex:none">
+        <div style="display:flex">
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#D85A30">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="7" height="7" rx="1.8"></rect><rect x="13" y="4" width="7" height="7" rx="1.8"></rect><rect x="4" y="13" width="7" height="7" rx="1.8"></rect><rect x="13" y="13" width="7" height="7" rx="1.8"></rect></svg>
+            <span style="font:600 10px/1 'Inter'">Dashboard</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="15" rx="2.6"></rect><line x1="3.5" y1="10.5" x2="20.5" y2="10.5"></line><line x1="8.5" y1="3.5" x2="8.5" y2="6.5"></line><line x1="15.5" y1="3.5" x2="15.5" y2="6.5"></line></svg>
+            <span style="font:600 10px/1 'Inter'">Calendar</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92;position:relative">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="3.5,13 8,13 9.5,16 14.5,16 16,13 20.5,13"></polyline><path d="M3.5 13 6 5.5h12L20.5 13v5.5a1.5 1.5 0 0 1-1.5 1.5H5a1.5 1.5 0 0 1-1.5-1.5z"></path></svg>
+            <span style="position:absolute;top:2px;right:50%;margin-right:-18px;min-width:17px;height:17px;padding:0 5px;border-radius:9px;background:#D85A30;color:#fff;font:600 10px/17px 'Inter';text-align:center">2</span>
+            <span style="font:600 10px/1 'Inter'">Requests</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6.5" width="18" height="11" rx="2.4"></rect><circle cx="12" cy="12" r="2.6"></circle></svg>
+            <span style="font:600 10px/1 'Inter'">Earnings</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="3.6"></circle><path d="M5.6 19.6a6.6 6.6 0 0 1 12.8 0"></path></svg>
+            <span style="font:600 10px/1 'Inter'">Profile</span>
+          </div>
+        </div>
+        <div style="height:22px;display:flex;align-items:center;justify-content:center"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+      </nav>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">tapping a thread marks it read · header count drops</span>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:1100}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      online: true,
+      bio: 'Twelve years across hotel kitchens in Karachi and Dubai. Mughlai feasts and charcoal BBQ, cooked in your kitchen. I bring my own spices and leave the counters clean.',
+      tags: ['Mughlai', 'Karachi BBQ', 'Slow-cooked nihari'],
+      pkgActive: { 0: true, 1: true, 2: false },
+      blocked: [7, 8, 21],
+      weekly: { Mon: false, Tue: true, Sun: true },
+      decision: null,
+      checks: { 0: true, 1: true, 2: false, 3: false },
+      payTab: 0,
+      replies: {},
+      read: { 0: false, 1: false, 2: true, 3: true, 4: true }
+    };
+    this.BOOKED = [14, 27];
+  }
+
+  renderVals() {
+    const s = this.state;
+
+    const allTags = ['Mughlai', 'Karachi BBQ', 'Slow-cooked nihari', 'Sindhi', 'Continental', 'Desserts'];
+    const tags = s.tags.map(name => ({ name, onRemove: () => this.setState(st => ({ tags: st.tags.filter(t => t !== name) })) }));
+    const tagSuggestions = allTags.filter(t => s.tags.indexOf(t) < 0 && s.tags.length < 5)
+      .map(name => ({ name, onAdd: () => this.setState(st => ({ tags: st.tags.concat([name]) })) }));
+
+    const pkgData = [
+      { name: 'Family style', desc: 'Four shared dishes, rice, breads, one dessert.', price: '3,200' },
+      { name: 'Mughlai feast', desc: 'Seven dishes served in courses, includes nihari.', price: '4,500' },
+      { name: 'BBQ night', desc: 'Live charcoal grill, four marinades, chutneys.', price: '5,400' }
+    ];
+    const packages = pkgData.map((p, i) => {
+      const on = s.pkgActive[i];
+      return {
+        name: p.name, desc: p.desc, price: p.price,
+        border: on ? '#EBE4D9' : '#F1EDE5',
+        titleColor: on ? '#2B2621' : '#A79E92',
+        track: on ? '#0F6E56' : '#DCD4C7',
+        justify: on ? 'flex-end' : 'flex-start',
+        onToggle: () => this.setState(st => ({ pkgActive: Object.assign({}, st.pkgActive, { [i]: !st.pkgActive[i] }) }))
+      };
+    });
+
+    const calDays = [];
+    calDays.push({ label: '', bg: 'transparent', border: 'transparent', color: '#A79E92', cursor: 'default', font: '500 13px/1 Inter', dot: 'transparent', dotOpacity: 0, onClick: () => {} });
+    for (let d = 1; d <= 30; d++) {
+      const isBooked = this.BOOKED.indexOf(d) >= 0;
+      const isBlocked = s.blocked.indexOf(d) >= 0;
+      calDays.push({
+        label: String(d),
+        bg: isBooked ? '#D85A30' : (isBlocked ? '#F1EDE5' : '#E5F0EC'),
+        border: isBooked ? '#D85A30' : (isBlocked ? '#DCD4C7' : '#0F6E56'),
+        color: isBooked ? '#fff' : (isBlocked ? '#A79E92' : '#265446'),
+        cursor: isBooked ? 'not-allowed' : 'pointer',
+        font: isBooked ? '600 14px/1 Inter' : '500 14px/1 Inter',
+        dot: isBooked ? '#fff' : 'transparent',
+        dotOpacity: isBooked ? 0.85 : 0,
+        onClick: isBooked ? () => {} : () => this.setState(st => ({
+          blocked: isBlocked ? st.blocked.filter(x => x !== d) : st.blocked.concat([d])
+        }))
+      });
+    }
+    const openCount = 30 - s.blocked.length - this.BOOKED.length;
+
+    const weekData = [{ key: 'Mon', label: 'Mondays', hint: 'Rest day' }, { key: 'Tue', label: 'Tuesdays', hint: 'Evenings only' }, { key: 'Sun', label: 'Sundays', hint: 'All day' }];
+    const weekdays = weekData.map(w => {
+      const on = s.weekly[w.key];
+      return {
+        label: w.label, hint: w.hint,
+        track: on ? '#0F6E56' : '#DCD4C7',
+        justify: on ? 'flex-end' : 'flex-start',
+        onToggle: () => this.setState(st => ({ weekly: Object.assign({}, st.weekly, { [w.key]: !st.weekly[w.key] }) }))
+      };
+    });
+
+    const accepted = s.decision === 'accept';
+    const declined = s.decision === 'decline';
+
+    const checkData = ['Confirm menu with Priya', 'Order lamb and spices', 'Pack charcoal grill', 'Print allergy card for staff'];
+    const checklist = checkData.map((label, i) => {
+      const on = s.checks[i];
+      return {
+        label, border: on ? '#0F6E56' : '#DCD4C7', bg: on ? '#0F6E56' : '#fff', opacity: on ? 1 : 0,
+        color: on ? '#8A8177' : '#2B2621', deco: on ? 'line-through' : 'none',
+        onToggle: () => this.setState(st => ({ checks: Object.assign({}, st.checks, { [i]: !st.checks[i] }) }))
+      };
+    });
+
+    const payTabLabels = ['All', 'Paid', 'Pending'];
+    const payTabs = payTabLabels.map((label, i) => {
+      const on = s.payTab === i;
+      return {
+        label, bg: on ? '#fff' : 'transparent', color: on ? '#2B2621' : '#8A8177',
+        font: on ? '600 13.5px/1 Inter' : '500 13.5px/1 Inter',
+        shadow: on ? '0 1px 3px rgba(43,38,33,.08)' : 'none',
+        onClick: () => this.setState({ payTab: i })
+      };
+    });
+    const payoutData = [
+      { client: 'Priya Raman', meta: 'CF-20418 · advance · 12 Sep', amount: '7,370', paid: false },
+      { client: 'Umair Sheikh', meta: 'CF-20396 · balance · 8 Sep', amount: '13,210', paid: false },
+      { client: 'Rabia Noor', meta: 'CF-20344 · payout 25 Aug', amount: '18,600', paid: true },
+      { client: 'Danish Iqbal', meta: 'CF-20301 · payout 18 Aug', amount: '42,900', paid: true },
+      { client: 'Hina Qureshi', meta: 'CF-20288 · payout 11 Aug', amount: '31,150', paid: true }
+    ];
+    const payouts = payoutData
+      .filter(p => s.payTab === 0 || (s.payTab === 1 ? p.paid : !p.paid))
+      .map(p => ({
+        client: p.client, meta: p.meta, amount: p.amount,
+        iconBg: p.paid ? '#E5F0EC' : '#F6EDDC',
+        iconColor: p.paid ? '#0F6E56' : '#BA7517',
+        checkOpacity: p.paid ? 1 : 0,
+        clockOpacity: p.paid ? 0 : 1,
+        amountColor: p.paid ? '#2B2621' : '#7A5314',
+        status: p.paid ? 'Paid out' : 'Pending',
+        statusColor: p.paid ? '#0F6E56' : '#BA7517'
+      }));
+
+    const reviewData = [
+      { name: 'Hina Qureshi', meta: 'Mughlai feast · 8 guests · Aug', star: 5, text: 'The nihari was better than any restaurant near us, and she left the kitchen spotless.' },
+      { name: 'Umair Sheikh', meta: 'BBQ night · 12 guests · Jul', star: 5, text: 'Kept the plates coming for two hours. Guests are still talking about the boti.' },
+      { name: 'Rabia Noor', meta: 'Family style · 5 guests · Jul', star: 4, text: 'Lovely food and very polite. Arrived about twenty minutes late because of traffic.' },
+      { name: 'Danish Iqbal', meta: 'Mughlai feast · 6 guests · Jun', star: 5, text: 'Handled two allergies without fuss and adjusted the spice for the kids.' }
+    ];
+    const chefReviews = reviewData.map((r, i) => {
+      const replied = !!s.replies[i];
+      return {
+        name: r.name, meta: r.meta, stars: '★★★★★'.slice(0, r.star), text: r.text,
+        hasReply: replied, canReply: !replied,
+        reply: 'Thank you for having me. It was a pleasure cooking for your family.',
+        onReply: () => this.setState(st => ({ replies: Object.assign({}, st.replies, { [i]: true }) }))
+      };
+    });
+
+    const threadData = [
+      { name: 'Priya Raman', preview: 'Gas, four burners. There is also a terrace.', time: '9:38', tag: 'Sat 14 Sep · Mughlai feast', online: true },
+      { name: 'Umair Sheikh', preview: 'Can we push the start to 21:00?', time: '8:12', tag: 'Tonight · BBQ night', online: false },
+      { name: 'Ayesha Malik', preview: 'Thank you! Sending the address now.', time: 'Yesterday', tag: 'Fri 3 Oct · Family style', online: false },
+      { name: 'Chef Finder support', preview: 'Your certificate renewal is due in 30 days.', time: 'Wed', tag: 'Verification', online: false },
+      { name: 'Rabia Noor', preview: 'Left you a review, hope it helps!', time: '24 Aug', tag: 'Completed', online: false }
+    ];
+    const threads = threadData.map((t, i) => {
+      const read = s.read[i];
+      return {
+        name: t.name, preview: t.preview, time: t.time, tag: t.tag, online: t.online,
+        bg: read ? '#fff' : '#FFFDF9',
+        border: read ? '#EBE4D9' : '#F2D9CE',
+        nameFont: read ? '500 15px/1.2 Inter' : '600 15px/1.2 Poppins',
+        previewFont: read ? '400 13.5px/1.4 Inter' : '500 13.5px/1.4 Inter',
+        previewColor: read ? '#8A8177' : '#3D3630',
+        timeColor: read ? '#A79E92' : '#D85A30',
+        dotOpacity: read ? 0 : 1,
+        onOpen: () => this.setState(st => ({ read: Object.assign({}, st.read, { [i]: true }) }))
+      };
+    });
+    const unreadCount = Object.keys(s.read).filter(k => !s.read[k]).length;
+
+    return {
+      onlineLabel: s.online ? 'Accepting' : 'Paused',
+      onlineColor: s.online ? '#0F6E56' : '#8A8177',
+      onlineBg: s.online ? '#E5F0EC' : '#F1EDE5',
+      onlineBorder: s.online ? '#C6DED6' : '#DCD4C7',
+      onlineTrack: s.online ? '#0F6E56' : '#DCD4C7',
+      onlineJustify: s.online ? 'flex-end' : 'flex-start',
+      toggleOnline: () => this.setState(st => ({ online: !st.online })),
+      bio: s.bio,
+      onBio: e => this.setState({ bio: e.target.value.slice(0, 240) }),
+      bioCount: s.bio.length,
+      tags, tagSuggestions, tagCount: s.tags.length,
+      packages,
+      calDays, openCount, weekdays,
+      requestDecided: !!s.decision,
+      decisionBg: accepted ? '#E5F0EC' : '#FBEDE7',
+      decisionBorder: accepted ? '#C6DED6' : '#F2D9CE',
+      decisionIconBg: accepted ? '#0F6E56' : '#B33A28',
+      decisionCheck: accepted ? 1 : 0,
+      decisionCross: declined ? 1 : 0,
+      decisionColor: accepted ? '#265446' : '#8A3123',
+      decisionText: accepted ? 'Accepted. Priya has been notified and the date is now blocked.' : 'Declined. Priya will see other chefs for this date.',
+      accept: () => this.setState({ decision: 'accept' }),
+      decline: () => this.setState({ decision: 'decline' }),
+      resetDecision: () => this.setState({ decision: null }),
+      checklist,
+      payTabs, payouts,
+      chefReviews,
+      threads, unreadCount, hasUnread: unreadCount > 0
+    };
+  }
+}
+</script>
+</body>
+</html>

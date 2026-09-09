@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EDE8DE;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#D85A30;text-decoration:none}
+a:hover{color:#B8481F}
+input,button,textarea{font-family:'Inter',system-ui,sans-serif}
+input::placeholder{color:#A79E92}
+input:focus,textarea:focus{outline:none}
+.fr::-webkit-scrollbar{width:0}
+</style>
+</helmet>
+
+<div style="padding:56px 48px 40px;font-family:'Inter',system-ui,sans-serif;color:#2B2621;max-width:1500px">
+  <div style="font:500 11px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#8A8177;margin-bottom:12px">Chef Finder · flow 01</div>
+  <h1 style="margin:0 0 12px;font:700 34px/1.15 'Poppins';letter-spacing:-.02em">Onboarding &amp; Auth</h1>
+  <p style="margin:0;max-width:640px;font:400 15px/1.6 'Inter';color:#6B6259;text-wrap:pretty">Eight frames at 390×844. Shared chrome: 44pt status bar, back affordance top-left, one primary terracotta action pinned above the home inset, secondary action as text below it. Fields, chips, uploads and the OTP entry are live.</p>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:44px;padding:0 48px 96px;align-items:flex-start;font-family:'Inter',system-ui,sans-serif">
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">01</span><span style="font:600 13px/1.2 'Inter'">Splash</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#D85A30;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;color:#fff">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #fff;border-radius:2px;opacity:.9"></span><span style="width:22px;height:10px;border:1.2px solid #fff;border-radius:3px;opacity:.9"></span></div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;padding:0 40px">
+        <div style="width:96px;height:96px;border-radius:28px;background:#FAF7F2;display:flex;align-items:center;justify-content:center;font:700 38px/1 'Poppins';color:#D85A30">CF</div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+          <h2 style="margin:0;font:700 34px/1.1 'Poppins';color:#fff;letter-spacing:-.02em">Chef Finder</h2>
+          <p style="margin:0;font:400 15px/1.5 'Inter';color:rgba(255,255,255,.85);text-align:center">Verified private chefs, in your kitchen</p>
+        </div>
+      </div>
+      <div style="padding:0 0 52px;display:flex;flex-direction:column;align-items:center;gap:18px">
+        <div style="width:132px;height:3px;border-radius:2px;background:rgba(255,255,255,.3);overflow:hidden"><div style="width:64px;height:3px;background:#fff"></div></div>
+        <span style="font:500 12px/1 'Inter';color:rgba(255,255,255,.7)">Loading nearby chefs</span>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center"><div style="width:132px;height:5px;border-radius:3px;background:rgba(255,255,255,.4)"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">terracotta full-bleed · 1.2 s max, then carousel</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">02</span><span style="font:600 13px/1.2 'Inter'">Onboarding 1 of 3</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="height:52px;display:flex;align-items:center;justify-content:flex-end;padding:0 16px">
+        <button style="height:40px;padding:0 12px;border:none;background:transparent;font:500 15px/1 'Inter';color:#8A8177;cursor:pointer" style-hover="color:#2B2621">Skip</button>
+      </div>
+      <div style="padding:0 16px">
+        <div style="height:360px;border-radius:24px;background:repeating-linear-gradient(135deg,#EBE4D9 0 10px,#F3EEE5 10px 20px);border:1px solid #E4DCD0;display:flex;align-items:center;justify-content:center">
+          <span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:#A0968A">illustration · chef grid + verified badge</span>
+        </div>
+      </div>
+      <div style="flex:1;padding:34px 28px 0;display:flex;flex-direction:column;gap:12px">
+        <h2 style="margin:0;font:600 27px/1.2 'Poppins';letter-spacing:-.01em">Discover verified chefs</h2>
+        <p style="margin:0;font:400 16px/1.6 'Inter';color:#6B6259;text-wrap:pretty">Every chef is ID-checked, food-safety certified and reviewed by real diners before they appear here.</p>
+      </div>
+      <div style="padding:0 16px 16px;display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;gap:7px;justify-content:center;align-items:center">
+          <span style="width:22px;height:7px;border-radius:4px;background:#D85A30"></span>
+          <span style="width:7px;height:7px;border-radius:4px;background:#DCD4C7"></span>
+          <span style="width:7px;height:7px;border-radius:4px;background:#DCD4C7"></span>
+        </div>
+        <button style="width:100%;height:52px;border:none;border-radius:14px;background:#D85A30;color:#fff;font:600 16px/1 'Inter';cursor:pointer" style-hover="background:#C24E27">Next</button>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">swipeable · Skip jumps to Login</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">03</span><span style="font:600 13px/1.2 'Inter'">Onboarding 2 of 3</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+        <button style="height:40px;padding:0 12px;border:none;background:transparent;font:500 15px/1 'Inter';color:#8A8177;cursor:pointer" style-hover="color:#2B2621">Skip</button>
+      </div>
+      <div style="padding:0 16px">
+        <div style="height:360px;border-radius:24px;background:repeating-linear-gradient(135deg,#EBE4D9 0 10px,#F3EEE5 10px 20px);border:1px solid #E4DCD0;display:flex;align-items:center;justify-content:center">
+          <span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:#A0968A">illustration · calendar + instant confirm</span>
+        </div>
+      </div>
+      <div style="flex:1;padding:34px 28px 0;display:flex;flex-direction:column;gap:12px">
+        <h2 style="margin:0;font:600 27px/1.2 'Poppins';letter-spacing:-.01em">Book instantly</h2>
+        <p style="margin:0;font:400 16px/1.6 'Inter';color:#6B6259;text-wrap:pretty">See live availability, pick a menu and confirm in a few taps. No back-and-forth, no deposits held for weeks.</p>
+      </div>
+      <div style="padding:0 16px 16px;display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;gap:7px;justify-content:center;align-items:center">
+          <span style="width:7px;height:7px;border-radius:4px;background:#DCD4C7"></span>
+          <span style="width:22px;height:7px;border-radius:4px;background:#D85A30"></span>
+          <span style="width:7px;height:7px;border-radius:4px;background:#DCD4C7"></span>
+        </div>
+        <button style="width:100%;height:52px;border:none;border-radius:14px;background:#D85A30;color:#fff;font:600 16px/1 'Inter';cursor:pointer" style-hover="background:#C24E27">Next</button>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">back appears from slide 2 onward</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">04</span><span style="font:600 13px/1.2 'Inter'">Onboarding 3 of 3</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 16px">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+      </div>
+      <div style="padding:0 16px">
+        <div style="height:360px;border-radius:24px;background:repeating-linear-gradient(135deg,#EBE4D9 0 10px,#F3EEE5 10px 20px);border:1px solid #E4DCD0;display:flex;align-items:center;justify-content:center">
+          <span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:#A0968A">illustration · table set, chef cleaning up</span>
+        </div>
+      </div>
+      <div style="flex:1;padding:34px 28px 0;display:flex;flex-direction:column;gap:12px">
+        <h2 style="margin:0;font:600 27px/1.2 'Poppins';letter-spacing:-.01em">Enjoy stress-free events</h2>
+        <p style="margin:0;font:400 16px/1.6 'Inter';color:#6B6259;text-wrap:pretty">Shopping, cooking and the washing-up are on your chef. You host, they handle the rest.</p>
+      </div>
+      <div style="padding:0 16px 16px;display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;gap:7px;justify-content:center;align-items:center">
+          <span style="width:7px;height:7px;border-radius:4px;background:#DCD4C7"></span>
+          <span style="width:7px;height:7px;border-radius:4px;background:#DCD4C7"></span>
+          <span style="width:22px;height:7px;border-radius:4px;background:#D85A30"></span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <button style="width:100%;height:52px;border:none;border-radius:14px;background:#D85A30;color:#fff;font:600 16px/1 'Inter';cursor:pointer" style-hover="background:#C24E27">Get started</button>
+          <button style="width:100%;height:48px;border:none;border-radius:14px;background:transparent;font:500 15px/1 'Inter';color:#6B6259;cursor:pointer" style-hover="color:#2B2621">I already have an account</button>
+        </div>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">last slide swaps Next for two-action stack</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">05</span><span style="font:600 13px/1.2 'Inter'">Login</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="height:52px;display:flex;align-items:center;padding:0 16px">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+      </div>
+      <div style="flex:1;padding:20px 16px 0;display:flex;flex-direction:column;gap:24px">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <h2 style="margin:0;font:600 28px/1.2 'Poppins';letter-spacing:-.01em">Welcome back</h2>
+          <p style="margin:0;font:400 15px/1.5 'Inter';color:#6B6259">Sign in to pick up where you left off.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label style="font:500 13px/1.2 'Inter';color:#6B6259">Email</label>
+            <input value="{{ email }}" onChange="{{ onEmail }}" placeholder="you@example.com" style="height:52px;padding:0 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff;font:400 15px/1 'Inter';color:#2B2621;transition:border-color .15s,box-shadow .15s" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label style="font:500 13px/1.2 'Inter';color:#6B6259">Password</label>
+            <div style="display:flex;align-items:center;height:52px;padding:0 6px 0 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff">
+              <input type="{{ pwType }}" value="marco2026" style="flex:1;min-width:0;height:100%;border:none;background:transparent;font:400 15px/1 'Inter';color:#2B2621;letter-spacing:.02em">
+              <button onClick="{{ togglePw }}" style="height:40px;padding:0 12px;border:none;border-radius:10px;background:transparent;font:500 13px/1 'Inter';color:#B8481F;cursor:pointer">{{ pwLabel }}</button>
+            </div>
+            <button style="align-self:flex-end;height:32px;border:none;background:transparent;font:500 13px/1 'Inter';color:#6B6259;cursor:pointer;padding:0" style-hover="color:#D85A30">Forgot password?</button>
+          </div>
+        </div>
+        <sc-if value="{{ showSocial }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <span style="flex:1;height:1px;background:#E4DCD0"></span>
+              <span style="font:500 12px/1 'Inter';color:#A79E92">or</span>
+              <span style="flex:1;height:1px;background:#E4DCD0"></span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <button style="height:52px;border:1.5px solid #DCD4C7;border-radius:14px;background:#fff;font:600 15px/1 'Inter';color:#2B2621;cursor:pointer" style-hover="border-color:#A79E92">Continue with Apple</button>
+              <button style="height:52px;border:1.5px solid #DCD4C7;border-radius:14px;background:#fff;font:600 15px/1 'Inter';color:#2B2621;cursor:pointer" style-hover="border-color:#A79E92">Continue with Google</button>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+      <div style="padding:16px;display:flex;flex-direction:column;gap:10px">
+        <button style="width:100%;height:52px;border:none;border-radius:14px;background:#D85A30;color:#fff;font:600 16px/1 'Inter';cursor:pointer" style-hover="background:#C24E27">Log in</button>
+        <div style="display:flex;justify-content:center;align-items:baseline;gap:6px">
+          <span style="font:400 14px/1 'Inter';color:#6B6259">New here?</span>
+          <button style="border:none;background:transparent;font:600 14px/1 'Inter';color:#D85A30;cursor:pointer;padding:0">Create an account</button>
+        </div>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">password reveal is live · social block is a tweak</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">06</span><span style="font:600 13px/1.2 'Inter'">Signup · Customer</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="height:52px;display:flex;align-items:center;gap:12px;padding:0 16px">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+        <div style="flex:1;height:4px;border-radius:2px;background:#E4DCD0;overflow:hidden"><div style="width:50%;height:4px;background:#D85A30"></div></div>
+        <span style="font:500 12px/1 'Inter';color:#8A8177;flex:none">1 of 2</span>
+      </div>
+      <div style="flex:1;padding:20px 16px 0;display:flex;flex-direction:column;gap:22px;overflow:hidden">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <h2 style="margin:0;font:600 28px/1.2 'Poppins';letter-spacing:-.01em">Create your account</h2>
+          <p style="margin:0;font:400 15px/1.5 'Inter';color:#6B6259">Booking as a guest. Cooking instead? <span style="color:#D85A30;font-weight:600">Join as a chef</span></p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label style="font:500 13px/1.2 'Inter';color:#6B6259">Full name</label>
+            <input value="Priya Raman" style="height:52px;padding:0 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff;font:400 15px/1 'Inter';color:#2B2621;transition:border-color .15s,box-shadow .15s" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label style="font:500 13px/1.2 'Inter';color:#6B6259">Email</label>
+            <input placeholder="you@example.com" style="height:52px;padding:0 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff;font:400 15px/1 'Inter';color:#2B2621;transition:border-color .15s,box-shadow .15s" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label style="font:500 13px/1.2 'Inter';color:#6B6259">Mobile</label>
+            <div style="display:flex;gap:10px">
+              <div style="display:flex;align-items:center;gap:6px;height:52px;padding:0 14px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff;flex:none">
+                <span style="font:500 15px/1 'Inter'">+1</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8A8177" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,10 12,16 18,10"></polyline></svg>
+              </div>
+              <input placeholder="555 0134" style="flex:1;min-width:0;height:52px;padding:0 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff;font:400 15px/1 'Inter';color:#2B2621;transition:border-color .15s,box-shadow .15s" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7">
+            </div>
+            <span style="font:400 12px/1.4 'Inter';color:#8A8177">We text a 6-digit code to confirm it's you.</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <label style="font:500 13px/1.2 'Inter';color:#6B6259">Password</label>
+            <input type="password" value="halfmoon" style="height:52px;padding:0 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff;font:400 15px/1 'Inter';color:#2B2621;transition:border-color .15s,box-shadow .15s" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7">
+            <div style="display:flex;gap:6px;align-items:center">
+              <span style="flex:1;height:4px;border-radius:2px;background:#0F6E56"></span>
+              <span style="flex:1;height:4px;border-radius:2px;background:#0F6E56"></span>
+              <span style="flex:1;height:4px;border-radius:2px;background:#E4DCD0"></span>
+              <span style="font:500 12px/1 'Inter';color:#0F6E56;padding-left:4px">Good</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+        <button onClick="{{ toggleTerms }}" style="display:flex;align-items:flex-start;gap:10px;border:none;background:transparent;padding:0;cursor:pointer;text-align:left">
+          <span style="width:22px;height:22px;border-radius:7px;flex:none;border:1.5px solid {{ termsBorder }};background:{{ termsBg }};display:flex;align-items:center;justify-content:center;margin-top:1px">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="opacity:{{ termsOpacity }}"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+          </span>
+          <span style="font:400 13px/1.5 'Inter';color:#6B6259">I agree to the <span style="color:#D85A30;font-weight:500">Terms</span> and <span style="color:#D85A30;font-weight:500">Privacy Policy</span></span>
+        </button>
+        <button style="width:100%;height:52px;border:none;border-radius:14px;background:{{ ctaBg }};color:{{ ctaColor }};font:600 16px/1 'Inter';cursor:pointer">Continue</button>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">CTA disabled until terms are checked — tap the box</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">07</span><span style="font:600 13px/1.2 'Inter'">Signup · Chef</span></div>
+    <div class="fr" style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="height:52px;display:flex;align-items:center;gap:12px;padding:0 16px;flex:none">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+        <div style="flex:1;height:4px;border-radius:2px;background:#E4DCD0;overflow:hidden"><div style="width:66%;height:4px;background:#0F6E56"></div></div>
+        <span style="font:500 12px/1 'Inter';color:#8A8177;flex:none">2 of 3</span>
+      </div>
+      <div class="fr" style="flex:1;overflow-y:auto;padding:20px 16px 0;display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <h2 style="margin:0;font:600 28px/1.2 'Poppins';letter-spacing:-.01em">Tell us about your cooking</h2>
+          <p style="margin:0;font:400 15px/1.5 'Inter';color:#6B6259">This is what guests see on your profile. You can edit it later.</p>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label style="font:500 13px/1.2 'Inter';color:#6B6259">Years of professional experience</label>
+          <div style="display:flex;align-items:center;justify-content:space-between;height:52px;padding:0 8px 0 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff">
+            <span style="font:500 15px/1 'Inter'">{{ yearsLabel }}</span>
+            <div style="display:flex;gap:6px">
+              <button onClick="{{ decYears }}" style="width:36px;height:36px;border:1px solid #DCD4C7;border-radius:10px;background:#FAF7F2;font:500 17px/1 'Inter';color:#2B2621;cursor:pointer">−</button>
+              <button onClick="{{ incYears }}" style="width:36px;height:36px;border:1px solid #DCD4C7;border-radius:10px;background:#FAF7F2;font:500 17px/1 'Inter';color:#2B2621;cursor:pointer">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <label style="font:500 13px/1.2 'Inter';color:#6B6259">Cuisine specialties</label>
+            <span style="font:500 12px/1 'Inter';color:#8A8177">{{ cuisineCount }} of 3</span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ cuisines }}" as="c" hint-placeholder-count="8">
+              <button onClick="{{ c.onClick }}" style="height:38px;padding:0 14px;border-radius:19px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }};font:500 14px/1 'Inter';cursor:pointer;transition:background .12s">{{ c.name }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label style="font:500 13px/1.2 'Inter';color:#6B6259">Signature dish</label>
+          <input value="Whole turbot, salsa verde" style="height:52px;padding:0 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff;font:400 15px/1 'Inter';color:#2B2621;transition:border-color .15s,box-shadow .15s" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7">
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <label style="font:500 13px/1.2 'Inter';color:#6B6259">Verification documents</label>
+            <span style="display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px 0 7px;border-radius:12px;background:#E5F0EC;color:#0F6E56;font:600 11px/1 'Inter'">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="8,12.4 11,15.4 16.2,9.6"></polyline></svg>
+              Required
+            </span>
+          </div>
+          <sc-for list="{{ uploads }}" as="u" hint-placeholder-count="2">
+            <button onClick="{{ u.onClick }}" style="display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;border:1.5px {{ u.borderStyle }} {{ u.border }};background:{{ u.bg }};cursor:pointer;text-align:left;width:100%">
+              <span style="width:44px;height:44px;border-radius:12px;background:{{ u.iconBg }};display:flex;align-items:center;justify-content:center;flex:none;color:{{ u.iconColor }}">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="3.5" width="15" height="17" rx="2.4"></rect><line x1="8.5" y1="9" x2="15.5" y2="9"></line><line x1="8.5" y1="13" x2="15.5" y2="13"></line><line x1="8.5" y1="17" x2="12.5" y2="17"></line></svg>
+              </span>
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+                <span style="font:600 15px/1.3 'Inter';color:#2B2621">{{ u.name }}</span>
+                <span style="font:400 13px/1.4 'Inter';color:{{ u.metaColor }}">{{ u.meta }}</span>
+              </span>
+              <span style="flex:none;font:600 13px/1 'Inter';color:{{ u.actionColor }}">{{ u.action }}</span>
+            </button>
+          </sc-for>
+          <div style="display:flex;gap:8px;align-items:flex-start;padding:12px 14px;background:#F1EDE5;border-radius:12px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8177" stroke-width="2" stroke-linecap="round" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9"></circle><line x1="12" y1="11" x2="12" y2="16.5"></line><line x1="12" y1="7.6" x2="12" y2="8"></line></svg>
+            <span style="font:400 12.5px/1.5 'Inter';color:#6B6259">Documents are reviewed within 48 hours. Your profile goes live once both are approved.</span>
+          </div>
+        </div>
+      </div>
+      <div style="padding:16px;flex:none;background:#FAF7F2;border-top:1px solid #F1EDE5">
+        <button style="width:100%;height:52px;border:none;border-radius:14px;background:#0F6E56;color:#fff;font:600 16px/1 'Inter';cursor:pointer" style-hover="background:#0C5C48">Submit for verification</button>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">scrolls · chips and upload tiles are live · teal CTA marks the trust path</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">08</span><span style="font:600 13px/1.2 'Inter'">OTP verification</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="height:52px;display:flex;align-items:center;gap:12px;padding:0 16px">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+        <div style="flex:1;height:4px;border-radius:2px;background:#E4DCD0;overflow:hidden"><div style="width:100%;height:4px;background:#D85A30"></div></div>
+        <span style="font:500 12px/1 'Inter';color:#8A8177;flex:none">2 of 2</span>
+      </div>
+      <div style="flex:1;padding:20px 16px 0;display:flex;flex-direction:column;gap:28px">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <h2 style="margin:0;font:600 28px/1.2 'Poppins';letter-spacing:-.01em">Enter your code</h2>
+          <p style="margin:0;font:400 15px/1.55 'Inter';color:#6B6259">Sent to +1 555 0134. <span style="color:#D85A30;font-weight:500">Change number</span></p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;gap:9px">
+            <sc-for list="{{ otp }}" as="d" hint-placeholder-count="6">
+              <input value="{{ d.value }}" onChange="{{ d.onChange }}" onKeyDown="{{ d.onKeyDown }}" ref="{{ d.ref }}" inputMode="numeric" maxLength="1" style="flex:1;min-width:0;height:60px;text-align:center;border:1.5px solid {{ d.border }};border-radius:14px;background:{{ d.bg }};font:600 24px/1 'Poppins';color:#2B2621;padding:0;transition:border-color .15s,box-shadow .15s" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7">
+            </sc-for>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="width:18px;height:18px;border-radius:50%;background:{{ otpStatusBg }};display:flex;align-items:center;justify-content:center;flex:none">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" style="opacity:{{ otpStatusOpacity }}"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+            </span>
+            <span style="font:500 13px/1.4 'Inter';color:{{ otpStatusColor }}">{{ otpStatus }}</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;padding:16px;background:#fff;border:1px solid #EBE4D9;border-radius:16px">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Didn't get it?</span>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+            <span style="font:400 14px/1.5 'Inter';color:#6B6259">Resend available in 0:24</span>
+            <button style="height:38px;padding:0 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#FAF7F2;font:600 14px/1 'Inter';color:#A79E92;cursor:not-allowed">Resend</button>
+          </div>
+          <div style="height:1px;background:#F1EDE5"></div>
+          <button style="align-self:flex-start;border:none;background:transparent;padding:0;font:600 14px/1 'Inter';color:#D85A30;cursor:pointer">Call me instead</button>
+        </div>
+      </div>
+      <div style="padding:16px">
+        <button style="width:100%;height:52px;border:none;border-radius:14px;background:{{ otpCtaBg }};color:{{ otpCtaColor }};font:600 16px/1 'Inter';cursor:pointer">{{ otpCtaLabel }}</button>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">type digits — auto-advances, backspace steps back</span>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showSocialAuth&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Auth&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const n = 6;
+    this.state = {
+      showPw: false,
+      email: 'priya@example.com',
+      terms: false,
+      years: 8,
+      cuisines: ['Sicilian', 'Seafood'],
+      docs: { id: true, cert: false },
+      code: ['4', '1', '9', '', '', '']
+    };
+    this.refs6 = [0, 1, 2, 3, 4, 5].map(() => React.createRef());
+  }
+
+  setDigit(i, v) {
+    const d = v.replace(/[^0-9]/g, '').slice(-1);
+    this.setState(s => {
+      const code = s.code.slice();
+      code[i] = d;
+      return { code };
+    }, () => {
+      if (d && i < 5) { const r = this.refs6[i + 1].current; if (r) r.focus(); }
+    });
+  }
+
+  onKey(i, e) {
+    if (e.key === 'Backspace' && !this.state.code[i] && i > 0) {
+      const r = this.refs6[i - 1].current;
+      if (r) r.focus();
+    }
+  }
+
+  renderVals() {
+    const p = this.props;
+    const cuisineNames = ['Sicilian', 'Japanese', 'Seafood', 'West African', 'Levantine', 'Vegetarian', 'Pastry', 'BBQ'];
+    const cuisines = cuisineNames.map(name => {
+      const on = this.state.cuisines.indexOf(name) >= 0;
+      return {
+        name,
+        border: on ? '#D85A30' : '#DCD4C7',
+        bg: on ? '#FBEDE7' : '#fff',
+        color: on ? '#B8481F' : '#2B2621',
+        onClick: () => this.setState(s => {
+          const has = s.cuisines.indexOf(name) >= 0;
+          if (has) return { cuisines: s.cuisines.filter(c => c !== name) };
+          if (s.cuisines.length >= 3) return null;
+          return { cuisines: s.cuisines.concat([name]) };
+        })
+      };
+    });
+
+    const doc = (key, name, hint) => {
+      const on = this.state.docs[key];
+      return {
+        name,
+        meta: on ? 'Uploaded · PDF · 1.2 MB' : hint,
+        metaColor: on ? '#0F6E56' : '#8A8177',
+        border: on ? '#0F6E56' : '#DCD4C7',
+        borderStyle: on ? 'solid' : 'dashed',
+        bg: on ? '#E5F0EC' : '#fff',
+        iconBg: on ? '#0F6E56' : '#F1EDE5',
+        iconColor: on ? '#fff' : '#8A8177',
+        action: on ? 'Replace' : 'Upload',
+        actionColor: on ? '#0F6E56' : '#D85A30',
+        onClick: () => this.setState(s => ({ docs: Object.assign({}, s.docs, { [key]: !s.docs[key] }) }))
+      };
+    };
+
+    const filled = this.state.code.filter(d => d).length;
+    const complete = filled === 6;
+    const otp = this.state.code.map((v, i) => ({
+      value: v,
+      border: v ? '#2B2621' : '#DCD4C7',
+      bg: v ? '#fff' : '#fff',
+      ref: this.refs6[i],
+      onChange: e => this.setDigit(i, e.target.value),
+      onKeyDown: e => this.onKey(i, e)
+    }));
+
+    const terms = this.state.terms;
+    return {
+      showSocial: p.showSocialAuth ?? true,
+      email: this.state.email,
+      onEmail: e => this.setState({ email: e.target.value }),
+      pwType: this.state.showPw ? 'text' : 'password',
+      pwLabel: this.state.showPw ? 'Hide' : 'Show',
+      togglePw: () => this.setState(s => ({ showPw: !s.showPw })),
+      terms,
+      toggleTerms: () => this.setState(s => ({ terms: !s.terms })),
+      termsBorder: terms ? '#0F6E56' : '#DCD4C7',
+      termsBg: terms ? '#0F6E56' : '#fff',
+      termsOpacity: terms ? 1 : 0,
+      ctaBg: terms ? '#D85A30' : '#EBE4D9',
+      ctaColor: terms ? '#fff' : '#A79E92',
+      yearsLabel: this.state.years + ' years',
+      incYears: () => this.setState(s => ({ years: Math.min(40, s.years + 1) })),
+      decYears: () => this.setState(s => ({ years: Math.max(0, s.years - 1) })),
+      cuisines,
+      cuisineCount: this.state.cuisines.length,
+      uploads: [doc('id', 'Government ID', 'Passport or driving licence'), doc('cert', 'Food safety certificate', 'Level 2 or equivalent')],
+      otp,
+      otpStatus: complete ? 'Code accepted' : filled + ' of 6 entered',
+      otpStatusColor: complete ? '#0F6E56' : '#8A8177',
+      otpStatusBg: complete ? '#0F6E56' : '#DCD4C7',
+      otpStatusOpacity: complete ? 1 : 0,
+      otpCtaBg: complete ? '#D85A30' : '#EBE4D9',
+      otpCtaColor: complete ? '#fff' : '#A79E92',
+      otpCtaLabel: complete ? 'Verify and continue' : 'Verify'
+    };
+  }
+}
+</script>
+</body>
+</html>

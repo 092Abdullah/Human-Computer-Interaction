@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EDE8DE;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#D85A30;text-decoration:none}
+a:hover{color:#B8481F}
+input,button,textarea{font-family:'Inter',system-ui,sans-serif}
+input::placeholder{color:#A79E92}
+input:focus{outline:none}
+.sc::-webkit-scrollbar{height:0;width:0}
+</style>
+</helmet>
+
+<div style="padding:56px 48px 40px;font-family:'Inter',system-ui,sans-serif;color:#2B2621;max-width:1500px">
+  <div style="font:500 11px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#8A8177;margin-bottom:12px">Chef Finder · flow 02</div>
+  <h1 style="margin:0 0 12px;font:700 34px/1.15 'Poppins';letter-spacing:-.02em">Customer discovery &amp; booking</h1>
+  <p style="margin:0;max-width:660px;font:400 15px/1.6 'Inter';color:#6B6259;text-wrap:pretty">Ten frames at 390×844. Discovery keeps the bottom nav; the chef pages swap it for a sticky action bar; booking runs as a three-step flow with a shared segmented progress header. Priced in PKR to match the JazzCash and EasyPaisa methods.</p>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:44px;padding:0 48px 96px;align-items:flex-start;font-family:'Inter',system-ui,sans-serif">
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">01</span><span style="font:600 13px/1.2 'Inter'">Home / Discover</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="padding:8px 16px 14px;display:flex;flex-direction:column;gap:14px;flex:none">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <span style="font:500 12px/1.2 'Inter';color:#8A8177">Delivering chefs to</span>
+            <div style="display:flex;align-items:center;gap:5px">
+              <span style="font:600 16px/1.2 'Poppins'">DHA Phase 5, Karachi</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#D85A30" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,10 12,16 18,10"></polyline></svg>
+            </div>
+          </div>
+          <div style="width:44px;height:44px;border-radius:50%;background:repeating-linear-gradient(135deg,#EBE4D9 0 6px,#F5F0E7 6px 12px);border:1px solid #DCD4C7;flex:none"></div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <div style="flex:1;display:flex;align-items:center;gap:10px;height:52px;padding:0 16px;border:1.5px solid #DCD4C7;border-radius:14px;background:#fff">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#A79E92" stroke-width="1.8" stroke-linecap="round" style="flex:none"><circle cx="11" cy="11" r="6.5"></circle><line x1="16" y1="16" x2="20.5" y2="20.5"></line></svg>
+            <input placeholder="Chefs, cuisines, occasions" style="flex:1;min-width:0;height:100%;border:none;background:transparent;font:400 15px/1 'Inter';color:#2B2621">
+          </div>
+          <button style="width:52px;height:52px;border:none;border-radius:14px;background:#2B2621;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#1F1B17">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><line x1="4" y1="8" x2="20" y2="8"></line><line x1="4" y1="16" x2="20" y2="16"></line><circle cx="10" cy="8" r="2.4" fill="#2B2621"></circle><circle cx="15" cy="16" r="2.4" fill="#2B2621"></circle></svg>
+          </button>
+        </div>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding-bottom:8px">
+        <div class="sc" style="display:flex;gap:8px;overflow-x:auto;padding:0 16px 4px;flex:none">
+          <sc-for list="{{ cats }}" as="c" hint-placeholder-count="6">
+            <button onClick="{{ c.onClick }}" style="height:38px;padding:0 15px;border-radius:19px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }};font:500 14px/1 'Inter';cursor:pointer;flex:none;white-space:nowrap">{{ c.name }}</button>
+          </sc-for>
+        </div>
+        <div style="padding:22px 16px 0;display:flex;align-items:baseline;justify-content:space-between">
+          <h2 style="margin:0;font:600 19px/1.2 'Poppins'">Top rated chefs</h2>
+          <button style="border:none;background:transparent;padding:0;font:600 13px/1 'Inter';color:#D85A30;cursor:pointer">See all</button>
+        </div>
+        <div class="sc" style="display:flex;gap:14px;overflow-x:auto;padding:14px 16px 6px">
+          <div style="width:250px;flex:none;background:#fff;border:1px solid #EBE4D9;border-radius:16px;box-shadow:0 2px 8px rgba(43,38,33,.05);overflow:hidden">
+            <div style="position:relative;height:140px;background:repeating-linear-gradient(135deg,#EBE4D9 0 10px,#F3EEE5 10px 20px);display:flex;align-items:center;justify-content:center">
+              <span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:#A0968A">chef photo</span>
+              <span style="position:absolute;top:10px;left:10px;display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 10px 0 7px;border-radius:13px;background:rgba(255,255,255,.94);color:#0F6E56;font:600 11.5px/1 'Inter'">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="8,12.4 11,15.4 16.2,9.6"></polyline></svg>
+                Verified
+              </span>
+            </div>
+            <div style="padding:13px 14px 15px;display:flex;flex-direction:column;gap:7px">
+              <span style="font:600 16px/1.3 'Poppins'">Sana Kausar</span>
+              <span style="font:400 13px/1.4 'Inter';color:#6B6259">Mughlai · Karachi BBQ</span>
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div style="display:flex;align-items:center;gap:4px"><span style="color:#BA7517;font-size:13px">★</span><span style="font:600 13px/1 'Inter'">4.9</span><span style="font:400 12px/1 'Inter';color:#8A8177">(128)</span></div>
+                <span style="font:600 14px/1 'Inter';color:#D85A30">Rs 4,500</span>
+              </div>
+            </div>
+          </div>
+          <div style="width:250px;flex:none;background:#fff;border:1px solid #EBE4D9;border-radius:16px;box-shadow:0 2px 8px rgba(43,38,33,.05);overflow:hidden">
+            <div style="position:relative;height:140px;background:repeating-linear-gradient(135deg,#EBE4D9 0 10px,#F3EEE5 10px 20px);display:flex;align-items:center;justify-content:center">
+              <span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:#A0968A">chef photo</span>
+              <span style="position:absolute;top:10px;left:10px;display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 10px;border-radius:13px;background:rgba(255,255,255,.94);color:#7A5314;font:600 11.5px/1 'Inter'"><span style="color:#BA7517">★</span> Top rated</span>
+            </div>
+            <div style="padding:13px 14px 15px;display:flex;flex-direction:column;gap:7px">
+              <span style="font:600 16px/1.3 'Poppins'">Faraz Khan</span>
+              <span style="font:400 13px/1.4 'Inter';color:#6B6259">Continental · Seafood</span>
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <div style="display:flex;align-items:center;gap:4px"><span style="color:#BA7517;font-size:13px">★</span><span style="font:600 13px/1 'Inter'">4.8</span><span style="font:400 12px/1 'Inter';color:#8A8177">(91)</span></div>
+                <span style="font:600 14px/1 'Inter';color:#D85A30">Rs 5,200</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:20px 16px 0;display:flex;align-items:baseline;justify-content:space-between">
+          <h2 style="margin:0;font:600 19px/1.2 'Poppins'">Near you</h2>
+          <span style="font:500 12px/1 'Inter';color:#8A8177">within 5 km</span>
+        </div>
+        <div style="padding:12px 16px 0;display:flex;flex-direction:column;gap:10px">
+          <div style="background:#fff;border:1px solid #EBE4D9;border-radius:14px;padding:12px;display:flex;gap:12px;align-items:center;cursor:pointer" style-hover="border-color:#DCD4C7">
+            <div style="position:relative;width:56px;height:56px;flex:none">
+              <div style="width:56px;height:56px;border-radius:14px;background:repeating-linear-gradient(135deg,#EBE4D9 0 6px,#F5F0E7 6px 12px);border:1px solid #DCD4C7"></div>
+              <div style="position:absolute;right:-3px;bottom:-3px;width:20px;height:20px;border-radius:50%;background:#0F6E56;border:2px solid #fff;display:flex;align-items:center;justify-content:center">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+              </div>
+            </div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+              <span style="font:600 15px/1.3 'Poppins'">Ayesha Tariq</span>
+              <span style="font:400 13px/1.4 'Inter';color:#6B6259">Sindhi · 1.8 km</span>
+              <div style="display:flex;align-items:center;gap:5px"><span style="color:#BA7517;font-size:12px">★</span><span style="font:600 12px/1 'Inter'">4.7</span><span style="font:400 12px/1 'Inter';color:#8A8177">· 54 dinners</span></div>
+            </div>
+            <span style="font:600 14px/1 'Inter';color:#D85A30;flex:none">Rs 3,800</span>
+          </div>
+          <div style="background:#fff;border:1px solid #EBE4D9;border-radius:14px;padding:12px;display:flex;gap:12px;align-items:center;cursor:pointer" style-hover="border-color:#DCD4C7">
+            <div style="position:relative;width:56px;height:56px;flex:none">
+              <div style="width:56px;height:56px;border-radius:14px;background:repeating-linear-gradient(135deg,#EBE4D9 0 6px,#F5F0E7 6px 12px);border:1px solid #DCD4C7"></div>
+              <div style="position:absolute;right:-3px;bottom:-3px;width:20px;height:20px;border-radius:50%;background:#0F6E56;border:2px solid #fff;display:flex;align-items:center;justify-content:center">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+              </div>
+            </div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+              <span style="font:600 15px/1.3 'Poppins'">Bilal Ahmed</span>
+              <span style="font:400 13px/1.4 'Inter';color:#6B6259">Lahori · 3.2 km</span>
+              <div style="display:flex;align-items:center;gap:5px"><span style="color:#BA7517;font-size:12px">★</span><span style="font:600 12px/1 'Inter'">4.6</span><span style="font:400 12px/1 'Inter';color:#8A8177">· 37 dinners</span></div>
+            </div>
+            <span style="font:600 14px/1 'Inter';color:#D85A30;flex:none">Rs 3,200</span>
+          </div>
+        </div>
+      </div>
+      <nav style="border-top:1px solid #EBE4D9;background:rgba(255,255,255,.94);padding:8px 6px 0;flex:none">
+        <div style="display:flex">
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#D85A30">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,11 12,4 20,11"></polyline><rect x="7" y="11" width="10" height="9" rx="1.6"></rect></svg>
+            <span style="font:600 10.5px/1 'Inter'">Discover</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><line x1="16" y1="16" x2="20.5" y2="20.5"></line></svg>
+            <span style="font:600 10.5px/1 'Inter'">Search</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="15" rx="2.6"></rect><line x1="3.5" y1="10.5" x2="20.5" y2="10.5"></line><line x1="8.5" y1="3.5" x2="8.5" y2="6.5"></line><line x1="15.5" y1="3.5" x2="15.5" y2="6.5"></line></svg>
+            <span style="font:600 10.5px/1 'Inter'">Bookings</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,4 17,4 17,20.5 12,16 7,20.5"></polyline></svg>
+            <span style="font:600 10.5px/1 'Inter'">Saved</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="3.6"></circle><path d="M5.6 19.6a6.6 6.6 0 0 1 12.8 0"></path></svg>
+            <span style="font:600 10.5px/1 'Inter'">Profile</span>
+          </div>
+        </div>
+        <div style="height:22px;display:flex;align-items:center;justify-content:center"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+      </nav>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">cuisine chips scroll horizontally · tap to select</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">02</span><span style="font:600 13px/1.2 'Inter'">Search results</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="padding:6px 16px 12px;display:flex;gap:10px;align-items:center;flex:none">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+        <div style="flex:1;display:flex;align-items:center;gap:9px;height:44px;padding:0 14px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#A79E92" stroke-width="1.9" stroke-linecap="round" style="flex:none"><circle cx="11" cy="11" r="6.5"></circle><line x1="16" y1="16" x2="20.5" y2="20.5"></line></svg>
+          <span style="font:500 14px/1 'Inter'">Mughlai</span>
+        </div>
+        <button style="width:44px;height:44px;border:none;border-radius:12px;background:#D85A30;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none;position:relative">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round"><line x1="4" y1="8" x2="20" y2="8"></line><line x1="4" y1="16" x2="20" y2="16"></line></svg>
+          <span style="position:absolute;top:-3px;right:-3px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#2B2621;color:#fff;font:600 10px/18px 'Inter';text-align:center">3</span>
+        </button>
+      </div>
+      <div style="padding:0 16px 12px;display:flex;align-items:center;justify-content:space-between;flex:none">
+        <span style="font:500 13px/1.3 'Inter';color:#6B6259">42 chefs · DHA Phase 5</span>
+        <button onClick="{{ cycleSort }}" style="display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;border:1px solid #DCD4C7;border-radius:17px;background:#fff;font:500 13px/1 'Inter';color:#2B2621;cursor:pointer">
+          {{ sortLabel }}
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8A8177" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,10 12,16 18,10"></polyline></svg>
+        </button>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ results }}" as="r" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;box-shadow:0 2px 8px rgba(43,38,33,.04);padding:12px;display:flex;gap:13px">
+            <div style="width:96px;height:110px;border-radius:12px;background:repeating-linear-gradient(135deg,#EBE4D9 0 8px,#F3EEE5 8px 16px);border:1px solid #E4DCD0;flex:none;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px">
+              <span style="font:500 9.5px/1 ui-monospace,Menlo,monospace;color:#A0968A">photo</span>
+            </div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">
+                <div style="display:flex;align-items:center;gap:6px;min-width:0">
+                  <span style="font:600 16px/1.3 'Poppins';white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><circle cx="12" cy="12" r="9"></circle><polyline points="8,12.4 11,15.4 16.2,9.6"></polyline></svg>
+                </div>
+                <button onClick="{{ r.onSave }}" style="width:30px;height:30px;border:none;border-radius:9px;background:#FAF7F2;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none;color:{{ r.saveColor }}">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="{{ r.saveFill }}" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,4 17,4 17,20.5 12,16 7,20.5"></polyline></svg>
+                </button>
+              </div>
+              <span style="font:400 13px/1.4 'Inter';color:#6B6259">{{ r.cuisine }} · {{ r.distance }}</span>
+              <div style="display:flex;align-items:center;gap:5px">
+                <span style="color:#BA7517;font-size:13px">★</span>
+                <span style="font:600 13px/1 'Inter'">{{ r.rating }}</span>
+                <span style="font:400 12.5px/1 'Inter';color:#8A8177">({{ r.reviews }} reviews)</span>
+              </div>
+              <div style="display:flex;gap:6px">
+                <span style="display:inline-flex;align-items:center;height:24px;padding:0 9px;border-radius:12px;background:#F1EDE5;color:#6B6259;font:500 11.5px/1 'Inter'">{{ r.tag }}</span>
+              </div>
+              <div style="margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between">
+                <div style="display:flex;flex-direction:column">
+                  <span style="font:600 15px/1.2 'Inter';color:#D85A30">Rs {{ r.price }}</span>
+                  <span style="font:400 11.5px/1.2 'Inter';color:#8A8177">per event · 6 guests</span>
+                </div>
+                <button style="height:36px;padding:0 14px;border:1.5px solid #D85A30;border-radius:11px;background:#fff;color:#D85A30;font:600 13px/1 'Inter';cursor:pointer" style-hover="background:#FBEDE7">View</button>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:rgba(255,255,255,.6)"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">sort chip cycles · save toggles per card · 3 filters active</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">03</span><span style="font:600 13px/1.2 'Inter'">Filters sheet</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#2B2621;display:flex;flex-direction:column;justify-content:flex-end;position:relative">
+      <div style="position:absolute;inset:0;background:#FAF7F2;opacity:.28"></div>
+      <div style="position:absolute;top:0;left:0;right:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;color:#fff">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #fff;border-radius:2px;opacity:.8"></span><span style="width:22px;height:10px;border:1.2px solid #fff;border-radius:3px;opacity:.8"></span></div>
+      </div>
+      <div style="position:relative;background:#FAF7F2;border-radius:28px 28px 0 0;box-shadow:0 -8px 30px rgba(43,38,33,.18);display:flex;flex-direction:column;max-height:770px">
+        <div style="padding:10px 0 0;display:flex;justify-content:center;flex:none"><div style="width:44px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+        <div style="padding:14px 16px 12px;display:flex;align-items:center;justify-content:space-between;flex:none">
+          <h2 style="margin:0;font:600 21px/1.2 'Poppins'">Filters</h2>
+          <button onClick="{{ resetFilters }}" style="border:none;background:transparent;padding:0;font:600 14px/1 'Inter';color:#D85A30;cursor:pointer">Reset</button>
+        </div>
+        <div class="sc" style="flex:1;overflow-y:auto;padding:0 16px;display:flex;flex-direction:column;gap:24px">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Cuisine</span>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <sc-for list="{{ fCuisines }}" as="c" hint-placeholder-count="8">
+                <button onClick="{{ c.onClick }}" style="height:38px;padding:0 14px;border-radius:19px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }};font:500 14px/1 'Inter';cursor:pointer">{{ c.name }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between">
+              <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Price per guest</span>
+              <span style="font:600 14px/1 'Inter'">{{ priceLabel }}</span>
+            </div>
+            <div onPointerDown="{{ onPriceDown }}" ref="{{ priceTrackRef }}" style="position:relative;height:44px;display:flex;align-items:center;cursor:pointer;touch-action:none">
+              <div style="position:absolute;left:0;right:0;height:5px;border-radius:3px;background:#E4DCD0"></div>
+              <div style="position:absolute;height:5px;border-radius:3px;background:#D85A30;left:{{ priceLeft }};right:{{ priceRight }}"></div>
+              <div style="position:absolute;left:{{ priceLeft }};width:26px;height:26px;margin-left:-13px;border-radius:50%;background:#fff;border:2px solid #D85A30;box-shadow:0 2px 6px rgba(43,38,33,.12)"></div>
+              <div style="position:absolute;right:{{ priceRight }};width:26px;height:26px;margin-right:-13px;border-radius:50%;background:#fff;border:2px solid #D85A30;box-shadow:0 2px 6px rgba(43,38,33,.12)"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font:500 11.5px/1 'Inter';color:#A79E92"><span>Rs 1,500</span><span>Rs 12,000+</span></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Minimum rating</span>
+            <div style="display:flex;gap:8px">
+              <sc-for list="{{ ratings }}" as="r" hint-placeholder-count="4">
+                <button onClick="{{ r.onClick }}" style="flex:1;height:44px;border-radius:12px;border:1.5px solid {{ r.border }};background:{{ r.bg }};color:{{ r.color }};font:600 14px/1 'Inter';cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px">{{ r.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between">
+              <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Distance</span>
+              <span style="font:600 14px/1 'Inter'">{{ distLabel }}</span>
+            </div>
+            <div onPointerDown="{{ onDistDown }}" ref="{{ distTrackRef }}" style="position:relative;height:44px;display:flex;align-items:center;cursor:pointer;touch-action:none">
+              <div style="position:absolute;left:0;right:0;height:5px;border-radius:3px;background:#E4DCD0"></div>
+              <div style="position:absolute;left:0;height:5px;border-radius:3px;background:#0F6E56;width:{{ distLeft }}"></div>
+              <div style="position:absolute;left:{{ distLeft }};width:26px;height:26px;margin-left:-13px;border-radius:50%;background:#fff;border:2px solid #0F6E56;box-shadow:0 2px 6px rgba(43,38,33,.12)"></div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;padding-bottom:8px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between">
+              <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Date</span>
+              <span style="font:500 13px/1 'Inter';color:#6B6259">September 2026</span>
+            </div>
+            <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:14px">
+              <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:6px">
+                <span style="text-align:center;font:600 10.5px/1 'Inter';color:#A79E92">M</span>
+                <span style="text-align:center;font:600 10.5px/1 'Inter';color:#A79E92">T</span>
+                <span style="text-align:center;font:600 10.5px/1 'Inter';color:#A79E92">W</span>
+                <span style="text-align:center;font:600 10.5px/1 'Inter';color:#A79E92">T</span>
+                <span style="text-align:center;font:600 10.5px/1 'Inter';color:#A79E92">F</span>
+                <span style="text-align:center;font:600 10.5px/1 'Inter';color:#A79E92">S</span>
+                <span style="text-align:center;font:600 10.5px/1 'Inter';color:#A79E92">S</span>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
+                <sc-for list="{{ fDays }}" as="d" hint-placeholder-count="35">
+                  <button onClick="{{ d.onClick }}" style="height:36px;border:none;border-radius:10px;background:{{ d.bg }};color:{{ d.color }};font:500 13px/1 'Inter';cursor:{{ d.cursor }}">{{ d.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:14px 16px;border-top:1px solid #EBE4D9;background:#FAF7F2;display:flex;gap:10px;flex:none">
+          <button style="flex:none;width:120px;height:52px;border:1.5px solid #DCD4C7;border-radius:14px;background:#fff;font:600 15px/1 'Inter';color:#2B2621;cursor:pointer" style-hover="border-color:#A79E92">Close</button>
+          <button style="flex:1;height:52px;border:none;border-radius:14px;background:#D85A30;color:#fff;font:600 16px/1 'Inter';cursor:pointer" style-hover="background:#C24E27">Show {{ filterCount }} chefs</button>
+        </div>
+        <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+      </div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">both sliders drag · chips, rating and dates are live</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">04</span><span style="font:600 13px/1.2 'Inter'">Chef profile</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div class="sc" style="flex:1;overflow-y:auto">
+        <div style="position:relative;height:250px;background:repeating-linear-gradient(135deg,#E4DCD0 0 12px,#EDE7DC 12px 24px);display:flex;align-items:center;justify-content:center">
+          <span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:#A0968A">cover photo · 390×250</span>
+          <div style="position:absolute;top:0;left:0;right:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px">
+            <span style="font:600 13px/1 'Inter'">9:41</span>
+            <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+          </div>
+          <div style="position:absolute;top:52px;left:16px;right:16px;display:flex;justify-content:space-between">
+            <button style="width:40px;height:40px;border:none;border-radius:12px;background:rgba(255,255,255,.94);cursor:pointer;display:flex;align-items:center;justify-content:center">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+            </button>
+            <button onClick="{{ toggleProfileSave }}" style="width:40px;height:40px;border:none;border-radius:12px;background:rgba(255,255,255,.94);cursor:pointer;display:flex;align-items:center;justify-content:center;color:{{ profileSaveColor }}">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="{{ profileSaveFill }}" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,4 17,4 17,20.5 12,16 7,20.5"></polyline></svg>
+            </button>
+          </div>
+        </div>
+        <div style="padding:0 16px;margin-top:-40px;position:relative">
+          <div style="background:#fff;border:1px solid #EBE4D9;border-radius:18px;box-shadow:0 2px 8px rgba(43,38,33,.05);padding:16px;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;gap:13px;align-items:flex-start">
+              <div style="position:relative;width:64px;height:64px;flex:none;margin-top:-34px">
+                <div style="width:64px;height:64px;border-radius:20px;background:repeating-linear-gradient(135deg,#EBE4D9 0 6px,#F5F0E7 6px 12px);border:3px solid #fff;box-shadow:0 2px 8px rgba(43,38,33,.1)"></div>
+                <div style="position:absolute;right:-4px;bottom:-4px;width:24px;height:24px;border-radius:50%;background:#0F6E56;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+                </div>
+              </div>
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:5px">
+                <h2 style="margin:0;font:600 22px/1.2 'Poppins'">Sana Kausar</h2>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <span style="letter-spacing:1px;font-size:14px;color:#BA7517">★★★★★</span>
+                  <span style="font:600 14px/1 'Inter'">4.9</span>
+                  <button style="border:none;background:transparent;padding:0;font:500 13px/1 'Inter';color:#6B6259;cursor:pointer;text-decoration:underline">128 reviews</button>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;gap:0;border:1px solid #F1EDE5;border-radius:14px;overflow:hidden">
+              <div style="flex:1;padding:12px 10px;display:flex;flex-direction:column;gap:3px;align-items:center;background:#FAF7F2">
+                <span style="font:600 17px/1 'Poppins'">12</span>
+                <span style="font:500 11px/1.2 'Inter';color:#8A8177">years</span>
+              </div>
+              <div style="width:1px;background:#F1EDE5"></div>
+              <div style="flex:1;padding:12px 10px;display:flex;flex-direction:column;gap:3px;align-items:center;background:#FAF7F2">
+                <span style="font:600 17px/1 'Poppins'">214</span>
+                <span style="font:500 11px/1.2 'Inter';color:#8A8177">events</span>
+              </div>
+              <div style="width:1px;background:#F1EDE5"></div>
+              <div style="flex:1;padding:12px 10px;display:flex;flex-direction:column;gap:3px;align-items:center;background:#FAF7F2">
+                <span style="font:600 17px/1 'Poppins'">96%</span>
+                <span style="font:500 11px/1.2 'Inter';color:#8A8177">rebook</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:7px">
+              <span style="display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 11px 0 8px;border-radius:14px;background:#E5F0EC;color:#0F6E56;font:600 12px/1 'Inter'">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="8,12.4 11,15.4 16.2,9.6"></polyline></svg>
+                ID &amp; certificate verified
+              </span>
+              <span style="display:inline-flex;align-items:center;height:28px;padding:0 11px;border-radius:14px;background:#F6EDDC;color:#7A5314;font:600 12px/1 'Inter'">★ Top rated</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding:20px 16px 0;display:flex;flex-direction:column;gap:9px">
+          <h3 style="margin:0;font:600 17px/1.3 'Poppins'">Specialties</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:7px">
+            <span style="display:inline-flex;align-items:center;height:32px;padding:0 13px;border-radius:16px;background:#fff;border:1px solid #EBE4D9;color:#2B2621;font:500 13.5px/1 'Inter'">Mughlai</span>
+            <span style="display:inline-flex;align-items:center;height:32px;padding:0 13px;border-radius:16px;background:#fff;border:1px solid #EBE4D9;color:#2B2621;font:500 13.5px/1 'Inter'">Karachi BBQ</span>
+            <span style="display:inline-flex;align-items:center;height:32px;padding:0 13px;border-radius:16px;background:#fff;border:1px solid #EBE4D9;color:#2B2621;font:500 13.5px/1 'Inter'">Slow-cooked nihari</span>
+          </div>
+        </div>
+        <div style="padding:20px 16px 0;display:flex;flex-direction:column;gap:9px">
+          <h3 style="margin:0;font:600 17px/1.3 'Poppins'">About</h3>
+          <p style="margin:0;font:400 15px/1.6 'Inter';color:#6B6259;text-wrap:pretty">Twelve years across hotel kitchens in Karachi and Dubai. I cook Mughlai feasts and charcoal BBQ in your kitchen, bring my own spices, and leave the counters cleaner than I found them.</p>
+        </div>
+        <div style="padding:20px 0 0">
+          <div style="padding:0 16px;display:flex;align-items:baseline;justify-content:space-between">
+            <h3 style="margin:0;font:600 17px/1.3 'Poppins'">Menu samples</h3>
+            <button style="border:none;background:transparent;padding:0;font:600 13px/1 'Inter';color:#D85A30;cursor:pointer">Full menu</button>
+          </div>
+          <div class="sc" style="display:flex;gap:10px;overflow-x:auto;padding:12px 16px 4px">
+            <div style="width:150px;flex:none;display:flex;flex-direction:column;gap:7px">
+              <div style="height:110px;border-radius:14px;background:repeating-linear-gradient(135deg,#EBE4D9 0 8px,#F3EEE5 8px 16px);border:1px solid #E4DCD0;display:flex;align-items:center;justify-content:center"><span style="font:500 10px/1 ui-monospace,Menlo,monospace;color:#A0968A">dish photo</span></div>
+              <span style="font:500 13px/1.3 'Inter'">Charcoal boti platter</span>
+            </div>
+            <div style="width:150px;flex:none;display:flex;flex-direction:column;gap:7px">
+              <div style="height:110px;border-radius:14px;background:repeating-linear-gradient(135deg,#EBE4D9 0 8px,#F3EEE5 8px 16px);border:1px solid #E4DCD0;display:flex;align-items:center;justify-content:center"><span style="font:500 10px/1 ui-monospace,Menlo,monospace;color:#A0968A">dish photo</span></div>
+              <span style="font:500 13px/1.3 'Inter'">Nihari, slow 8 hrs</span>
+            </div>
+            <div style="width:150px;flex:none;display:flex;flex-direction:column;gap:7px">
+              <div style="height:110px;border-radius:14px;background:repeating-linear-gradient(135deg,#EBE4D9 0 8px,#F3EEE5 8px 16px);border:1px solid #E4DCD0;display:flex;align-items:center;justify-content:center"><span style="font:500 10px/1 ui-monospace,Menlo,monospace;color:#A0968A">dish photo</span></div>
+              <span style="font:500 13px/1.3 'Inter'">Shahi tukda</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding:20px 16px 24px">
+          <button style="width:100%;background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left" style-hover="border-color:#DCD4C7">
+            <div style="display:flex;flex-direction:column;gap:3px;flex:1">
+              <span style="font:600 15px/1.3 'Inter'">Reviews</span>
+              <span style="font:400 13px/1.4 'Inter';color:#6B6259">4.9 average · 128 reviews</span>
+            </div>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A8177" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9.5,5 16.5,12 9.5,19"></polyline></svg>
+          </button>
+        </div>
+      </div>
+      <div style="border-top:1px solid #EBE4D9;background:#fff;padding:14px 16px;display:flex;align-items:center;gap:14px;flex:none">
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <span style="font:600 18px/1.1 'Poppins';color:#D85A30">Rs 4,500</span>
+          <span style="font:400 11.5px/1.2 'Inter';color:#8A8177">per guest · min 4</span>
+        </div>
+        <button style="flex:1;height:52px;border:none;border-radius:14px;background:#D85A30;color:#fff;font:600 16px/1 'Inter';cursor:pointer" style-hover="background:#C24E27">Book now</button>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:#fff"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">scrolls under sticky price bar · save toggles</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">05</span><span style="font:600 13px/1.2 'Inter'">Reviews</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="height:52px;display:flex;align-items:center;gap:12px;padding:0 16px;flex:none">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+        <span style="font:600 17px/1.2 'Poppins'">Reviews · Sana Kausar</span>
+      </div>
+      <div style="padding:8px 16px 14px;flex:none">
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:16px;display:flex;gap:18px;align-items:center">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:none">
+            <span style="font:700 32px/1 'Poppins'">4.9</span>
+            <span style="letter-spacing:1px;font-size:12px;color:#BA7517">★★★★★</span>
+            <span style="font:400 11.5px/1 'Inter';color:#8A8177">128 reviews</span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:5px">
+            <sc-for list="{{ ratingBars }}" as="b" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="font:500 11px/1 'Inter';color:#8A8177;width:8px">{{ b.star }}</span>
+                <span style="flex:1;height:6px;border-radius:3px;background:#F1EDE5;overflow:hidden;display:block"><span style="display:block;height:6px;border-radius:3px;background:#BA7517;width:{{ b.pct }}"></span></span>
+                <span style="font:500 11px/1 'Inter';color:#A79E92;width:22px;text-align:right">{{ b.count }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <div class="sc" style="display:flex;gap:8px;overflow-x:auto;padding:0 16px 12px;flex:none">
+        <sc-for list="{{ reviewFilters }}" as="f" hint-placeholder-count="5">
+          <button onClick="{{ f.onClick }}" style="height:36px;padding:0 14px;border-radius:18px;border:1px solid {{ f.border }};background:{{ f.bg }};color:{{ f.color }};font:500 13.5px/1 'Inter';cursor:pointer;flex:none;white-space:nowrap">{{ f.label }}</button>
+        </sc-for>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ reviews }}" as="v" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;gap:11px;align-items:center">
+              <div style="width:40px;height:40px;border-radius:50%;background:repeating-linear-gradient(135deg,#EBE4D9 0 6px,#F5F0E7 6px 12px);border:1px solid #DCD4C7;flex:none"></div>
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+                <span style="font:600 14.5px/1.2 'Inter'">{{ v.name }}</span>
+                <span style="font:400 12px/1.2 'Inter';color:#8A8177">{{ v.meta }}</span>
+              </div>
+              <span style="letter-spacing:1px;font-size:12px;color:#BA7517;flex:none">{{ v.stars }}</span>
+            </div>
+            <p style="margin:0;font:400 14.5px/1.55 'Inter';color:#3D3630;text-wrap:pretty">{{ v.text }}</p>
+            <sc-if value="{{ v.hasPhotos }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:8px">
+                <div style="width:72px;height:72px;border-radius:11px;background:repeating-linear-gradient(135deg,#EBE4D9 0 7px,#F3EEE5 7px 14px);border:1px solid #E4DCD0"></div>
+                <div style="width:72px;height:72px;border-radius:11px;background:repeating-linear-gradient(135deg,#EBE4D9 0 7px,#F3EEE5 7px 14px);border:1px solid #E4DCD0"></div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:rgba(255,255,255,.6)"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">star filters actually filter the list</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#D85A30;color:#fff;padding:4px 7px;border-radius:4px">06</span><span style="font:600 13px/1.2 'Inter'">Booking 1 · Date &amp; time</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="padding:6px 16px 14px;display:flex;flex-direction:column;gap:12px;flex:none;background:#FAF7F2">
+        <div style="display:flex;align-items:center;gap:12px">
+          <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+          </button>
+          <span style="font:600 17px/1.2 'Poppins'">Book Sana Kausar</span>
+        </div>
+        <div style="display:flex;gap:6px">
+          <div style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="height:4px;border-radius:2px;background:#D85A30"></span><span style="font:600 11px/1 'Inter';color:#D85A30">1 · Date</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="height:4px;border-radius:2px;background:#E4DCD0"></span><span style="font:600 11px/1 'Inter';color:#A79E92">2 · Details</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="height:4px;border-radius:2px;background:#E4DCD0"></span><span style="font:600 11px/1 'Inter';color:#A79E92">3 · Review</span></div>
+        </div>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:6px 16px 16px;display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <h2 style="margin:0;font:600 24px/1.25 'Poppins';letter-spacing:-.01em">When is your event?</h2>
+          <p style="margin:0;font:400 14px/1.5 'Inter';color:#6B6259">Grey dates are already booked.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font:600 15px/1.2 'Poppins'">September 2026</span>
+            <div style="display:flex;gap:8px">
+              <button style="width:32px;height:32px;border:1px solid #DCD4C7;border-radius:10px;background:#FAF7F2;cursor:pointer;display:flex;align-items:center;justify-content:center">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+              </button>
+              <button style="width:32px;height:32px;border:1px solid #DCD4C7;border-radius:10px;background:#FAF7F2;cursor:pointer;display:flex;align-items:center;justify-content:center">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9.5,5 16.5,12 9.5,19"></polyline></svg>
+              </button>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px">
+            <span style="text-align:center;font:600 11px/1 'Inter';color:#A79E92">M</span>
+            <span style="text-align:center;font:600 11px/1 'Inter';color:#A79E92">T</span>
+            <span style="text-align:center;font:600 11px/1 'Inter';color:#A79E92">W</span>
+            <span style="text-align:center;font:600 11px/1 'Inter';color:#A79E92">T</span>
+            <span style="text-align:center;font:600 11px/1 'Inter';color:#A79E92">F</span>
+            <span style="text-align:center;font:600 11px/1 'Inter';color:#A79E92">S</span>
+            <span style="text-align:center;font:600 11px/1 'Inter';color:#A79E92">S</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px">
+            <sc-for list="{{ days }}" as="d" hint-placeholder-count="35">
+              <button onClick="{{ d.onClick }}" style="height:44px;border:none;border-radius:12px;background:{{ d.bg }};color:{{ d.color }};font:{{ d.font }};cursor:{{ d.cursor }};text-decoration:{{ d.deco }}">{{ d.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <h3 style="margin:0;font:600 16px/1.3 'Poppins'">Start time</h3>
+            <span style="font:500 12.5px/1 'Inter';color:#8A8177">4-hour service window</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px">
+            <sc-for list="{{ times }}" as="t" hint-placeholder-count="6">
+              <button onClick="{{ t.onClick }}" style="height:48px;border:1.5px solid {{ t.border }};border-radius:12px;background:{{ t.bg }};color:{{ t.color }};font:600 14.5px/1 'Inter';cursor:{{ t.cursor }}">{{ t.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <div style="padding:14px 16px;border-top:1px solid #EBE4D9;background:#fff;display:flex;align-items:center;gap:14px;flex:none">
+        <div style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0">
+          <span style="font:600 14px/1.2 'Inter'">{{ dateSummary }}</span>
+          <span style="font:400 11.5px/1.2 'Inter';color:#8A8177">Step 1 of 3</span>
+        </div>
+        <button style="flex:none;width:150px;height:52px;border:none;border-radius:14px;background:{{ step1Bg }};color:{{ step1Color }};font:600 16px/1 'Inter';cursor:pointer">Continue</button>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:#fff"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">pick a date and time — footer summary and CTA react</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#D85A30;color:#fff;padding:4px 7px;border-radius:4px">07</span><span style="font:600 13px/1.2 'Inter'">Booking 2 · Guests &amp; menu</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="padding:6px 16px 14px;display:flex;flex-direction:column;gap:12px;flex:none">
+        <div style="display:flex;align-items:center;gap:12px">
+          <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+          </button>
+          <span style="font:600 17px/1.2 'Poppins'">Book Sana Kausar</span>
+        </div>
+        <div style="display:flex;gap:6px">
+          <div style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="height:4px;border-radius:2px;background:#0F6E56"></span><span style="font:600 11px/1 'Inter';color:#0F6E56">1 · Date</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="height:4px;border-radius:2px;background:#D85A30"></span><span style="font:600 11px/1 'Inter';color:#D85A30">2 · Details</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="height:4px;border-radius:2px;background:#E4DCD0"></span><span style="font:600 11px/1 'Inter';color:#A79E92">3 · Review</span></div>
+        </div>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:6px 16px 16px;display:flex;flex-direction:column;gap:22px">
+        <h2 style="margin:0;font:600 24px/1.25 'Poppins';letter-spacing:-.01em">Who's eating, and what?</h2>
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+            <div style="display:flex;flex-direction:column;gap:3px">
+              <span style="font:600 15px/1.3 'Inter'">Guests</span>
+              <span style="font:400 12.5px/1.3 'Inter';color:#8A8177">Minimum 4, maximum 20</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;flex:none">
+              <button onClick="{{ decGuests }}" style="width:44px;height:44px;border:1.5px solid #DCD4C7;border-radius:12px;background:#FAF7F2;font:500 20px/1 'Inter';color:#2B2621;cursor:pointer">−</button>
+              <span style="font:600 19px/1 'Poppins';min-width:26px;text-align:center">{{ guests }}</span>
+              <button onClick="{{ incGuests }}" style="width:44px;height:44px;border:1.5px solid #DCD4C7;border-radius:12px;background:#FAF7F2;font:500 20px/1 'Inter';color:#2B2621;cursor:pointer">+</button>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <h3 style="margin:0;font:600 16px/1.3 'Poppins'">Choose a menu</h3>
+          <sc-for list="{{ menus }}" as="m" hint-placeholder-count="3">
+            <button onClick="{{ m.onClick }}" style="background:{{ m.bg }};border:1.5px solid {{ m.border }};border-radius:16px;padding:14px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;text-align:left;width:100%">
+              <span style="width:22px;height:22px;border-radius:50%;border:1.5px solid {{ m.dotBorder }};background:{{ m.dotBg }};flex:none;margin-top:2px;display:flex;align-items:center;justify-content:center">
+                <span style="width:8px;height:8px;border-radius:50%;background:#fff;opacity:{{ m.dotOpacity }}"></span>
+              </span>
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:5px">
+                <span style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                  <span style="font:600 15.5px/1.3 'Poppins';color:#2B2621">{{ m.name }}</span>
+                  <span style="font:600 14px/1 'Inter';color:#D85A30;flex:none">Rs {{ m.price }}</span>
+                </span>
+                <span style="font:400 13.5px/1.5 'Inter';color:#6B6259">{{ m.desc }}</span>
+                <span style="font:500 12px/1 'Inter';color:#8A8177">{{ m.courses }}</span>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label style="font:500 13px/1.2 'Inter';color:#6B6259">Dietary notes</label>
+          <input placeholder="Allergies, no beef, spice level" style="height:52px;padding:0 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff;font:400 15px/1 'Inter';color:#2B2621;transition:border-color .15s,box-shadow .15s" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7">
+        </div>
+      </div>
+      <div style="padding:14px 16px;border-top:1px solid #EBE4D9;background:#fff;display:flex;align-items:center;gap:14px;flex:none">
+        <div style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0">
+          <span style="font:600 15px/1.2 'Poppins';color:#D85A30">Rs {{ totalLabel }}</span>
+          <span style="font:400 11.5px/1.2 'Inter';color:#8A8177">{{ guests }} guests · {{ menuName }}</span>
+        </div>
+        <button style="flex:none;width:150px;height:52px;border:none;border-radius:14px;background:#D85A30;color:#fff;font:600 16px/1 'Inter';cursor:pointer" style-hover="background:#C24E27">Continue</button>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:#fff"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">stepper and menu choice drive the running total</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#D85A30;color:#fff;padding:4px 7px;border-radius:4px">08</span><span style="font:600 13px/1.2 'Inter'">Booking 3 · Review</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="padding:6px 16px 14px;display:flex;flex-direction:column;gap:12px;flex:none">
+        <div style="display:flex;align-items:center;gap:12px">
+          <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+          </button>
+          <span style="font:600 17px/1.2 'Poppins'">Review booking</span>
+        </div>
+        <div style="display:flex;gap:6px">
+          <div style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="height:4px;border-radius:2px;background:#0F6E56"></span><span style="font:600 11px/1 'Inter';color:#0F6E56">1 · Date</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="height:4px;border-radius:2px;background:#0F6E56"></span><span style="font:600 11px/1 'Inter';color:#0F6E56">2 · Details</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:6px"><span style="height:4px;border-radius:2px;background:#D85A30"></span><span style="font:600 11px/1 'Inter';color:#D85A30">3 · Review</span></div>
+        </div>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:6px 16px 16px;display:flex;flex-direction:column;gap:16px">
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:18px;box-shadow:0 2px 8px rgba(43,38,33,.05);overflow:hidden">
+          <div style="padding:16px;display:flex;gap:13px;align-items:center;border-bottom:1px solid #F1EDE5">
+            <div style="position:relative;width:52px;height:52px;flex:none">
+              <div style="width:52px;height:52px;border-radius:15px;background:repeating-linear-gradient(135deg,#EBE4D9 0 6px,#F5F0E7 6px 12px);border:1px solid #DCD4C7"></div>
+              <div style="position:absolute;right:-3px;bottom:-3px;width:20px;height:20px;border-radius:50%;background:#0F6E56;border:2px solid #fff;display:flex;align-items:center;justify-content:center">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+              </div>
+            </div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+              <span style="font:600 17px/1.2 'Poppins'">Sana Kausar</span>
+              <div style="display:flex;align-items:center;gap:5px"><span style="color:#BA7517;font-size:12px">★</span><span style="font:600 12.5px/1 'Inter'">4.9</span><span style="font:400 12.5px/1 'Inter';color:#8A8177">· Mughlai, BBQ</span></div>
+            </div>
+          </div>
+          <div style="padding:6px 16px 10px;display:flex;flex-direction:column">
+            <div style="padding:11px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #F5F1E9">
+              <span style="font:400 14px/1.3 'Inter';color:#6B6259">Date</span>
+              <div style="display:flex;align-items:center;gap:10px"><span style="font:500 14.5px/1.3 'Inter'">{{ reviewDate }}</span><button style="border:none;background:transparent;padding:0;font:600 12.5px/1 'Inter';color:#D85A30;cursor:pointer">Edit</button></div>
+            </div>
+            <div style="padding:11px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #F5F1E9">
+              <span style="font:400 14px/1.3 'Inter';color:#6B6259">Time</span>
+              <div style="display:flex;align-items:center;gap:10px"><span style="font:500 14.5px/1.3 'Inter'">{{ reviewTime }}</span><button style="border:none;background:transparent;padding:0;font:600 12.5px/1 'Inter';color:#D85A30;cursor:pointer">Edit</button></div>
+            </div>
+            <div style="padding:11px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #F5F1E9">
+              <span style="font:400 14px/1.3 'Inter';color:#6B6259">Guests</span>
+              <div style="display:flex;align-items:center;gap:10px"><span style="font:500 14.5px/1.3 'Inter'">{{ guests }} people</span><button style="border:none;background:transparent;padding:0;font:600 12.5px/1 'Inter';color:#D85A30;cursor:pointer">Edit</button></div>
+            </div>
+            <div style="padding:11px 0;display:flex;align-items:center;justify-content:space-between;gap:12px">
+              <span style="font:400 14px/1.3 'Inter';color:#6B6259">Menu</span>
+              <div style="display:flex;align-items:center;gap:10px"><span style="font:500 14.5px/1.3 'Inter'">{{ menuName }}</span><button style="border:none;background:transparent;padding:0;font:600 12.5px/1 'Inter';color:#D85A30;cursor:pointer">Edit</button></div>
+            </div>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:11px">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Price</span>
+          <div style="display:flex;justify-content:space-between"><span style="font:400 14.5px/1.4 'Inter';color:#6B6259">Rs {{ menuPrice }} × {{ guests }} guests</span><span style="font:500 14.5px/1.4 'Inter'">Rs {{ subtotalLabel }}</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font:400 14.5px/1.4 'Inter';color:#6B6259">Service fee</span><span style="font:500 14.5px/1.4 'Inter'">Rs 1,200</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font:400 14.5px/1.4 'Inter';color:#6B6259">Groceries (chef sourced)</span><span style="font:500 14.5px/1.4 'Inter'">Included</span></div>
+          <div style="height:1px;background:#F1EDE5;margin:3px 0"></div>
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:600 16px/1.3 'Poppins'">Total</span><span style="font:600 20px/1.2 'Poppins';color:#D85A30">Rs {{ grandLabel }}</span></div>
+          <div style="display:flex;gap:8px;align-items:flex-start;padding:11px 13px;background:#E5F0EC;border-radius:12px;margin-top:4px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9"></circle><polyline points="8,12.4 11,15.4 16.2,9.6"></polyline></svg>
+            <span style="font:400 12.5px/1.5 'Inter';color:#265446">Pay 30% now (Rs {{ advanceLabel }}), the rest after the event. Free cancellation up to 48 hours before.</span>
+          </div>
+        </div>
+      </div>
+      <div style="padding:14px 16px;border-top:1px solid #EBE4D9;background:#fff;flex:none">
+        <button style="width:100%;height:52px;border:none;border-radius:14px;background:#D85A30;color:#fff;font:600 16px/1 'Inter';cursor:pointer" style-hover="background:#C24E27">Continue to payment</button>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:#fff"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">reads live from steps 1 and 2 · completed steps turn teal</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">09</span><span style="font:600 13px/1.2 'Inter'">Payment</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="height:52px;display:flex;align-items:center;gap:12px;padding:0 16px;flex:none">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+        <span style="font:600 17px/1.2 'Poppins'">Payment</span>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:8px 16px 16px;display:flex;flex-direction:column;gap:20px">
+        <div style="background:#2B2621;border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55)">Due now · 30% advance</span>
+            <span style="display:inline-flex;align-items:center;height:24px;padding:0 9px;border-radius:12px;background:rgba(255,255,255,.14);color:#fff;font:600 11px/1 'Inter'">Secured</span>
+          </div>
+          <span style="font:700 36px/1 'Poppins';color:#fff;letter-spacing:-.02em">Rs {{ advanceLabel }}</span>
+          <div style="height:1px;background:rgba(255,255,255,.14)"></div>
+          <div style="display:flex;justify-content:space-between"><span style="font:400 13.5px/1.4 'Inter';color:rgba(255,255,255,.65)">Booking total</span><span style="font:500 13.5px/1.4 'Inter';color:#fff">Rs {{ grandLabel }}</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font:400 13.5px/1.4 'Inter';color:rgba(255,255,255,.65)">Balance after event</span><span style="font:500 13.5px/1.4 'Inter';color:#fff">Rs {{ balanceLabel }}</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <h3 style="margin:0;font:600 16px/1.3 'Poppins'">Pay with</h3>
+          <sc-for list="{{ methods }}" as="m" hint-placeholder-count="3">
+            <button onClick="{{ m.onClick }}" style="background:{{ m.bg }};border:1.5px solid {{ m.border }};border-radius:16px;padding:14px;display:flex;gap:12px;align-items:center;cursor:pointer;text-align:left;width:100%">
+              <span style="width:44px;height:44px;border-radius:12px;background:{{ m.logoBg }};display:flex;align-items:center;justify-content:center;flex:none;font:700 12px/1 'Poppins';color:{{ m.logoColor }}">{{ m.abbr }}</span>
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+                <span style="font:600 15px/1.3 'Inter';color:#2B2621">{{ m.name }}</span>
+                <span style="font:400 12.5px/1.4 'Inter';color:#8A8177">{{ m.meta }}</span>
+              </span>
+              <span style="width:22px;height:22px;border-radius:50%;border:1.5px solid {{ m.dotBorder }};background:{{ m.dotBg }};flex:none;display:flex;align-items:center;justify-content:center">
+                <span style="width:8px;height:8px;border-radius:50%;background:#fff;opacity:{{ m.dotOpacity }}"></span>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ isCard }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:14px;padding:16px;background:#fff;border:1px solid #EBE4D9;border-radius:16px">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label style="font:500 13px/1.2 'Inter';color:#6B6259">Card number</label>
+              <input placeholder="0000 0000 0000 0000" style="height:52px;padding:0 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#FAF7F2;font:400 15px/1 'Inter';color:#2B2621;transition:border-color .15s,box-shadow .15s" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7;background:#fff">
+            </div>
+            <div style="display:flex;gap:10px">
+              <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+                <label style="font:500 13px/1.2 'Inter';color:#6B6259">Expiry</label>
+                <input placeholder="MM/YY" style="height:52px;padding:0 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#FAF7F2;font:400 15px/1 'Inter';color:#2B2621" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7;background:#fff">
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+                <label style="font:500 13px/1.2 'Inter';color:#6B6259">CVC</label>
+                <input placeholder="123" style="height:52px;padding:0 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#FAF7F2;font:400 15px/1 'Inter';color:#2B2621" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7;background:#fff">
+              </div>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ isWallet }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:14px;padding:16px;background:#fff;border:1px solid #EBE4D9;border-radius:16px">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label style="font:500 13px/1.2 'Inter';color:#6B6259">{{ walletLabel }} mobile number</label>
+              <input value="0300 555 0134" style="height:52px;padding:0 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#FAF7F2;font:400 15px/1 'Inter';color:#2B2621" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7;background:#fff">
+            </div>
+            <div style="display:flex;gap:8px;align-items:flex-start;padding:11px 13px;background:#F1EDE5;border-radius:12px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A8177" stroke-width="2" stroke-linecap="round" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9"></circle><line x1="12" y1="11" x2="12" y2="16.5"></line><line x1="12" y1="7.6" x2="12" y2="8"></line></svg>
+              <span style="font:400 12.5px/1.5 'Inter';color:#6B6259">You'll get a push prompt in {{ walletLabel }} to approve Rs {{ advanceLabel }}.</span>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+      <div style="padding:14px 16px;border-top:1px solid #EBE4D9;background:#fff;flex:none;display:flex;flex-direction:column;gap:8px">
+        <button style="width:100%;height:52px;border:none;border-radius:14px;background:#D85A30;color:#fff;font:600 16px/1 'Inter';cursor:pointer" style-hover="background:#C24E27">Pay Rs {{ advanceLabel }}</button>
+        <span style="text-align:center;font:400 11.5px/1.4 'Inter';color:#8A8177">Held in escrow and released to your chef after the event</span>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:#fff"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">method switch swaps the detail block · advance is the hero number</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#0F6E56;color:#fff;padding:4px 7px;border-radius:4px">10</span><span style="font:600 13px/1.2 'Inter'">Booking confirmed</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none;background:#0F6E56;color:#fff">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #fff;border-radius:2px;opacity:.85"></span><span style="width:22px;height:10px;border:1.2px solid #fff;border-radius:3px;opacity:.85"></span></div>
+      </div>
+      <div style="background:#0F6E56;padding:34px 24px 40px;display:flex;flex-direction:column;align-items:center;gap:18px;flex:none">
+        <div style="width:76px;height:76px;border-radius:50%;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center">
+          <div style="width:56px;height:56px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+          <h2 style="margin:0;font:700 28px/1.2 'Poppins';color:#fff;letter-spacing:-.01em;text-align:center">Booking confirmed</h2>
+          <p style="margin:0;font:400 15px/1.5 'Inter';color:rgba(255,255,255,.82);text-align:center;max-width:290px">Sana is expecting you. We've texted the details and added it to your bookings.</p>
+        </div>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:0 16px 16px;margin-top:-22px;display:flex;flex-direction:column;gap:14px">
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:18px;box-shadow:0 4px 14px rgba(43,38,33,.07);padding:18px;display:flex;flex-direction:column;gap:15px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+            <div style="display:flex;flex-direction:column;gap:3px">
+              <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Confirmation</span>
+              <span style="font:600 19px/1.2 'Poppins'">CF-20418</span>
+            </div>
+            <button style="height:38px;padding:0 14px;border:1.5px solid #DCD4C7;border-radius:12px;background:#FAF7F2;font:600 13px/1 'Inter';color:#2B2621;cursor:pointer" style-hover="border-color:#A79E92">Copy</button>
+          </div>
+          <div style="height:1px;background:#F1EDE5"></div>
+          <div style="display:flex;gap:13px;align-items:center">
+            <div style="position:relative;width:48px;height:48px;flex:none">
+              <div style="width:48px;height:48px;border-radius:14px;background:repeating-linear-gradient(135deg,#EBE4D9 0 6px,#F5F0E7 6px 12px);border:1px solid #DCD4C7"></div>
+              <div style="position:absolute;right:-3px;bottom:-3px;width:19px;height:19px;border-radius:50%;background:#0F6E56;border:2px solid #fff;display:flex;align-items:center;justify-content:center">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+              </div>
+            </div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+              <span style="font:600 16px/1.2 'Poppins'">Sana Kausar</span>
+              <span style="font:400 13px/1.4 'Inter';color:#6B6259">{{ menuName }} · {{ guests }} guests</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <div style="flex:1;padding:12px 14px;background:#FAF7F2;border-radius:12px;display:flex;flex-direction:column;gap:3px">
+              <span style="font:500 11px/1.2 'Inter';color:#8A8177">Date</span>
+              <span style="font:600 14px/1.3 'Inter'">{{ reviewDate }}</span>
+            </div>
+            <div style="flex:1;padding:12px 14px;background:#FAF7F2;border-radius:12px;display:flex;flex-direction:column;gap:3px">
+              <span style="font:500 11px/1.2 'Inter';color:#8A8177">Time</span>
+              <span style="font:600 14px/1.3 'Inter'">{{ reviewTime }}</span>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 14px;background:#E5F0EC;border-radius:12px">
+            <span style="font:400 13.5px/1.4 'Inter';color:#265446">Paid advance</span>
+            <span style="font:600 15px/1.2 'Inter';color:#0F6E56">Rs {{ advanceLabel }}</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0 2px">
+            <span style="font:400 13.5px/1.4 'Inter';color:#6B6259">Balance on the night</span>
+            <span style="font:600 14.5px/1.2 'Inter'">Rs {{ balanceLabel }}</span>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">What happens next</span>
+          <div style="display:flex;gap:11px;align-items:flex-start">
+            <span style="width:22px;height:22px;border-radius:50%;background:#F6EDDC;color:#7A5314;font:600 11px/22px 'Inter';text-align:center;flex:none">1</span>
+            <span style="font:400 13.5px/1.5 'Inter';color:#6B6259">Sana messages you within 12 hours to confirm the menu and kitchen setup.</span>
+          </div>
+          <div style="display:flex;gap:11px;align-items:flex-start">
+            <span style="width:22px;height:22px;border-radius:50%;background:#F6EDDC;color:#7A5314;font:600 11px/22px 'Inter';text-align:center;flex:none">2</span>
+            <span style="font:400 13.5px/1.5 'Inter';color:#6B6259">She arrives 90 minutes before service with all groceries.</span>
+          </div>
+        </div>
+      </div>
+      <div style="padding:14px 16px;border-top:1px solid #EBE4D9;background:#fff;flex:none;display:flex;flex-direction:column;gap:8px">
+        <button style="width:100%;height:52px;border:none;border-radius:14px;background:#D85A30;color:#fff;font:600 16px/1 'Inter';cursor:pointer" style-hover="background:#C24E27">View booking</button>
+        <button style="width:100%;height:44px;border:none;border-radius:14px;background:transparent;font:500 15px/1 'Inter';color:#6B6259;cursor:pointer" style-hover="color:#2B2621">Add to calendar</button>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:#fff"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">teal success header · confirmation number is the first thing readable</span>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:1100}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cat: 'Mughlai',
+      sort: 0,
+      saved: { 0: true, 1: false, 2: false, 3: false },
+      profileSaved: false,
+      fCuisines: ['Mughlai', 'Karachi BBQ'],
+      priceMin: 3000,
+      priceMax: 9000,
+      minRating: 2,
+      dist: 8,
+      fDate: 14,
+      reviewFilter: 0,
+      day: 14,
+      time: '19:00',
+      guests: 6,
+      menu: 1
+    };
+    this.priceTrack = React.createRef();
+    this.distTrack = React.createRef();
+    this.PMIN = 1500; this.PMAX = 12000;
+    this.DMIN = 1; this.DMAX = 25;
+  }
+
+  fmt(n) { return n.toLocaleString('en-US'); }
+
+  pctFromEvent(ref, e) {
+    const el = ref.current;
+    if (!el) return 0;
+    const r = el.getBoundingClientRect();
+    return Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+  }
+
+  drag(ref, onMove) {
+    const move = ev => onMove(this.pctFromEvent(ref, ev));
+    const up = () => window.removeEventListener('pointermove', move);
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up, { once: true });
+  }
+
+  priceMove(pct) {
+    const raw = this.PMIN + pct * (this.PMAX - this.PMIN);
+    const v = Math.round(raw / 500) * 500;
+    this.setState(s => {
+      const dMin = Math.abs(v - s.priceMin), dMax = Math.abs(v - s.priceMax);
+      if (this.pHandle === undefined) this.pHandle = dMin <= dMax ? 'min' : 'max';
+      if (this.pHandle === 'min') return { priceMin: Math.min(v, s.priceMax - 500) };
+      return { priceMax: Math.max(v, s.priceMin + 500) };
+    });
+  }
+
+  distMove(pct) {
+    const v = Math.round(this.DMIN + pct * (this.DMAX - this.DMIN));
+    this.setState({ dist: v });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const catNames = ['Mughlai', 'Karachi BBQ', 'Lahori', 'Sindhi', 'Continental', 'Chinese', 'Seafood', 'Desserts'];
+    const cats = catNames.map(name => {
+      const on = s.cat === name;
+      return { name, border: on ? '#D85A30' : '#DCD4C7', bg: on ? '#FBEDE7' : '#fff', color: on ? '#B8481F' : '#2B2621', onClick: () => this.setState({ cat: name }) };
+    });
+
+    const sorts = ['Top rated', 'Nearest', 'Price: low to high'];
+    const resultData = [
+      { name: 'Sana Kausar', cuisine: 'Mughlai · BBQ', distance: '2.4 km', rating: '4.9', reviews: 128, price: '27,000', tag: 'Books 2 weeks out' },
+      { name: 'Faraz Khan', cuisine: 'Continental', distance: '3.1 km', rating: '4.8', reviews: 91, price: '31,200', tag: 'Free tasting call' },
+      { name: 'Ayesha Tariq', cuisine: 'Sindhi · Home style', distance: '1.8 km', rating: '4.7', reviews: 54, price: '22,800', tag: 'New this month' },
+      { name: 'Bilal Ahmed', cuisine: 'Lahori · Charcoal', distance: '3.2 km', rating: '4.6', reviews: 37, price: '19,200', tag: 'Weekend slots' }
+    ];
+    const results = resultData.map((r, i) => Object.assign({}, r, {
+      saveColor: s.saved[i] ? '#D85A30' : '#8A8177',
+      saveFill: s.saved[i] ? '#D85A30' : 'none',
+      onSave: () => this.setState(st => ({ saved: Object.assign({}, st.saved, { [i]: !st.saved[i] }) }))
+    }));
+
+    const fCuisineNames = ['Mughlai', 'Karachi BBQ', 'Lahori', 'Sindhi', 'Chinese', 'Continental', 'Seafood', 'Vegetarian'];
+    const fCuisines = fCuisineNames.map(name => {
+      const on = s.fCuisines.indexOf(name) >= 0;
+      return {
+        name, border: on ? '#D85A30' : '#DCD4C7', bg: on ? '#FBEDE7' : '#fff', color: on ? '#B8481F' : '#2B2621',
+        onClick: () => this.setState(st => ({ fCuisines: on ? st.fCuisines.filter(c => c !== name) : st.fCuisines.concat([name]) }))
+      };
+    });
+
+    const ratingOpts = ['Any', '★ 3+', '★ 4+', '★ 4.5+'];
+    const ratings = ratingOpts.map((label, i) => {
+      const on = s.minRating === i;
+      return { label, border: on ? '#BA7517' : '#DCD4C7', bg: on ? '#F6EDDC' : '#fff', color: on ? '#7A5314' : '#2B2621', onClick: () => this.setState({ minRating: i }) };
+    });
+
+    const pPct = v => ((v - this.PMIN) / (this.PMAX - this.PMIN) * 100);
+    const dPct = ((s.dist - this.DMIN) / (this.DMAX - this.DMIN) * 100);
+
+    const booked = [3, 8, 9, 17, 22, 26];
+    const buildMonth = (selected, onPick, big) => {
+      const cells = [];
+      for (let i = 0; i < 1; i++) cells.push({ label: '', bg: 'transparent', color: '#A79E92', cursor: 'default', font: '500 13px/1 Inter', deco: 'none', onClick: () => {} });
+      for (let d = 1; d <= 30; d++) {
+        const isBooked = booked.indexOf(d) >= 0;
+        const on = selected === d && !isBooked;
+        cells.push({
+          label: String(d),
+          bg: on ? '#D85A30' : 'transparent',
+          color: on ? '#fff' : (isBooked ? '#C9C2B8' : '#2B2621'),
+          cursor: isBooked ? 'not-allowed' : 'pointer',
+          font: on ? "600 " + (big ? '15px' : '13px') + "/1 Inter" : "500 " + (big ? '15px' : '13px') + "/1 Inter",
+          deco: isBooked ? 'line-through' : 'none',
+          onClick: isBooked ? () => {} : () => onPick(d)
+        });
+      }
+      return cells;
+    };
+
+    const timeOpts = [
+      { label: '12:30', off: false }, { label: '13:30', off: true }, { label: '18:00', off: false },
+      { label: '19:00', off: false }, { label: '20:00', off: false }, { label: '21:30', off: true }
+    ];
+    const times = timeOpts.map(t => {
+      const on = s.time === t.label && !t.off;
+      return {
+        label: t.label,
+        border: on ? '#D85A30' : (t.off ? '#EBE4D9' : '#DCD4C7'),
+        bg: on ? '#FBEDE7' : (t.off ? '#F1EDE5' : '#fff'),
+        color: on ? '#B8481F' : (t.off ? '#C9C2B8' : '#2B2621'),
+        cursor: t.off ? 'not-allowed' : 'pointer',
+        onClick: t.off ? () => {} : () => this.setState({ time: t.label })
+      };
+    });
+
+    const menuData = [
+      { name: 'Family style', price: 3200, desc: 'Four shared dishes, rice, breads, one dessert.', courses: '4 dishes · 60 min service' },
+      { name: 'Mughlai feast', price: 4500, desc: 'Nihari, seekh boti, shahi tukda and sides, served in courses.', courses: '7 dishes · 90 min service' },
+      { name: 'BBQ night', price: 5400, desc: 'Live charcoal grill on your terrace, four marinades, chutneys.', courses: '6 dishes · live grill' }
+    ];
+    const menus = menuData.map((m, i) => {
+      const on = s.menu === i;
+      return {
+        name: m.name, price: this.fmt(m.price), desc: m.desc, courses: m.courses,
+        bg: on ? '#FBEDE7' : '#fff', border: on ? '#D85A30' : '#EBE4D9',
+        dotBorder: on ? '#D85A30' : '#DCD4C7', dotBg: on ? '#D85A30' : '#fff', dotOpacity: on ? 1 : 0,
+        onClick: () => this.setState({ menu: i })
+      };
+    });
+
+    const menuPrice = menuData[s.menu].price;
+    const subtotal = menuPrice * s.guests;
+    const grand = subtotal + 1200;
+    const advance = Math.round(grand * 0.3);
+
+    const reviewData = [
+      { name: 'Hina Qureshi', meta: 'Mughlai feast · 8 guests · Aug 2026', star: 5, text: 'She arrived early, took over the kitchen calmly and the nihari was better than any restaurant near us. Left the place spotless.', hasPhotos: true },
+      { name: 'Umair Sheikh', meta: 'BBQ night · 12 guests · Jul 2026', star: 5, text: 'Charcoal grill on the terrace, kept the plates coming for two hours. Guests are still talking about the boti.', hasPhotos: false },
+      { name: 'Rabia Noor', meta: 'Family style · 5 guests · Jul 2026', star: 4, text: 'Lovely food and very polite. Started about twenty minutes late because of traffic, otherwise perfect.', hasPhotos: false },
+      { name: 'Danish Iqbal', meta: 'Mughlai feast · 6 guests · Jun 2026', star: 5, text: 'Handled two allergies without fuss and adjusted the spice for the kids. Booked her again for Eid.', hasPhotos: false }
+    ];
+    const filterOpts = [
+      { label: 'All 128', star: 0 }, { label: '★ 5 (104)', star: 5 }, { label: '★ 4 (18)', star: 4 },
+      { label: '★ 3 (4)', star: 3 }, { label: 'With photos', star: -1 }
+    ];
+    const reviewFilters = filterOpts.map((f, i) => {
+      const on = s.reviewFilter === i;
+      return { label: f.label, border: on ? '#2B2621' : '#DCD4C7', bg: on ? '#2B2621' : '#fff', color: on ? '#fff' : '#2B2621', onClick: () => this.setState({ reviewFilter: i }) };
+    });
+    const activeStar = filterOpts[s.reviewFilter].star;
+    const reviews = reviewData
+      .filter(r => activeStar === 0 || (activeStar === -1 ? r.hasPhotos : r.star === activeStar))
+      .map(r => ({ name: r.name, meta: r.meta, stars: '★★★★★'.slice(0, r.star), text: r.text, hasPhotos: r.hasPhotos }));
+
+    const bars = [{ star: 5, count: 104 }, { star: 4, count: 18 }, { star: 3, count: 4 }, { star: 2, count: 1 }, { star: 1, count: 1 }];
+    const ratingBars = bars.map(b => ({ star: b.star, count: b.count, pct: Math.round(b.count / 128 * 100) + '%' }));
+
+    const methodData = [
+      { key: 'card', name: 'Debit or credit card', meta: 'Visa, Mastercard · saved after first use', abbr: 'CARD', logoBg: '#2B2621', logoColor: '#fff' },
+      { key: 'jazz', name: 'JazzCash', meta: 'Approve in the JazzCash app', abbr: 'JC', logoBg: '#B33A28', logoColor: '#fff' },
+      { key: 'easy', name: 'EasyPaisa', meta: 'Approve in the EasyPaisa app', abbr: 'EP', logoBg: '#0F6E56', logoColor: '#fff' }
+    ];
+    const method = this.state.method || 'card';
+    const methods = methodData.map(m => {
+      const on = method === m.key;
+      return Object.assign({}, m, {
+        bg: on ? '#FBEDE7' : '#fff', border: on ? '#D85A30' : '#EBE4D9',
+        dotBorder: on ? '#D85A30' : '#DCD4C7', dotBg: on ? '#D85A30' : '#fff', dotOpacity: on ? 1 : 0,
+        onClick: () => this.setState({ method: m.key })
+      });
+    });
+
+    const dayLabel = d => {
+      const names = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      return names[(d + 1) % 7] + ' ' + d + ' Sep';
+    };
+
+    return {
+      cats,
+      sortLabel: sorts[s.sort],
+      cycleSort: () => this.setState(st => ({ sort: (st.sort + 1) % 3 })),
+      results,
+      fCuisines,
+      priceLabel: 'Rs ' + this.fmt(s.priceMin) + ' – ' + this.fmt(s.priceMax),
+      priceLeft: pPct(s.priceMin) + '%',
+      priceRight: (100 - pPct(s.priceMax)) + '%',
+      priceTrackRef: this.priceTrack,
+      onPriceDown: e => { this.pHandle = undefined; this.priceMove(this.pctFromEvent(this.priceTrack, e)); this.drag(this.priceTrack, pct => this.priceMove(pct)); },
+      ratings,
+      distLabel: 'Within ' + s.dist + ' km',
+      distLeft: dPct + '%',
+      distTrackRef: this.distTrack,
+      onDistDown: e => { this.distMove(this.pctFromEvent(this.distTrack, e)); this.drag(this.distTrack, pct => this.distMove(pct)); },
+      fDays: buildMonth(s.fDate, d => this.setState({ fDate: d }), false),
+      filterCount: 18 + s.fCuisines.length * 3,
+      resetFilters: () => this.setState({ fCuisines: [], priceMin: 1500, priceMax: 12000, minRating: 0, dist: 15 }),
+      profileSaveColor: s.profileSaved ? '#D85A30' : '#2B2621',
+      profileSaveFill: s.profileSaved ? '#D85A30' : 'none',
+      toggleProfileSave: () => this.setState(st => ({ profileSaved: !st.profileSaved })),
+      ratingBars,
+      reviewFilters,
+      reviews,
+      days: buildMonth(s.day, d => this.setState({ day: d }), true),
+      times,
+      dateSummary: dayLabel(s.day) + ' · ' + s.time,
+      step1Bg: '#D85A30',
+      step1Color: '#fff',
+      guests: s.guests,
+      incGuests: () => this.setState(st => ({ guests: Math.min(20, st.guests + 1) })),
+      decGuests: () => this.setState(st => ({ guests: Math.max(4, st.guests - 1) })),
+      menus,
+      menuName: menuData[s.menu].name,
+      menuPrice: this.fmt(menuPrice),
+      totalLabel: this.fmt(grand),
+      subtotalLabel: this.fmt(subtotal),
+      grandLabel: this.fmt(grand),
+      advanceLabel: this.fmt(advance),
+      balanceLabel: this.fmt(grand - advance),
+      reviewDate: dayLabel(s.day),
+      reviewTime: s.time,
+      methods,
+      isCard: method === 'card',
+      isWallet: method !== 'card',
+      walletLabel: method === 'jazz' ? 'JazzCash' : 'EasyPaisa'
+    };
+  }
+}
+</script>
+</body>
+</html>

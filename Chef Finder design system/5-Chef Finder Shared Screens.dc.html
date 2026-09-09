@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EDE8DE;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#D85A30;text-decoration:none}
+a:hover{color:#B8481F}
+input,button,textarea{font-family:'Inter',system-ui,sans-serif}
+input::placeholder{color:#A79E92}
+input:focus{outline:none}
+.sc::-webkit-scrollbar{height:0;width:0}
+</style>
+</helmet>
+
+<div style="padding:56px 48px 40px;font-family:'Inter',system-ui,sans-serif;color:#2B2621;max-width:1500px">
+  <div style="font:500 11px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#8A8177;margin-bottom:12px">Chef Finder · flow 05</div>
+  <h1 style="margin:0 0 12px;font:700 34px/1.15 'Poppins';letter-spacing:-.02em">Shared screens</h1>
+  <p style="margin:0;max-width:660px;font:400 15px/1.6 'Inter';color:#6B6259;text-wrap:pretty">Three frames at 390×844, role-agnostic. All three are pushed screens with a back button and no bottom nav, so they drop into either app unchanged. The role switch on Settings is the only place these differ: it shows which app you're in and lets a verified chef flip between the two.</p>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:44px;padding:0 48px 96px;align-items:flex-start;font-family:'Inter',system-ui,sans-serif">
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">01</span><span style="font:600 13px/1.2 'Inter'">Notifications</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="padding:8px 16px 14px;display:flex;align-items:center;gap:12px;flex:none">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+        <h1 style="margin:0;flex:1;font:600 22px/1.2 'Poppins';letter-spacing:-.01em">Notifications</h1>
+        <sc-if value="{{ hasUnread }}" hint-placeholder-val="{{ true }}">
+          <button onClick="{{ markAllRead }}" style="border:none;background:transparent;padding:0;font:600 13px/1 'Inter';color:#D85A30;cursor:pointer;flex:none">Mark all read</button>
+        </sc-if>
+      </div>
+      <div class="sc" style="display:flex;gap:8px;overflow-x:auto;padding:0 16px 14px;flex:none">
+        <sc-for list="{{ notifTabs }}" as="t" hint-placeholder-count="4">
+          <button onClick="{{ t.onClick }}" style="height:36px;padding:0 14px;border-radius:18px;border:1px solid {{ t.border }};background:{{ t.bg }};color:{{ t.color }};font:500 13.5px/1 'Inter';cursor:pointer;flex:none;white-space:nowrap">{{ t.label }}</button>
+        </sc-for>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:16px">
+        <sc-for list="{{ notifGroups }}" as="g" hint-placeholder-count="2">
+          <div style="display:flex;flex-direction:column;gap:9px;flex:none">
+            <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">{{ g.label }}</span>
+            <sc-for list="{{ g.items }}" as="n" hint-placeholder-count="3">
+              <button onClick="{{ n.onOpen }}" style="background:{{ n.bg }};border:1px solid {{ n.border }};border-radius:16px;padding:14px;display:flex;gap:12px;align-items:flex-start;cursor:pointer;text-align:left;width:100%;flex:none">
+                <span style="width:40px;height:40px;border-radius:13px;background:{{ n.iconBg }};display:flex;align-items:center;justify-content:center;flex:none;color:{{ n.iconColor }}">
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <g style="opacity:{{ n.iconCheck }}"><circle cx="12" cy="12" r="8.5"></circle><polyline points="8,12.4 11,15.4 16.2,9.6"></polyline></g>
+                    <g style="opacity:{{ n.iconMail }}"><rect x="3.5" y="6" width="17" height="12" rx="2.6"></rect><polyline points="7,10 12,13.5 17,10"></polyline></g>
+                    <g style="opacity:{{ n.iconStar }}"><polygon points="12,4 14.3,9.2 20,9.8 15.8,13.6 17,19.2 12,16.4 7,19.2 8.2,13.6 4,9.8 9.7,9.2"></polygon></g>
+                    <g style="opacity:{{ n.iconMoney }}"><rect x="3" y="6.5" width="18" height="11" rx="2.4"></rect><circle cx="12" cy="12" r="2.6"></circle></g>
+                    <g style="opacity:{{ n.iconClock }}"><circle cx="12" cy="12" r="8.5"></circle><polyline points="12,7.5 12,12 15.5,14"></polyline></g>
+                  </svg>
+                </span>
+                <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+                  <span style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+                    <span style="font:{{ n.titleFont }};color:#2B2621">{{ n.title }}</span>
+                    <span style="font:500 11.5px/1 'Inter';color:{{ n.timeColor }};flex:none">{{ n.time }}</span>
+                  </span>
+                  <span style="font:400 13.5px/1.5 'Inter';color:#6B6259">{{ n.body }}</span>
+                  <sc-if value="{{ n.hasAction }}" hint-placeholder-val="{{ false }}">
+                    <span style="display:inline-flex;align-items:center;align-self:flex-start;height:34px;padding:0 14px;border-radius:11px;background:{{ n.actionBg }};color:{{ n.actionColor }};font:600 13px/34px 'Inter';margin-top:4px">{{ n.action }}</span>
+                  </sc-if>
+                </span>
+                <span style="width:9px;height:9px;border-radius:50%;background:#D85A30;opacity:{{ n.dotOpacity }};flex:none;display:block;margin-top:6px"></span>
+              </button>
+            </sc-for>
+          </div>
+        </sc-for>
+        <sc-if value="{{ notifEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:70px 24px;display:flex;flex-direction:column;align-items:center;gap:13px;flex:none">
+            <div style="width:56px;height:56px;border-radius:18px;background:#F1EDE5;display:flex;align-items:center;justify-content:center;color:#A79E92">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 10a5.5 5.5 0 0 1 11 0v4l1.5 3H5l1.5-3z"></path><path d="M10 20a2 2 0 0 0 4 0"></path></svg>
+            </div>
+            <span style="font:600 16px/1.3 'Poppins'">Nothing in this filter</span>
+            <span style="font:400 14px/1.5 'Inter';color:#8A8177;text-align:center;max-width:230px">Switch back to All to see your recent activity.</span>
+          </div>
+        </sc-if>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:rgba(255,255,255,.6)"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">filters and read state are live · icon tint carries the type</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">02</span><span style="font:600 13px/1.2 'Inter'">Account settings</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="padding:8px 16px 14px;display:flex;align-items:center;gap:12px;flex:none">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+        <h1 style="margin:0;font:600 22px/1.2 'Poppins';letter-spacing:-.01em">Settings</h1>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:18px">
+        <button style="background:#fff;border:1px solid #EBE4D9;border-radius:18px;box-shadow:0 2px 8px rgba(43,38,33,.04);padding:16px;display:flex;gap:13px;align-items:center;cursor:pointer;text-align:left;width:100%;flex:none" style-hover="border-color:#DCD4C7">
+          <div style="position:relative;width:58px;height:58px;flex:none">
+            <div style="width:58px;height:58px;border-radius:18px;background:repeating-linear-gradient(135deg,#EBE4D9 0 7px,#F5F0E7 7px 14px);border:1px solid #DCD4C7"></div>
+            <div style="position:absolute;right:-4px;bottom:-4px;width:21px;height:21px;border-radius:50%;background:#0F6E56;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+            </div>
+          </div>
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+            <span style="font:600 18px/1.2 'Poppins'">Sana Kausar</span>
+            <span style="font:400 13px/1.4 'Inter';color:#6B6259">sana.kausar@gmail.com</span>
+            <span style="font:600 12.5px/1 'Inter';color:#D85A30">Edit profile</span>
+          </div>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A79E92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><polyline points="9.5,5 16.5,12 9.5,19"></polyline></svg>
+        </button>
+
+        <div style="display:flex;flex-direction:column;gap:9px;flex:none">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Using Chef Finder as</span>
+          <div style="display:flex;gap:4px;padding:4px;background:#F1EDE5;border-radius:14px">
+            <sc-for list="{{ roles }}" as="r" hint-placeholder-count="2">
+              <button onClick="{{ r.onClick }}" style="flex:1;height:42px;border:none;border-radius:11px;background:{{ r.bg }};color:{{ r.color }};font:{{ r.font }};cursor:pointer;box-shadow:{{ r.shadow }}">{{ r.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:9px;flex:none">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Preferences</span>
+          <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;overflow:hidden">
+            <button onClick="{{ cycleLanguage }}" style="width:100%;border:none;background:transparent;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;border-bottom:1px solid #F5F1E9" style-hover="background:#FAF7F2">
+              <span style="width:36px;height:36px;border-radius:11px;background:#F1EDE5;display:flex;align-items:center;justify-content:center;flex:none;color:#6B6259">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><line x1="3.5" y1="12" x2="20.5" y2="12"></line><path d="M12 3.5a13 13 0 0 1 0 17M12 3.5a13 13 0 0 0 0 17"></path></svg>
+              </span>
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+                <span style="font:500 15px/1.3 'Inter'">Language</span>
+                <span style="font:400 12.5px/1.3 'Inter';color:#8A8177">{{ languageHint }}</span>
+              </span>
+              <span style="font:600 14px/1 'Inter';color:#D85A30;flex:none">{{ language }}</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A79E92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><polyline points="9.5,5 16.5,12 9.5,19"></polyline></svg>
+            </button>
+            <button onClick="{{ cycleCurrency }}" style="width:100%;border:none;background:transparent;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;border-bottom:1px solid #F5F1E9" style-hover="background:#FAF7F2">
+              <span style="width:36px;height:36px;border-radius:11px;background:#F1EDE5;display:flex;align-items:center;justify-content:center;flex:none;color:#6B6259">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6.5" width="18" height="11" rx="2.4"></rect><circle cx="12" cy="12" r="2.6"></circle></svg>
+              </span>
+              <span style="flex:1;font:500 15px/1.3 'Inter'">Currency</span>
+              <span style="font:600 14px/1 'Inter';color:#D85A30;flex:none">{{ currency }}</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A79E92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><polyline points="9.5,5 16.5,12 9.5,19"></polyline></svg>
+            </button>
+            <button style="width:100%;border:none;background:transparent;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left" style-hover="background:#FAF7F2">
+              <span style="width:36px;height:36px;border-radius:11px;background:#F1EDE5;display:flex;align-items:center;justify-content:center;flex:none;color:#6B6259">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s6.5-6.2 6.5-10.5A6.5 6.5 0 0 0 5.5 10.5C5.5 14.8 12 21 12 21z"></path><circle cx="12" cy="10.4" r="2.2"></circle></svg>
+              </span>
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+                <span style="font:500 15px/1.3 'Inter'">Saved addresses</span>
+                <span style="font:400 12.5px/1.3 'Inter';color:#8A8177">2 saved</span>
+              </span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A79E92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><polyline points="9.5,5 16.5,12 9.5,19"></polyline></svg>
+            </button>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:9px;flex:none">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Notifications</span>
+          <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:4px 16px">
+            <sc-for list="{{ toggles }}" as="t" hint-placeholder-count="4">
+              <div style="padding:14px 0;display:flex;align-items:center;gap:12px;border-bottom:1px solid {{ t.divider }}">
+                <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+                  <span style="font:500 15px/1.3 'Inter'">{{ t.label }}</span>
+                  <span style="font:400 12.5px/1.4 'Inter';color:#8A8177">{{ t.hint }}</span>
+                </div>
+                <button onClick="{{ t.onToggle }}" style="width:48px;height:28px;border:none;border-radius:14px;background:{{ t.track }};padding:3px;display:flex;justify-content:{{ t.justify }};cursor:pointer;flex:none;transition:background .15s">
+                  <span style="width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(43,38,33,.22);display:block"></span>
+                </button>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:9px;flex:none">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Account</span>
+          <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;overflow:hidden">
+            <button style="width:100%;border:none;background:transparent;padding:15px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;border-bottom:1px solid #F5F1E9" style-hover="background:#FAF7F2">
+              <span style="flex:1;font:500 15px/1.3 'Inter'">Payment methods</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A79E92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><polyline points="9.5,5 16.5,12 9.5,19"></polyline></svg>
+            </button>
+            <button style="width:100%;border:none;background:transparent;padding:15px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;border-bottom:1px solid #F5F1E9" style-hover="background:#FAF7F2">
+              <span style="flex:1;font:500 15px/1.3 'Inter'">Privacy &amp; data</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A79E92" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><polyline points="9.5,5 16.5,12 9.5,19"></polyline></svg>
+            </button>
+            <button style="width:100%;border:none;background:transparent;padding:15px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left" style-hover="background:#FAF7F2">
+              <span style="flex:1;font:500 15px/1.3 'Inter';color:#B33A28">Delete account</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#C79E96" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><polyline points="9.5,5 16.5,12 9.5,19"></polyline></svg>
+            </button>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;padding-top:2px;flex:none">
+          <button style="width:100%;height:52px;border:1.5px solid #DCD4C7;border-radius:14px;background:#fff;font:600 15px/1 'Inter';color:#2B2621;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;flex:none" style-hover="border-color:#B33A28;color:#B33A28">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4.5H7A2.5 2.5 0 0 0 4.5 7v10A2.5 2.5 0 0 0 7 19.5h7.5"></path><polyline points="14,8.5 17.5,12 14,15.5"></polyline><line x1="17.5" y1="12" x2="10" y2="12"></line></svg>
+            Log out
+          </button>
+          <span style="text-align:center;font:400 11.5px/1.4 'Inter';color:#A79E92">Chef Finder 2.4.1 · build 318</span>
+        </div>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:rgba(255,255,255,.6)"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">role switch, language, currency and all four toggles are live</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#0F6E56;color:#fff;padding:4px 7px;border-radius:4px">03</span><span style="font:600 13px/1.2 'Inter'">Help &amp; FAQ</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="padding:8px 16px 14px;display:flex;align-items:center;gap:12px;flex:none">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+        <h1 style="margin:0;font:600 22px/1.2 'Poppins';letter-spacing:-.01em">Help centre</h1>
+      </div>
+      <div style="padding:0 16px 14px;display:flex;flex-direction:column;gap:12px;flex:none">
+        <div style="display:flex;align-items:center;gap:10px;height:50px;padding:0 15px;border:1.5px solid #DCD4C7;border-radius:14px;background:#fff">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A79E92" stroke-width="1.9" stroke-linecap="round" style="flex:none"><circle cx="11" cy="11" r="6.5"></circle><line x1="16" y1="16" x2="20.5" y2="20.5"></line></svg>
+          <input value="{{ faqQuery }}" onChange="{{ onFaqQuery }}" placeholder="Search help articles" style="flex:1;min-width:0;height:100%;border:none;background:transparent;font:400 15px/1 'Inter';color:#2B2621">
+          <sc-if value="{{ hasQuery }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ clearQuery }}" style="width:26px;height:26px;border:none;border-radius:50%;background:#F1EDE5;color:#6B6259;font:500 14px/1 'Inter';cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;flex:none">×</button>
+          </sc-if>
+        </div>
+        <div class="sc" style="display:flex;gap:8px;overflow-x:auto">
+          <sc-for list="{{ faqTopics }}" as="t" hint-placeholder-count="4">
+            <button onClick="{{ t.onClick }}" style="height:36px;padding:0 14px;border-radius:18px;border:1px solid {{ t.border }};background:{{ t.bg }};color:{{ t.color }};font:500 13.5px/1 'Inter';cursor:pointer;flex:none;white-space:nowrap">{{ t.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:10px">
+        <span style="font:500 12.5px/1.3 'Inter';color:#8A8177;flex:none">{{ faqCountLabel }}</span>
+        <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+          <div style="background:#fff;border:1px solid {{ f.border }};border-radius:16px;overflow:hidden;flex:none">
+            <button onClick="{{ f.onToggle }}" style="width:100%;border:none;background:transparent;padding:15px 16px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;text-align:left">
+              <span style="flex:1;min-width:0;font:{{ f.qFont }};color:#2B2621">{{ f.q }}</span>
+              <span style="width:26px;height:26px;border-radius:9px;background:{{ f.iconBg }};display:flex;align-items:center;justify-content:center;flex:none;color:{{ f.iconColor }};transition:background .15s">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="transform:{{ f.chevron }};transition:transform .18s"><polyline points="6,10 12,16 18,10"></polyline></svg>
+              </span>
+            </button>
+            <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:0 16px 16px;display:flex;flex-direction:column;gap:12px">
+                <div style="height:1px;background:#F5F1E9"></div>
+                <p style="margin:0;font:400 14.5px/1.6 'Inter';color:#3D3630;text-wrap:pretty">{{ f.a }}</p>
+                <div style="display:flex;align-items:center;gap:10px;padding-top:2px">
+                  <span style="font:400 12.5px/1 'Inter';color:#8A8177">Helpful?</span>
+                  <button onClick="{{ f.onYes }}" style="height:32px;padding:0 12px;border:1px solid {{ f.yesBorder }};border-radius:10px;background:{{ f.yesBg }};color:{{ f.yesColor }};font:600 12.5px/1 'Inter';cursor:pointer">Yes</button>
+                  <button onClick="{{ f.onNo }}" style="height:32px;padding:0 12px;border:1px solid {{ f.noBorder }};border-radius:10px;background:{{ f.noBg }};color:{{ f.noColor }};font:600 12.5px/1 'Inter';cursor:pointer">No</button>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+        <sc-if value="{{ faqEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:44px 24px;display:flex;flex-direction:column;align-items:center;gap:12px;flex:none">
+            <div style="width:56px;height:56px;border-radius:18px;background:#F1EDE5;display:flex;align-items:center;justify-content:center;color:#A79E92;flex:none">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><line x1="16" y1="16" x2="20.5" y2="20.5"></line></svg>
+            </div>
+            <span style="font:600 16px/1.3 'Poppins'">No articles match</span>
+            <span style="font:400 14px/1.5 'Inter';color:#8A8177;text-align:center;max-width:240px">Try a different word, or message support below — we answer within an hour.</span>
+          </div>
+        </sc-if>
+      </div>
+      <div style="padding:14px 16px;border-top:1px solid #EBE4D9;background:#fff;flex:none;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:10px">
+          <button style="flex:1;height:52px;border:1.5px solid #DCD4C7;border-radius:14px;background:#fff;font:600 15px/1 'Inter';color:#2B2621;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px" style-hover="border-color:#A79E92">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 4.5h4l2 5-2.5 1.5a9 9 0 0 0 4.5 4.5l1.5-2.5 5 2v4a1.5 1.5 0 0 1-1.7 1.5C11.5 19.5 4.5 12.5 4 6.2A1.5 1.5 0 0 1 5.5 4.5z"></path></svg>
+            Call us
+          </button>
+          <button style="flex:1;height:52px;border:none;border-radius:14px;background:#D85A30;color:#fff;font:600 15px/1 'Inter';cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px" style-hover="background:#C24E27">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="13" rx="3"></rect><polyline points="7,9.5 12,13 17,9.5"></polyline></svg>
+            Contact support
+          </button>
+        </div>
+        <span style="text-align:center;font:400 11.5px/1.4 'Inter';color:#8A8177">Support replies in under an hour, 9am–11pm</span>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:#fff"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">type to search · accordion expands one at a time</span>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:1100}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      notifTab: 0,
+      notifRead: { 0: false, 1: false, 2: false, 3: true, 4: true, 5: true, 6: true },
+      role: 0,
+      lang: 0,
+      cur: 0,
+      toggles: { push: true, msg: true, promo: false, email: true },
+      faqQuery: '',
+      faqTopic: 0,
+      faqOpen: 1,
+      votes: {}
+    };
+  }
+
+  renderVals() {
+    const s = this.state;
+
+    const notifTabLabels = ['All', 'Bookings', 'Messages', 'Reviews'];
+    const notifTabs = notifTabLabels.map((label, i) => {
+      const on = s.notifTab === i;
+      return { label, border: on ? '#2B2621' : '#DCD4C7', bg: on ? '#2B2621' : '#fff', color: on ? '#fff' : '#2B2621', onClick: () => this.setState({ notifTab: i }) };
+    });
+
+    const notifData = [
+      { id: 0, group: 'Today', kind: 'booking', type: 'check', title: 'Booking confirmed', body: 'Priya Raman confirmed Sat 14 Sep, 19:00 — 6 guests, Mughlai feast.', time: '9:12', action: 'View booking', actionKind: 'primary' },
+      { id: 1, group: 'Today', kind: 'message', type: 'mail', title: 'New message from Priya', body: 'Gas, four burners. There is also a small terrace if you want to grill outside.', time: '9:38', action: 'Reply', actionKind: 'quiet' },
+      { id: 2, group: 'Today', kind: 'booking', type: 'money', title: 'Advance received', body: 'Rs 8,460 is held in escrow and releases after the event.', time: '8:04', action: null },
+      { id: 3, group: 'Earlier this week', kind: 'review', type: 'star', title: 'Leave a review', body: 'How was your BBQ night with Faraz Khan on 12 Jul?', time: 'Wed', action: 'Rate now', actionKind: 'accent' },
+      { id: 4, group: 'Earlier this week', kind: 'review', type: 'star', title: 'New 5-star review', body: 'Hina Qureshi: the nihari was better than any restaurant near us.', time: 'Wed', action: null },
+      { id: 5, group: 'Earlier this week', kind: 'booking', type: 'clock', title: 'Chef on the way', found: true, body: 'Sana left for your address and should arrive by 17:30.', time: 'Tue', action: null },
+      { id: 6, group: 'Earlier this week', kind: 'message', type: 'mail', title: 'Certificate renewal', body: 'Your food safety certificate expires in 30 days. Upload a new one to stay verified.', time: 'Mon', action: 'Upload', actionKind: 'quiet' }
+    ];
+    const kindFilter = ['all', 'booking', 'message', 'review'][s.notifTab];
+    const visible = notifData.filter(n => kindFilter === 'all' || n.kind === kindFilter);
+
+    const iconTint = { check: ['#E5F0EC', '#0F6E56'], mail: ['#F1EDE5', '#3D3630'], star: ['#F6EDDC', '#BA7517'], money: ['#E5F0EC', '#0F6E56'], clock: ['#FBEDE7', '#D85A30'] };
+    const actionStyle = { primary: ['#D85A30', '#fff'], accent: ['#F6EDDC', '#7A5314'], quiet: ['#F1EDE5', '#3D3630'] };
+
+    const mapNotif = n => {
+      const read = s.notifRead[n.id];
+      const tint = iconTint[n.type];
+      const act = n.action ? actionStyle[n.actionKind] : ['#F1EDE5', '#3D3630'];
+      return {
+        title: n.title, body: n.body, time: n.time,
+        bg: read ? '#fff' : '#FFFDF9',
+        border: read ? '#EBE4D9' : '#F2D9CE',
+        titleFont: read ? '500 15px/1.3 Inter' : '600 15px/1.3 Poppins',
+        timeColor: read ? '#A79E92' : '#D85A30',
+        dotOpacity: read ? 0 : 1,
+        iconBg: tint[0], iconColor: tint[1],
+        iconCheck: n.type === 'check' ? 1 : 0,
+        iconMail: n.type === 'mail' ? 1 : 0,
+        iconStar: n.type === 'star' ? 1 : 0,
+        iconMoney: n.type === 'money' ? 1 : 0,
+        iconClock: n.type === 'clock' ? 1 : 0,
+        hasAction: !!n.action, action: n.action || '', actionBg: act[0], actionColor: act[1],
+        onOpen: () => this.setState(st => ({ notifRead: Object.assign({}, st.notifRead, { [n.id]: true }) }))
+      };
+    };
+
+    const groupLabels = ['Today', 'Earlier this week'];
+    const notifGroups = groupLabels
+      .map(label => ({ label, items: visible.filter(n => n.group === label).map(mapNotif) }))
+      .filter(g => g.items.length > 0);
+    const unread = Object.keys(s.notifRead).filter(k => !s.notifRead[k]).length;
+
+    const roleLabels = ['Customer', 'Chef'];
+    const roles = roleLabels.map((label, i) => {
+      const on = s.role === i;
+      return {
+        label, bg: on ? '#fff' : 'transparent', color: on ? '#2B2621' : '#8A8177',
+        font: on ? '600 14.5px/1 Inter' : '500 14.5px/1 Inter',
+        shadow: on ? '0 1px 3px rgba(43,38,33,.08)' : 'none',
+        onClick: () => this.setState({ role: i })
+      };
+    });
+
+    const langs = [['English', 'Also used for menus and receipts'], ['اردو', 'Right-to-left layout'], ['Roman Urdu', 'Latin script, Urdu words']];
+    const currencies = ['PKR', 'AED', 'USD'];
+
+    const toggleData = [
+      { key: 'push', label: 'Booking updates', hint: 'Confirmations, reminders, cancellations' },
+      { key: 'msg', label: 'Messages', hint: 'New chat messages and replies' },
+      { key: 'promo', label: 'Offers and news', hint: 'Occasional promotions from Chef Finder' },
+      { key: 'email', label: 'Email receipts', hint: 'A copy of every payment by email' }
+    ];
+    const toggles = toggleData.map((t, i) => {
+      const on = s.toggles[t.key];
+      return {
+        label: t.label, hint: t.hint,
+        divider: i === toggleData.length - 1 ? 'transparent' : '#F5F1E9',
+        track: on ? '#0F6E56' : '#DCD4C7',
+        justify: on ? 'flex-end' : 'flex-start',
+        onToggle: () => this.setState(st => ({ toggles: Object.assign({}, st.toggles, { [t.key]: !st.toggles[t.key] }) }))
+      };
+    });
+
+    const faqData = [
+      { id: 0, topic: 'booking', q: 'How far in advance should I book a chef?', a: 'Most chefs accept requests up to two weeks out, and popular ones fill weekends first. You can request a date up to six months ahead; the chef has 24 hours to accept before the request expires.' },
+      { id: 1, topic: 'payment', q: 'Why do I pay 30% upfront?', a: 'The advance confirms your date and covers the chef\'s grocery shopping. It sits in escrow until the event finishes, then releases to the chef along with the balance you settle on the night.' },
+      { id: 2, topic: 'payment', q: 'Which payment methods are accepted?', a: 'Debit and credit cards, JazzCash and EasyPaisa. Wallet payments are approved with a push prompt in that app. Cash is only used for the on-site balance if your chef agrees.' },
+      { id: 3, topic: 'booking', q: 'What if I need to cancel?', a: 'Cancel free of charge up to 48 hours before the event and the advance is refunded in full. Inside 48 hours, the chef keeps the grocery portion because the shopping is already done.' },
+      { id: 4, topic: 'chefs', q: 'How are chefs verified?', a: 'Every chef submits a government ID and a food safety certificate, both reviewed by our team within 48 hours. The teal check badge only appears once both are approved, and certificates are re-checked yearly.' },
+      { id: 5, topic: 'chefs', q: 'Does the chef bring groceries and equipment?', a: 'Groceries are included in every menu price. Chefs bring their own knives, spices and specialty gear; they use your hob, oven and serving dishes unless the listing says otherwise.' },
+      { id: 6, topic: 'account', q: 'Can I use one account as both customer and chef?', a: 'Yes. Once your chef application is approved, Settings shows a role switch so you can move between booking dinners and cooking them without logging out.' }
+    ];
+    const topicLabels = [['All topics', 'all'], ['Booking', 'booking'], ['Payment', 'payment'], ['Chefs', 'chefs'], ['Account', 'account']];
+    const faqTopics = topicLabels.map((t, i) => {
+      const on = s.faqTopic === i;
+      return { label: t[0], border: on ? '#0F6E56' : '#DCD4C7', bg: on ? '#E5F0EC' : '#fff', color: on ? '#0F6E56' : '#2B2621', onClick: () => this.setState({ faqTopic: i }) };
+    });
+    const q = s.faqQuery.trim().toLowerCase();
+    const activeTopic = topicLabels[s.faqTopic][1];
+    const filtered = faqData.filter(f =>
+      (activeTopic === 'all' || f.topic === activeTopic) &&
+      (!q || f.q.toLowerCase().indexOf(q) >= 0 || f.a.toLowerCase().indexOf(q) >= 0)
+    );
+    const faqs = filtered.map(f => {
+      const open = s.faqOpen === f.id;
+      const vote = s.votes[f.id];
+      return {
+        q: f.q, a: f.a, open,
+        border: open ? '#DCD4C7' : '#EBE4D9',
+        qFont: open ? '600 15px/1.45 Poppins' : '500 15px/1.45 Inter',
+        iconBg: open ? '#FBEDE7' : '#F1EDE5',
+        iconColor: open ? '#D85A30' : '#6B6259',
+        chevron: open ? 'rotate(180deg)' : 'rotate(0deg)',
+        onToggle: () => this.setState(st => ({ faqOpen: st.faqOpen === f.id ? -1 : f.id })),
+        yesBg: vote === 'y' ? '#E5F0EC' : '#fff', yesBorder: vote === 'y' ? '#0F6E56' : '#DCD4C7', yesColor: vote === 'y' ? '#0F6E56' : '#6B6259',
+        noBg: vote === 'n' ? '#F1EDE5' : '#fff', noBorder: vote === 'n' ? '#A79E92' : '#DCD4C7', noColor: vote === 'n' ? '#3D3630' : '#6B6259',
+        onYes: () => this.setState(st => ({ votes: Object.assign({}, st.votes, { [f.id]: 'y' }) })),
+        onNo: () => this.setState(st => ({ votes: Object.assign({}, st.votes, { [f.id]: 'n' }) }))
+      };
+    });
+
+    return {
+      notifTabs, notifGroups,
+      notifEmpty: notifGroups.length === 0,
+      hasUnread: unread > 0,
+      markAllRead: () => this.setState(st => {
+        const next = {};
+        Object.keys(st.notifRead).forEach(k => { next[k] = true; });
+        return { notifRead: next };
+      }),
+      roles,
+      language: langs[s.lang][0],
+      languageHint: langs[s.lang][1],
+      cycleLanguage: () => this.setState(st => ({ lang: (st.lang + 1) % 3 })),
+      currency: currencies[s.cur],
+      cycleCurrency: () => this.setState(st => ({ cur: (st.cur + 1) % 3 })),
+      toggles,
+      faqQuery: s.faqQuery,
+      onFaqQuery: e => this.setState({ faqQuery: e.target.value }),
+      hasQuery: s.faqQuery.length > 0,
+      clearQuery: () => this.setState({ faqQuery: '' }),
+      faqTopics, faqs,
+      faqEmpty: faqs.length === 0,
+      faqCountLabel: filtered.length + (filtered.length === 1 ? ' article' : ' articles')
+    };
+  }
+}
+</script>
+</body>
+</html>

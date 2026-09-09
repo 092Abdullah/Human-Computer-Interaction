@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#EDE8DE;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#D85A30;text-decoration:none}
+a:hover{color:#B8481F}
+input,button,textarea{font-family:'Inter',system-ui,sans-serif}
+input::placeholder,textarea::placeholder{color:#A79E92}
+input:focus,textarea:focus{outline:none}
+.sc::-webkit-scrollbar{height:0;width:0}
+</style>
+</helmet>
+
+<div style="padding:56px 48px 40px;font-family:'Inter',system-ui,sans-serif;color:#2B2621;max-width:1500px">
+  <div style="font:500 11px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#8A8177;margin-bottom:12px">Chef Finder · flow 03</div>
+  <h1 style="margin:0 0 12px;font:700 34px/1.15 'Poppins';letter-spacing:-.02em">Account &amp; post-booking</h1>
+  <p style="margin:0;max-width:660px;font:400 15px/1.6 'Inter';color:#6B6259;text-wrap:pretty">Five frames at 390×844. Bookings and Favorites are tab roots, so they keep the bottom nav; detail, chat and review are pushed screens with a back button and their own footer action.</p>
+</div>
+
+<div style="display:flex;flex-wrap:wrap;gap:44px;padding:0 48px 96px;align-items:flex-start;font-family:'Inter',system-ui,sans-serif">
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">01</span><span style="font:600 13px/1.2 'Inter'">My bookings</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="padding:8px 16px 14px;display:flex;align-items:center;justify-content:space-between;flex:none">
+        <h1 style="margin:0;font:600 26px/1.2 'Poppins';letter-spacing:-.01em">My bookings</h1>
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><line x1="16" y1="16" x2="20.5" y2="20.5"></line></svg>
+        </button>
+      </div>
+      <div style="padding:0 16px 14px;flex:none">
+        <div style="display:flex;gap:4px;padding:4px;background:#F1EDE5;border-radius:14px">
+          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+            <button onClick="{{ t.onClick }}" style="flex:1;height:40px;border:none;border-radius:11px;background:{{ t.bg }};color:{{ t.color }};font:{{ t.font }};cursor:pointer;box-shadow:{{ t.shadow }}">{{ t.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:0 16px 16px;display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ bookings }}" as="b" hint-placeholder-count="3">
+          <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;box-shadow:0 2px 8px rgba(43,38,33,.04);overflow:hidden">
+            <div style="padding:14px;display:flex;gap:13px">
+              <div style="position:relative;width:64px;height:64px;flex:none">
+                <div style="width:64px;height:64px;border-radius:16px;background:repeating-linear-gradient(135deg,#EBE4D9 0 7px,#F5F0E7 7px 14px);border:1px solid #DCD4C7;opacity:{{ b.photoOpacity }}"></div>
+                <div style="position:absolute;right:-3px;bottom:-3px;width:21px;height:21px;border-radius:50%;background:#0F6E56;border:2px solid #fff;display:flex;align-items:center;justify-content:center">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+                </div>
+              </div>
+              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+                  <span style="font:600 16px/1.3 'Poppins';white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ b.chef }}</span>
+                  <span style="display:inline-flex;align-items:center;height:24px;padding:0 9px;border-radius:12px;background:{{ b.statusBg }};color:{{ b.statusColor }};font:600 11px/1 'Inter';flex:none">{{ b.status }}</span>
+                </div>
+                <span style="font:400 13.5px/1.4 'Inter';color:#6B6259">{{ b.menu }} · {{ b.guests }} guests</span>
+                <div style="display:flex;align-items:center;gap:7px">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8A8177" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="3.5" y="5.5" width="17" height="15" rx="2.6"></rect><line x1="3.5" y1="10.5" x2="20.5" y2="10.5"></line></svg>
+                  <span style="font:500 13px/1.3 'Inter';color:#3D3630">{{ b.when }}</span>
+                </div>
+              </div>
+            </div>
+            <div style="padding:0 14px 14px;display:flex;align-items:center;gap:10px">
+              <span style="flex:1;font:600 14.5px/1.2 'Inter';color:{{ b.priceColor }};text-decoration:{{ b.priceDeco }}">Rs {{ b.price }}</span>
+              <button style="height:38px;padding:0 14px;border:1.5px solid #DCD4C7;border-radius:11px;background:#fff;color:#2B2621;font:600 13px/1 'Inter';cursor:pointer" style-hover="border-color:#A79E92">{{ b.secondary }}</button>
+              <button style="height:38px;padding:0 14px;border:none;border-radius:11px;background:{{ b.primaryBg }};color:{{ b.primaryColor }};font:600 13px/1 'Inter';cursor:pointer">{{ b.primary }}</button>
+            </div>
+          </div>
+        </sc-for>
+        <sc-if value="{{ bookingsEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:44px 24px;display:flex;flex-direction:column;align-items:center;gap:12px">
+            <div style="width:56px;height:56px;border-radius:18px;background:#F1EDE5;display:flex;align-items:center;justify-content:center">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#A79E92" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="15" rx="2.6"></rect><line x1="3.5" y1="10.5" x2="20.5" y2="10.5"></line></svg>
+            </div>
+            <span style="font:600 16px/1.3 'Poppins'">Nothing here yet</span>
+            <span style="font:400 14px/1.5 'Inter';color:#8A8177;text-align:center;max-width:230px">Cancelled bookings will show up here with their refund status.</span>
+          </div>
+        </sc-if>
+      </div>
+      <nav style="border-top:1px solid #EBE4D9;background:rgba(255,255,255,.94);padding:8px 6px 0;flex:none">
+        <div style="display:flex">
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,11 12,4 20,11"></polyline><rect x="7" y="11" width="10" height="9" rx="1.6"></rect></svg>
+            <span style="font:600 10.5px/1 'Inter'">Discover</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><line x1="16" y1="16" x2="20.5" y2="20.5"></line></svg>
+            <span style="font:600 10.5px/1 'Inter'">Search</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#D85A30;position:relative">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="15" rx="2.6"></rect><line x1="3.5" y1="10.5" x2="20.5" y2="10.5"></line><line x1="8.5" y1="3.5" x2="8.5" y2="6.5"></line><line x1="15.5" y1="3.5" x2="15.5" y2="6.5"></line></svg>
+            <span style="position:absolute;top:2px;right:50%;margin-right:-19px;min-width:17px;height:17px;padding:0 5px;border-radius:9px;background:#D85A30;color:#fff;font:600 10px/17px 'Inter';text-align:center">1</span>
+            <span style="font:600 10.5px/1 'Inter'">Bookings</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,4 17,4 17,20.5 12,16 7,20.5"></polyline></svg>
+            <span style="font:600 10.5px/1 'Inter'">Saved</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="3.6"></circle><path d="M5.6 19.6a6.6 6.6 0 0 1 12.8 0"></path></svg>
+            <span style="font:600 10.5px/1 'Inter'">Profile</span>
+          </div>
+        </div>
+        <div style="height:22px;display:flex;align-items:center;justify-content:center"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+      </nav>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">tabs are live · card actions change per state</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#0F6E56;color:#fff;padding:4px 7px;border-radius:4px">02</span><span style="font:600 13px/1.2 'Inter'">Booking detail · status tracker</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="height:52px;display:flex;align-items:center;gap:12px;padding:0 16px;flex:none">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+          <span style="font:600 16px/1.2 'Poppins'">Booking CF-20418</span>
+          <span style="font:400 12px/1.2 'Inter';color:#8A8177">Sat 14 Sep · 19:00</span>
+        </div>
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="5.5" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="18.5" r="1"></circle></svg>
+        </button>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:8px 16px 16px;display:flex;flex-direction:column;gap:14px">
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:18px;box-shadow:0 2px 8px rgba(43,38,33,.05);padding:18px;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+            <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Status</span>
+            <span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:13px;background:#E5F0EC;color:#0F6E56;font:600 12px/1 'Inter'">{{ trackerNow }}</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0">
+            <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
+              <div style="display:flex;gap:14px;align-items:stretch">
+                <div style="width:26px;flex:none;display:flex;flex-direction:column;align-items:center">
+                  <span style="width:26px;height:26px;border-radius:50%;background:{{ st.dotBg }};border:2px solid {{ st.dotBorder }};display:flex;align-items:center;justify-content:center;flex:none">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="opacity:{{ st.checkOpacity }}"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+                    <span style="width:8px;height:8px;border-radius:50%;background:{{ st.pulseBg }};opacity:{{ st.pulseOpacity }};position:absolute"></span>
+                  </span>
+                  <span style="flex:1;width:2px;background:{{ st.lineBg }};min-height:{{ st.lineHeight }}"></span>
+                </div>
+                <div style="flex:1;min-width:0;padding-bottom:18px;display:flex;flex-direction:column;gap:3px">
+                  <span style="font:{{ st.titleFont }};color:{{ st.titleColor }}">{{ st.title }}</span>
+                  <span style="font:400 13px/1.45 'Inter';color:#8A8177">{{ st.meta }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <button onClick="{{ advanceStep }}" style="height:40px;border:1.5px dashed #DCD4C7;border-radius:12px;background:#FAF7F2;font:600 12.5px/1 'Inter';color:#8A8177;cursor:pointer">Demo: advance status</button>
+        </div>
+
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;gap:13px;align-items:center">
+            <div style="position:relative;width:56px;height:56px;flex:none">
+              <div style="width:56px;height:56px;border-radius:16px;background:repeating-linear-gradient(135deg,#EBE4D9 0 6px,#F5F0E7 6px 12px);border:1px solid #DCD4C7"></div>
+              <div style="position:absolute;right:-3px;bottom:-3px;width:20px;height:20px;border-radius:50%;background:#0F6E56;border:2px solid #fff;display:flex;align-items:center;justify-content:center">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+              </div>
+            </div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+              <span style="font:600 17px/1.2 'Poppins'">Sana Kausar</span>
+              <div style="display:flex;align-items:center;gap:5px"><span style="color:#BA7517;font-size:12px">★</span><span style="font:600 12.5px/1 'Inter'">4.9</span><span style="font:400 12.5px/1 'Inter';color:#8A8177">· 0300 555 0134</span></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <button style="flex:1;height:46px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff;font:600 14px/1 'Inter';color:#2B2621;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px" style-hover="border-color:#A79E92">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 4.5h4l2 5-2.5 1.5a9 9 0 0 0 4.5 4.5l1.5-2.5 5 2v4a1.5 1.5 0 0 1-1.7 1.5C11.5 19.5 4.5 12.5 4 6.2A1.5 1.5 0 0 1 5.5 4.5z"></path></svg>
+              Call
+            </button>
+            <button style="flex:1;height:46px;border:none;border-radius:12px;background:#2B2621;font:600 14px/1 'Inter';color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px" style-hover="background:#1F1B17">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="13" rx="3"></rect><polyline points="7,9.5 12,13 17,9.5"></polyline></svg>
+              Message
+            </button>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:2px">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177;margin-bottom:8px">Event details</span>
+          <div style="padding:10px 0;display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #F5F1E9"><span style="font:400 14px/1.4 'Inter';color:#6B6259">Address</span><span style="font:500 14px/1.4 'Inter';text-align:right;max-width:210px">House 42, Street 12, DHA Phase 5</span></div>
+          <div style="padding:10px 0;display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #F5F1E9"><span style="font:400 14px/1.4 'Inter';color:#6B6259">Guests</span><span style="font:500 14px/1.4 'Inter'">6 people</span></div>
+          <div style="padding:10px 0;display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #F5F1E9"><span style="font:400 14px/1.4 'Inter';color:#6B6259">Menu</span><span style="font:500 14px/1.4 'Inter'">Mughlai feast</span></div>
+          <div style="padding:10px 0;display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #F5F1E9"><span style="font:400 14px/1.4 'Inter';color:#6B6259">Notes</span><span style="font:500 14px/1.4 'Inter';text-align:right;max-width:210px">No beef, medium spice</span></div>
+          <div style="padding:10px 0;display:flex;justify-content:space-between;gap:12px"><span style="font:400 14px/1.4 'Inter';color:#6B6259">Balance due</span><span style="font:600 15px/1.4 'Inter';color:#D85A30">Rs 19,740</span></div>
+        </div>
+        <button style="height:48px;border:none;border-radius:14px;background:transparent;font:500 14px/1 'Inter';color:#B33A28;cursor:pointer" style-hover="background:#FBEDE7">Cancel booking</button>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:rgba(255,255,255,.6)"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">tap the dashed button to walk the tracker forward</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">03</span><span style="font:600 13px/1.2 'Inter'">Chat with chef</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none;background:#fff">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="padding:8px 16px 12px;display:flex;align-items:center;gap:11px;flex:none;background:#fff;border-bottom:1px solid #EBE4D9">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+        <div style="position:relative;width:40px;height:40px;flex:none">
+          <div style="width:40px;height:40px;border-radius:50%;background:repeating-linear-gradient(135deg,#EBE4D9 0 6px,#F5F0E7 6px 12px);border:1px solid #DCD4C7"></div>
+          <div style="position:absolute;right:-2px;bottom:-2px;width:16px;height:16px;border-radius:50%;background:#0F6E56;border:2px solid #fff;display:flex;align-items:center;justify-content:center">
+            <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+          </div>
+        </div>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+          <span style="font:600 15.5px/1.2 'Poppins'">Sana Kausar</span>
+          <span style="font:500 12px/1.2 'Inter';color:#0F6E56">Usually replies in 10 min</span>
+        </div>
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 4.5h4l2 5-2.5 1.5a9 9 0 0 0 4.5 4.5l1.5-2.5 5 2v4a1.5 1.5 0 0 1-1.7 1.5C11.5 19.5 4.5 12.5 4 6.2A1.5 1.5 0 0 1 5.5 4.5z"></path></svg>
+        </button>
+      </div>
+      <div class="sc" ref="{{ threadRef }}" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px">
+        <div style="align-self:center;padding:6px 12px;border-radius:13px;background:#EBE4D9;font:500 11.5px/1 'Inter';color:#6B6259">Sat 14 Sep · booking CF-20418</div>
+        <div style="align-self:stretch;padding:12px 14px;border-radius:14px;background:#E5F0EC;border:1px solid #D3E5DE;display:flex;gap:10px;align-items:flex-start">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9"></circle><polyline points="8,12.4 11,15.4 16.2,9.6"></polyline></svg>
+          <span style="font:400 12.5px/1.5 'Inter';color:#265446">Keep payments and plans inside Chef Finder. Sana is verified; we never ask for cash transfers.</span>
+        </div>
+        <sc-for list="{{ messages }}" as="m" hint-placeholder-count="6">
+          <div style="max-width:78%;align-self:{{ m.align }};display:flex;flex-direction:column;gap:4px">
+            <div style="padding:11px 14px;border-radius:{{ m.radius }};background:{{ m.bg }};border:1px solid {{ m.border }}">
+              <sc-if value="{{ m.isPhoto }}" hint-placeholder-val="{{ false }}">
+                <div style="width:176px;height:132px;border-radius:10px;background:repeating-linear-gradient(135deg,#E4DCD0 0 8px,#EDE7DC 8px 16px);border:1px solid #DCD4C7;display:flex;align-items:center;justify-content:center;margin-bottom:8px">
+                  <span style="font:500 10px/1 ui-monospace,Menlo,monospace;color:#A0968A">kitchen photo</span>
+                </div>
+              </sc-if>
+              <span style="font:400 14.5px/1.5 'Inter';color:{{ m.color }}">{{ m.text }}</span>
+            </div>
+            <span style="font:400 11px/1 'Inter';color:#A79E92;align-self:{{ m.metaAlign }}">{{ m.time }}</span>
+          </div>
+        </sc-for>
+        <sc-if value="{{ typing }}" hint-placeholder-val="{{ false }}">
+          <div style="align-self:flex-start;padding:13px 16px;border-radius:14px 14px 14px 4px;background:#fff;border:1px solid #EBE4D9;display:flex;gap:5px">
+            <span style="width:7px;height:7px;border-radius:50%;background:#DCD4C7"></span>
+            <span style="width:7px;height:7px;border-radius:50%;background:#C9C2B8"></span>
+            <span style="width:7px;height:7px;border-radius:50%;background:#DCD4C7"></span>
+          </div>
+        </sc-if>
+      </div>
+      <div class="sc" style="display:flex;gap:8px;overflow-x:auto;padding:0 16px 10px;flex:none">
+        <button onClick="{{ quick0 }}" style="height:34px;padding:0 13px;border-radius:17px;border:1px solid #DCD4C7;background:#fff;font:500 13px/1 'Inter';color:#2B2621;cursor:pointer;flex:none;white-space:nowrap">Share address</button>
+        <button onClick="{{ quick1 }}" style="height:34px;padding:0 13px;border-radius:17px;border:1px solid #DCD4C7;background:#fff;font:500 13px/1 'Inter';color:#2B2621;cursor:pointer;flex:none;white-space:nowrap">Any allergies to note?</button>
+        <button onClick="{{ quick2 }}" style="height:34px;padding:0 13px;border-radius:17px;border:1px solid #DCD4C7;background:#fff;font:500 13px/1 'Inter';color:#2B2621;cursor:pointer;flex:none;white-space:nowrap">What time will you arrive?</button>
+      </div>
+      <div style="padding:12px 16px;border-top:1px solid #EBE4D9;background:#fff;display:flex;align-items:flex-end;gap:9px;flex:none">
+        <button onClick="{{ attach }}" style="width:46px;height:46px;border:1.5px solid #DCD4C7;border-radius:14px;background:#FAF7F2;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="border-color:#A79E92">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="2.6"></rect><circle cx="9" cy="10.5" r="1.6"></circle><polyline points="5,17 10.5,12 14,15 17,12.5 19.5,15"></polyline></svg>
+        </button>
+        <input value="{{ draft }}" onChange="{{ onDraft }}" onKeyDown="{{ onDraftKey }}" placeholder="Message Sana" style="flex:1;min-width:0;height:46px;padding:0 16px;border:1.5px solid #DCD4C7;border-radius:14px;background:#FAF7F2;font:400 15px/1 'Inter';color:#2B2621;transition:border-color .15s,box-shadow .15s" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7;background:#fff">
+        <button onClick="{{ send }}" style="width:46px;height:46px;border:none;border-radius:14px;background:{{ sendBg }};cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{ sendColor }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4.5" y1="12" x2="19" y2="12"></line><polyline points="13,6 19,12 13,18"></polyline></svg>
+        </button>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:#fff"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">type or tap a quick reply and send — Sana replies</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#BA7517;color:#fff;padding:4px 7px;border-radius:4px">04</span><span style="font:600 13px/1.2 'Inter'">Leave a review</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="height:52px;display:flex;align-items:center;gap:12px;padding:0 16px;flex:none">
+        <button style="width:40px;height:40px;border:none;border-radius:12px;background:#F1EDE5;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:#EBE4D9">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#2B2621" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5,5 7.5,12 14.5,19"></polyline></svg>
+        </button>
+        <span style="font:600 17px/1.2 'Poppins'">Rate your dinner</span>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:8px 16px 16px;display:flex;flex-direction:column;gap:18px">
+        <div style="background:#fff;border:1px solid #EBE4D9;border-radius:18px;padding:20px 16px;display:flex;flex-direction:column;align-items:center;gap:16px">
+          <div style="position:relative;width:64px;height:64px">
+            <div style="width:64px;height:64px;border-radius:20px;background:repeating-linear-gradient(135deg,#EBE4D9 0 7px,#F5F0E7 7px 14px);border:1px solid #DCD4C7"></div>
+            <div style="position:absolute;right:-4px;bottom:-4px;width:22px;height:22px;border-radius:50%;background:#0F6E56;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
+            <span style="font:600 19px/1.2 'Poppins'">Sana Kausar</span>
+            <span style="font:400 13.5px/1.4 'Inter';color:#6B6259">Mughlai feast · 6 guests · Sat 14 Sep</span>
+          </div>
+          <div onMouseLeave="{{ clearStarHover }}" style="display:flex;gap:4px">
+            <sc-for list="{{ starButtons }}" as="s" hint-placeholder-count="5">
+              <button onClick="{{ s.onClick }}" onMouseEnter="{{ s.onEnter }}" style="width:52px;height:52px;border:none;background:transparent;cursor:pointer;font-size:38px;line-height:1;padding:0;color:{{ s.color }};transition:color .12s">★</button>
+            </sc-for>
+          </div>
+          <span style="font:600 14px/1 'Inter';color:{{ starWordColor }}">{{ starWord }}</span>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">What stood out?</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ aspects }}" as="a" hint-placeholder-count="6">
+              <button onClick="{{ a.onClick }}" style="height:38px;padding:0 14px;border-radius:19px;border:1px solid {{ a.border }};background:{{ a.bg }};color:{{ a.color }};font:500 13.5px/1 'Inter';cursor:pointer">{{ a.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Add photos</span>
+          <div style="display:flex;gap:9px">
+            <button onClick="{{ addPhoto }}" style="width:88px;height:88px;border:1.5px dashed #DCD4C7;border-radius:14px;background:#fff;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;flex:none" style-hover="border-color:#D85A30">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8A8177" stroke-width="1.9" stroke-linecap="round"><line x1="12" y1="6" x2="12" y2="18"></line><line x1="6" y1="12" x2="18" y2="12"></line></svg>
+              <span style="font:500 11px/1 'Inter';color:#8A8177">Add</span>
+            </button>
+            <sc-for list="{{ photos }}" as="p" hint-placeholder-count="2">
+              <div style="position:relative;width:88px;height:88px;flex:none">
+                <div style="width:88px;height:88px;border-radius:14px;background:repeating-linear-gradient(135deg,#E4DCD0 0 8px,#EDE7DC 8px 16px);border:1px solid #DCD4C7;display:flex;align-items:flex-end;justify-content:center;padding-bottom:7px">
+                  <span style="font:500 9.5px/1 ui-monospace,Menlo,monospace;color:#A0968A">{{ p.label }}</span>
+                </div>
+                <button onClick="{{ p.onRemove }}" style="position:absolute;top:-6px;right:-6px;width:24px;height:24px;border:2px solid #FAF7F2;border-radius:50%;background:#2B2621;color:#fff;font:500 13px/1 'Inter';cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0">×</button>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Your comment</span>
+            <span style="font:500 11.5px/1 'Inter';color:#A79E92">{{ commentCount }}/500</span>
+          </div>
+          <textarea value="{{ comment }}" onChange="{{ onComment }}" placeholder="How was the food, timing and cleanup? Other guests find specifics most useful." rows="5" style="padding:14px 16px;border:1.5px solid #DCD4C7;border-radius:14px;background:#fff;font:400 15px/1.55 'Inter';color:#2B2621;resize:none;transition:border-color .15s,box-shadow .15s" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7"></textarea>
+        </div>
+
+        <button onClick="{{ toggleAnon }}" style="display:flex;align-items:center;gap:11px;border:none;background:transparent;padding:0;cursor:pointer;text-align:left">
+          <span style="width:44px;height:26px;border-radius:13px;background:{{ anonTrack }};flex:none;padding:3px;display:flex;justify-content:{{ anonJustify }};transition:background .15s">
+            <span style="width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(43,38,33,.2);display:block"></span>
+          </span>
+          <span style="font:400 14px/1.4 'Inter';color:#6B6259">Post as anonymous</span>
+        </button>
+      </div>
+      <div style="padding:14px 16px;border-top:1px solid #EBE4D9;background:#fff;flex:none">
+        <button style="width:100%;height:52px;border:none;border-radius:14px;background:{{ submitBg }};color:{{ submitColor }};font:600 16px/1 'Inter';cursor:pointer">{{ submitLabel }}</button>
+      </div>
+      <div style="height:22px;display:flex;align-items:center;justify-content:center;flex:none;background:#fff"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">stars set the word below · submit unlocks at 1 star</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:baseline;gap:9px"><span style="font:600 10.5px/1 ui-monospace,Menlo,monospace;background:#2B2621;color:#fff;padding:4px 7px;border-radius:4px">05</span><span style="font:600 13px/1.2 'Inter'">Favorites</span></div>
+    <div style="width:390px;height:844px;border-radius:44px;border:1px solid #DCD4C7;box-shadow:0 6px 24px rgba(43,38,33,.09);overflow:hidden;background:#FAF7F2;display:flex;flex-direction:column">
+      <div style="height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;flex:none">
+        <span style="font:600 13px/1 'Inter'">9:41</span>
+        <div style="display:flex;gap:5px;align-items:center"><span style="width:15px;height:9px;border:1.2px solid #2B2621;border-radius:2px;opacity:.55"></span><span style="width:22px;height:10px;border:1.2px solid #2B2621;border-radius:3px;opacity:.55"></span></div>
+      </div>
+      <div style="padding:8px 16px 14px;display:flex;align-items:center;justify-content:space-between;flex:none">
+        <div style="display:flex;flex-direction:column;gap:3px">
+          <h1 style="margin:0;font:600 26px/1.2 'Poppins';letter-spacing:-.01em">Saved chefs</h1>
+          <span style="font:400 13px/1.3 'Inter';color:#8A8177">{{ favCount }} saved</span>
+        </div>
+        <div style="display:flex;gap:4px;padding:4px;background:#F1EDE5;border-radius:12px">
+          <button onClick="{{ setGrid }}" style="width:38px;height:38px;border:none;border-radius:9px;background:{{ gridBg }};cursor:pointer;display:flex;align-items:center;justify-content:center;color:{{ gridColor }}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="4" y="4" width="7" height="7" rx="1.6"></rect><rect x="13" y="4" width="7" height="7" rx="1.6"></rect><rect x="4" y="13" width="7" height="7" rx="1.6"></rect><rect x="13" y="13" width="7" height="7" rx="1.6"></rect></svg>
+          </button>
+          <button onClick="{{ setList }}" style="width:38px;height:38px;border:none;border-radius:9px;background:{{ listBg }};cursor:pointer;display:flex;align-items:center;justify-content:center;color:{{ listColor }}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
+          </button>
+        </div>
+      </div>
+      <div class="sc" style="flex:1;overflow-y:auto;padding:0 16px 16px">
+        <sc-if value="{{ isGrid }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <sc-for list="{{ favorites }}" as="f" hint-placeholder-count="4">
+              <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;box-shadow:0 2px 8px rgba(43,38,33,.04);overflow:hidden;display:flex;flex-direction:column">
+                <div style="position:relative;height:112px;background:repeating-linear-gradient(135deg,#EBE4D9 0 9px,#F3EEE5 9px 18px);display:flex;align-items:center;justify-content:center">
+                  <span style="font:500 10px/1 ui-monospace,Menlo,monospace;color:#A0968A">chef photo</span>
+                  <button onClick="{{ f.onRemove }}" style="position:absolute;top:8px;right:8px;width:32px;height:32px;border:none;border-radius:10px;background:rgba(255,255,255,.94);cursor:pointer;display:flex;align-items:center;justify-content:center;color:#D85A30">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="#D85A30" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,4 17,4 17,20.5 12,16 7,20.5"></polyline></svg>
+                  </button>
+                  <sc-if value="{{ f.isAvailable }}" hint-placeholder-val="{{ false }}">
+                    <span style="position:absolute;bottom:8px;left:8px;display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:11px;background:rgba(15,110,86,.94);color:#fff;font:600 10.5px/1 'Inter'">Free this week</span>
+                  </sc-if>
+                </div>
+                <div style="padding:11px 12px 13px;display:flex;flex-direction:column;gap:6px;flex:1">
+                  <div style="display:flex;align-items:center;gap:5px;min-width:0">
+                    <span style="font:600 14.5px/1.25 'Poppins';white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ f.name }}</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><circle cx="12" cy="12" r="9"></circle><polyline points="8,12.4 11,15.4 16.2,9.6"></polyline></svg>
+                  </div>
+                  <span style="font:400 12px/1.35 'Inter';color:#6B6259">{{ f.cuisine }}</span>
+                  <div style="margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:6px">
+                    <div style="display:flex;align-items:center;gap:3px"><span style="color:#BA7517;font-size:11px">★</span><span style="font:600 12px/1 'Inter'">{{ f.rating }}</span></div>
+                    <span style="font:600 12.5px/1 'Inter';color:#D85A30">Rs {{ f.price }}</span>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ isList }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ favorites }}" as="f" hint-placeholder-count="4">
+              <div style="background:#fff;border:1px solid #EBE4D9;border-radius:14px;padding:12px;display:flex;gap:12px;align-items:center">
+                <div style="width:60px;height:60px;border-radius:14px;background:repeating-linear-gradient(135deg,#EBE4D9 0 7px,#F5F0E7 7px 14px);border:1px solid #DCD4C7;flex:none"></div>
+                <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+                  <div style="display:flex;align-items:center;gap:5px;min-width:0">
+                    <span style="font:600 15px/1.25 'Poppins';white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ f.name }}</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><circle cx="12" cy="12" r="9"></circle><polyline points="8,12.4 11,15.4 16.2,9.6"></polyline></svg>
+                  </div>
+                  <span style="font:400 12.5px/1.35 'Inter';color:#6B6259">{{ f.cuisine }}</span>
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <div style="display:flex;align-items:center;gap:3px"><span style="color:#BA7517;font-size:11px">★</span><span style="font:600 12px/1 'Inter'">{{ f.rating }}</span></div>
+                    <span style="font:600 12.5px/1 'Inter';color:#D85A30">Rs {{ f.price }}</span>
+                  </div>
+                </div>
+                <button onClick="{{ f.onRemove }}" style="width:40px;height:40px;border:1px solid #EBE4D9;border-radius:12px;background:#FAF7F2;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none;color:#D85A30">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="#D85A30" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,4 17,4 17,20.5 12,16 7,20.5"></polyline></svg>
+                </button>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ favEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:60px 24px;display:flex;flex-direction:column;align-items:center;gap:14px">
+            <div style="width:56px;height:56px;border-radius:18px;background:#F1EDE5;display:flex;align-items:center;justify-content:center;color:#A79E92">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,4 17,4 17,20.5 12,16 7,20.5"></polyline></svg>
+            </div>
+            <span style="font:600 16px/1.3 'Poppins'">No saved chefs</span>
+            <span style="font:400 14px/1.5 'Inter';color:#8A8177;text-align:center;max-width:240px">Tap the bookmark on any chef to keep them here for later.</span>
+            <button onClick="{{ restoreFavs }}" style="height:44px;padding:0 20px;border:none;border-radius:12px;background:#D85A30;color:#fff;font:600 15px/1 'Inter';cursor:pointer">Browse chefs</button>
+          </div>
+        </sc-if>
+      </div>
+      <nav style="border-top:1px solid #EBE4D9;background:rgba(255,255,255,.94);padding:8px 6px 0;flex:none">
+        <div style="display:flex">
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,11 12,4 20,11"></polyline><rect x="7" y="11" width="10" height="9" rx="1.6"></rect></svg>
+            <span style="font:600 10.5px/1 'Inter'">Discover</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><line x1="16" y1="16" x2="20.5" y2="20.5"></line></svg>
+            <span style="font:600 10.5px/1 'Inter'">Search</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="15" rx="2.6"></rect><line x1="3.5" y1="10.5" x2="20.5" y2="10.5"></line><line x1="8.5" y1="3.5" x2="8.5" y2="6.5"></line><line x1="15.5" y1="3.5" x2="15.5" y2="6.5"></line></svg>
+            <span style="font:600 10.5px/1 'Inter'">Bookings</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#D85A30">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="#D85A30" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,4 17,4 17,20.5 12,16 7,20.5"></polyline></svg>
+            <span style="font:600 10.5px/1 'Inter'">Saved</span>
+          </div>
+          <div style="flex:1;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#A79E92">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="3.6"></circle><path d="M5.6 19.6a6.6 6.6 0 0 1 12.8 0"></path></svg>
+            <span style="font:600 10.5px/1 'Inter'">Profile</span>
+          </div>
+        </div>
+        <div style="height:22px;display:flex;align-items:center;justify-content:center"><div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div></div>
+      </nav>
+    </div>
+    <span style="font:500 11px/1.4 ui-monospace,Menlo,monospace;color:#8A8177;max-width:390px">grid / list toggle · remove empties to the zero state</span>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:1100}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tab: 0,
+      step: 1,
+      draft: '',
+      typing: false,
+      extraMsgs: [],
+      stars: 0,
+      starHover: 0,
+      aspects: [],
+      photos: [{ id: 1, label: 'dish 1' }],
+      comment: '',
+      anon: false,
+      view: 'grid',
+      favs: [0, 1, 2, 3]
+    };
+    this.thread = React.createRef();
+  }
+
+  push(text, mine, isPhoto) {
+    const t = new Date();
+    const stamp = '9:' + String(41 + this.state.extraMsgs.length).padStart(2, '0');
+    this.setState(s => ({
+      extraMsgs: s.extraMsgs.concat([{ text, mine, isPhoto: !!isPhoto, time: stamp }]),
+      draft: '',
+      typing: mine
+    }), () => {
+      const el = this.thread.current;
+      if (el) el.scrollTop = el.scrollHeight;
+      if (mine) {
+        clearTimeout(this._t);
+        this._t = setTimeout(() => {
+          this.setState(s => ({
+            typing: false,
+            extraMsgs: s.extraMsgs.concat([{ text: 'Noted, thank you. I will confirm everything the day before.', mine: false, isPhoto: false, time: '9:48' }])
+          }), () => { const e2 = this.thread.current; if (e2) e2.scrollTop = e2.scrollHeight; });
+        }, 1400);
+      }
+    });
+  }
+
+  componentWillUnmount() { clearTimeout(this._t); }
+
+  renderVals() {
+    const s = this.state;
+
+    const tabLabels = ['Upcoming', 'Past', 'Cancelled'];
+    const tabs = tabLabels.map((label, i) => {
+      const on = s.tab === i;
+      return {
+        label, bg: on ? '#fff' : 'transparent', color: on ? '#2B2621' : '#8A8177',
+        font: on ? "600 14px/1 Inter" : "500 14px/1 Inter",
+        shadow: on ? '0 1px 3px rgba(43,38,33,.08)' : 'none',
+        onClick: () => this.setState({ tab: i })
+      };
+    });
+
+    const all = [
+      { tab: 0, chef: 'Sana Kausar', menu: 'Mughlai feast', guests: 6, when: 'Sat 14 Sep · 19:00', price: '28,200', status: 'Confirmed', statusBg: '#E5F0EC', statusColor: '#0F6E56', secondary: 'Message', primary: 'Track', primaryBg: '#D85A30', primaryColor: '#fff', photoOpacity: 1, priceColor: '#2B2621', priceDeco: 'none' },
+      { tab: 0, chef: 'Ayesha Tariq', menu: 'Family style', guests: 4, when: 'Fri 3 Oct · 20:00', price: '15,200', status: 'Awaiting chef', statusBg: '#F6EDDC', statusColor: '#7A5314', secondary: 'Message', primary: 'Details', primaryBg: '#2B2621', primaryColor: '#fff', photoOpacity: 1, priceColor: '#2B2621', priceDeco: 'none' },
+      { tab: 1, chef: 'Faraz Khan', menu: 'BBQ night', guests: 10, when: 'Sat 12 Jul · 20:30', price: '54,000', status: 'Completed', statusBg: '#F1EDE5', statusColor: '#6B6259', secondary: 'Rebook', primary: 'Review', primaryBg: '#BA7517', primaryColor: '#fff', photoOpacity: 1, priceColor: '#2B2621', priceDeco: 'none' },
+      { tab: 1, chef: 'Sana Kausar', menu: 'Mughlai feast', guests: 6, when: 'Sun 8 Jun · 19:00', price: '27,000', status: 'Completed', statusBg: '#F1EDE5', statusColor: '#6B6259', secondary: 'Rebook', primary: 'Receipt', primaryBg: '#2B2621', primaryColor: '#fff', photoOpacity: 1, priceColor: '#2B2621', priceDeco: 'none' },
+      { tab: 2, chef: 'Bilal Ahmed', menu: 'Lahori charcoal', guests: 8, when: 'Sat 24 May · 20:00', price: '25,600', status: 'Refunded', statusBg: '#FBEDE7', statusColor: '#B33A28', secondary: 'Details', primary: 'Rebook', primaryBg: '#2B2621', primaryColor: '#fff', photoOpacity: 0.55, priceColor: '#A79E92', priceDeco: 'line-through' }
+    ];
+    const bookings = all.filter(b => b.tab === s.tab);
+
+    const stepData = [
+      { title: 'Confirmed', meta: 'Advance received · 12 Sep, 14:22' },
+      { title: 'Chef en route', meta: 'Leaves 90 minutes before service' },
+      { title: 'In progress', meta: 'Cooking and service window' },
+      { title: 'Completed', meta: 'Leave a review, pay the balance' }
+    ];
+    const steps = stepData.map((st, i) => {
+      const done = i < s.step;
+      const current = i === s.step;
+      return {
+        title: st.title, meta: st.meta,
+        dotBg: done ? '#0F6E56' : (current ? '#fff' : '#F1EDE5'),
+        dotBorder: done ? '#0F6E56' : (current ? '#D85A30' : '#E4DCD0'),
+        checkOpacity: done ? 1 : 0,
+        pulseBg: '#D85A30',
+        pulseOpacity: current ? 1 : 0,
+        lineBg: done ? '#0F6E56' : '#E4DCD0',
+        lineHeight: i === stepData.length - 1 ? '0px' : '26px',
+        titleFont: current ? "600 15.5px/1.3 Poppins" : "500 15px/1.3 Inter",
+        titleColor: done || current ? '#2B2621' : '#A79E92'
+      };
+    });
+
+    const baseMsgs = [
+      { text: 'Hello! Excited for Saturday. Do you have a gas or electric hob, and how many burners?', mine: false, isPhoto: false, time: '9:12' },
+      { text: 'Gas, four burners. There is also a small terrace if you want to grill outside.', mine: true, isPhoto: false, time: '9:15' },
+      { text: 'Perfect. Sending a photo of the boti platter from last weekend so you know what to expect.', mine: false, isPhoto: true, time: '9:21' },
+      { text: 'Looks great. Two guests avoid beef, is that manageable?', mine: true, isPhoto: false, time: '9:34' },
+      { text: 'Yes, I will do chicken seekh and a vegetable handi alongside. No extra charge.', mine: false, isPhoto: false, time: '9:38' }
+    ];
+    const messages = baseMsgs.concat(s.extraMsgs).map(m => ({
+      text: m.text, isPhoto: m.isPhoto, time: m.time,
+      align: m.mine ? 'flex-end' : 'flex-start',
+      metaAlign: m.mine ? 'flex-end' : 'flex-start',
+      bg: m.mine ? '#D85A30' : '#fff',
+      border: m.mine ? '#D85A30' : '#EBE4D9',
+      color: m.mine ? '#fff' : '#2B2621',
+      radius: m.mine ? '14px 14px 4px 14px' : '14px 14px 14px 4px'
+    }));
+
+    const shown = s.starHover || s.stars;
+    const words = ['', 'Poor', 'Fair', 'Good', 'Great', 'Outstanding'];
+    const starButtons = [1, 2, 3, 4, 5].map(i => ({
+      color: i <= shown ? '#BA7517' : '#DCD4C7',
+      onClick: () => this.setState({ stars: i }),
+      onEnter: () => this.setState({ starHover: i })
+    }));
+
+    const aspectLabels = ['Flavour', 'On time', 'Clean kitchen', 'Presentation', 'Friendly', 'Value'];
+    const aspects = aspectLabels.map(label => {
+      const on = s.aspects.indexOf(label) >= 0;
+      return {
+        label, border: on ? '#BA7517' : '#DCD4C7', bg: on ? '#F6EDDC' : '#fff', color: on ? '#7A5314' : '#2B2621',
+        onClick: () => this.setState(st => ({ aspects: on ? st.aspects.filter(a => a !== label) : st.aspects.concat([label]) }))
+      };
+    });
+
+    const favData = [
+      { name: 'Sana Kausar', cuisine: 'Mughlai · Karachi BBQ', rating: '4.9', price: '4,500', isAvailable: true },
+      { name: 'Faraz Khan', cuisine: 'Continental · Seafood', rating: '4.8', price: '5,200', isAvailable: false },
+      { name: 'Ayesha Tariq', cuisine: 'Sindhi · Home style', rating: '4.7', price: '3,800', isAvailable: true },
+      { name: 'Bilal Ahmed', cuisine: 'Lahori · Charcoal', rating: '4.6', price: '3,200', isAvailable: false }
+    ];
+    const favorites = s.favs.map(i => Object.assign({}, favData[i], {
+      onRemove: () => this.setState(st => ({ favs: st.favs.filter(x => x !== i) }))
+    }));
+
+    return {
+      tabs, bookings, bookingsEmpty: bookings.length === 0,
+      steps,
+      trackerNow: stepData[Math.min(s.step, 3)].title,
+      advanceStep: () => this.setState(st => ({ step: st.step >= 4 ? 0 : st.step + 1 })),
+      threadRef: this.thread,
+      messages,
+      typing: s.typing,
+      draft: s.draft,
+      onDraft: e => this.setState({ draft: e.target.value }),
+      onDraftKey: e => { if (e.key === 'Enter' && this.state.draft.trim()) this.push(this.state.draft.trim(), true); },
+      send: () => { if (s.draft.trim()) this.push(s.draft.trim(), true); },
+      sendBg: s.draft.trim() ? '#D85A30' : '#EBE4D9',
+      sendColor: s.draft.trim() ? '#fff' : '#A79E92',
+      attach: () => this.push('Here is the dining area setup.', true, true),
+      quick0: () => this.push('House 42, Street 12, DHA Phase 5.', true),
+      quick1: () => this.push('Any allergies to note?', true),
+      quick2: () => this.push('What time will you arrive?', true),
+      starButtons,
+      clearStarHover: () => this.setState({ starHover: 0 }),
+      starWord: s.stars ? words[s.stars] : 'Tap to rate',
+      starWordColor: s.stars ? '#7A5314' : '#A79E92',
+      aspects,
+      photos: s.photos.map(p => ({ label: p.label, onRemove: () => this.setState(st => ({ photos: st.photos.filter(x => x.id !== p.id) })) })),
+      addPhoto: () => this.setState(st => ({ photos: st.photos.length >= 3 ? st.photos : st.photos.concat([{ id: Date.now(), label: 'dish ' + (st.photos.length + 1) }]) })),
+      comment: s.comment,
+      onComment: e => this.setState({ comment: e.target.value.slice(0, 500) }),
+      commentCount: s.comment.length,
+      anon: s.anon,
+      toggleAnon: () => this.setState(st => ({ anon: !st.anon })),
+      anonTrack: s.anon ? '#0F6E56' : '#DCD4C7',
+      anonJustify: s.anon ? 'flex-end' : 'flex-start',
+      submitBg: s.stars ? '#D85A30' : '#EBE4D9',
+      submitColor: s.stars ? '#fff' : '#A79E92',
+      submitLabel: s.stars ? 'Post review' : 'Pick a rating to post',
+      favorites,
+      favCount: s.favs.length,
+      favEmpty: s.favs.length === 0,
+      isGrid: s.view === 'grid' && s.favs.length > 0,
+      isList: s.view === 'list' && s.favs.length > 0,
+      setGrid: () => this.setState({ view: 'grid' }),
+      setList: () => this.setState({ view: 'list' }),
+      gridBg: s.view === 'grid' ? '#fff' : 'transparent',
+      gridColor: s.view === 'grid' ? '#2B2621' : '#8A8177',
+      listBg: s.view === 'list' ? '#fff' : 'transparent',
+      listColor: s.view === 'list' ? '#2B2621' : '#8A8177',
+      restoreFavs: () => this.setState({ favs: [0, 1, 2, 3] })
+    };
+  }
+}
+</script>
+</body>
+</html>

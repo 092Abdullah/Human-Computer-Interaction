@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F1EDE5;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#D85A30;text-decoration:none}
+a:hover{color:#B8481F}
+input,textarea,button{font-family:'Inter',system-ui,sans-serif}
+input::placeholder,textarea::placeholder{color:#A79E92}
+input:focus,textarea:focus{outline:none}
+</style>
+</helmet>
+<div style="max-width:1280px;margin:0 auto;padding:56px 48px 96px;font-family:'Inter',system-ui,sans-serif;color:#2B2621">
+
+  <header style="display:flex;flex-direction:column;gap:14px;padding-bottom:28px;border-bottom:1px solid #DFD7C9">
+    <div style="font:500 11px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#8A8177">Design system · v1.0 · mobile</div>
+    <h1 style="margin:0;font:700 40px/1.1 'Poppins';letter-spacing:-.02em">Chef Finder</h1>
+    <p style="margin:0;max-width:620px;font:400 16px/1.6 'Inter';color:#6B6259;text-wrap:pretty">Foundations and components for a marketplace connecting customers with verified private chefs. Portrait mobile, 360&nbsp;pt reference width, 44&nbsp;pt minimum touch targets.</p>
+  </header>
+
+  <section style="padding-top:52px">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:22px">
+      <span style="font:500 11px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#A79E92">01</span>
+      <h2 style="margin:0;font:600 22px/1.2 'Poppins'">Color</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px">
+      <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;overflow:hidden">
+        <div style="height:104px;background:#D85A30"></div>
+        <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:5px">
+          <div style="font:600 15px/1.2 'Inter'">Terracotta</div>
+          <div style="font:500 12px/1.2 ui-monospace,Menlo,monospace;color:#8A8177">--color-primary · #D85A30</div>
+          <div style="font:400 13px/1.5 'Inter';color:#6B6259">Primary actions, price, active nav</div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;overflow:hidden">
+        <div style="height:104px;background:#0F6E56"></div>
+        <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:5px">
+          <div style="font:600 15px/1.2 'Inter'">Deep teal</div>
+          <div style="font:500 12px/1.2 ui-monospace,Menlo,monospace;color:#8A8177">--color-verified · #0F6E56</div>
+          <div style="font:400 13px/1.5 'Inter';color:#6B6259">Verification, trust, confirmed states</div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;overflow:hidden">
+        <div style="height:104px;background:#BA7517"></div>
+        <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:5px">
+          <div style="font:600 15px/1.2 'Inter'">Amber</div>
+          <div style="font:500 12px/1.2 ui-monospace,Menlo,monospace;color:#8A8177">--color-accent · #BA7517</div>
+          <div style="font:400 13px/1.5 'Inter';color:#6B6259">Ratings, awards, highlight badges</div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;overflow:hidden">
+        <div style="height:104px;background:#FAF7F2;border-bottom:1px solid #EBE4D9"></div>
+        <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:5px">
+          <div style="font:600 15px/1.2 'Inter'">Warm off-white</div>
+          <div style="font:500 12px/1.2 ui-monospace,Menlo,monospace;color:#8A8177">--color-bg · #FAF7F2</div>
+          <div style="font:400 13px/1.5 'Inter';color:#6B6259">App canvas behind cards</div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;overflow:hidden">
+        <div style="height:104px;background:#2B2621"></div>
+        <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:5px">
+          <div style="font:600 15px/1.2 'Inter'">Warm charcoal</div>
+          <div style="font:500 12px/1.2 ui-monospace,Menlo,monospace;color:#8A8177">--color-text · #2B2621</div>
+          <div style="font:400 13px/1.5 'Inter';color:#6B6259">Headings and body copy</div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;overflow:hidden">
+        <div style="height:104px;background:#B33A28"></div>
+        <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:5px">
+          <div style="font:600 15px/1.2 'Inter'">Clay red</div>
+          <div style="font:500 12px/1.2 ui-monospace,Menlo,monospace;color:#8A8177">--color-error · #B33A28</div>
+          <div style="font:400 13px/1.5 'Inter';color:#6B6259">Errors, cancellations, destructive</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:20px 22px">
+      <div style="font:500 11px/1 'Inter';letter-spacing:.12em;text-transform:uppercase;color:#A79E92;margin-bottom:16px">Warm neutral ramp</div>
+      <div style="display:flex;gap:0;border-radius:12px;overflow:hidden;border:1px solid #EBE4D9">
+        <div style="flex:1;height:64px;background:#FFFFFF"></div>
+        <div style="flex:1;height:64px;background:#FAF7F2"></div>
+        <div style="flex:1;height:64px;background:#F1EDE5"></div>
+        <div style="flex:1;height:64px;background:#EBE4D9"></div>
+        <div style="flex:1;height:64px;background:#DCD4C7"></div>
+        <div style="flex:1;height:64px;background:#A79E92"></div>
+        <div style="flex:1;height:64px;background:#6B6259"></div>
+        <div style="flex:1;height:64px;background:#2B2621"></div>
+      </div>
+      <div style="display:flex;gap:0;margin-top:8px;font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#8A8177">
+        <div style="flex:1">n-0<br>FFFFFF</div>
+        <div style="flex:1">n-50<br>FAF7F2</div>
+        <div style="flex:1">n-100<br>F1EDE5</div>
+        <div style="flex:1">n-200<br>EBE4D9</div>
+        <div style="flex:1">n-300<br>DCD4C7</div>
+        <div style="flex:1">n-500<br>A79E92</div>
+        <div style="flex:1">n-700<br>6B6259</div>
+        <div style="flex:1">n-900<br>2B2621</div>
+      </div>
+      <div style="margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#FBEDE7;border-radius:12px">
+          <span style="width:22px;height:22px;border-radius:7px;background:#D85A30;flex:none"></span>
+          <span style="font:500 12px/1.3 ui-monospace,Menlo,monospace;color:#8A4A32">primary-tint · #FBEDE7</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#E5F0EC;border-radius:12px">
+          <span style="width:22px;height:22px;border-radius:7px;background:#0F6E56;flex:none"></span>
+          <span style="font:500 12px/1.3 ui-monospace,Menlo,monospace;color:#2E5E51">verified-tint · #E5F0EC</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#F6EDDC;border-radius:12px">
+          <span style="width:22px;height:22px;border-radius:7px;background:#BA7517;flex:none"></span>
+          <span style="font:500 12px/1.3 ui-monospace,Menlo,monospace;color:#7A5314">accent-tint · #F6EDDC</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:56px">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:22px">
+      <span style="font:500 11px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#A79E92">02</span>
+      <h2 style="margin:0;font:600 22px/1.2 'Poppins'">Typography</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:26px 28px;display:flex;flex-direction:column;gap:22px">
+        <div style="font:500 11px/1 'Inter';letter-spacing:.12em;text-transform:uppercase;color:#A79E92">Poppins — headings</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font:700 32px/1.15 'Poppins';letter-spacing:-.02em">Dinner, handled</div>
+          <div style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">display · 32/37 · Bold · -2%</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font:600 26px/1.2 'Poppins';letter-spacing:-.01em">Chefs near you</div>
+          <div style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">h1 · 26/31 · SemiBold</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font:600 21px/1.25 'Poppins'">Tasting menus</div>
+          <div style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">h2 · 21/26 · SemiBold</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font:600 17px/1.3 'Poppins'">Marco Feliciano</div>
+          <div style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">h3 / card title · 17/22 · SemiBold</div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:26px 28px;display:flex;flex-direction:column;gap:22px">
+        <div style="font:500 11px/1 'Inter';letter-spacing:.12em;text-transform:uppercase;color:#A79E92">Inter — body &amp; UI</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font:400 17px/1.6 'Inter'">Six courses, sourced that morning, cooked in your kitchen.</div>
+          <div style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">body-lg · 17/27 · Regular</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font:400 15px/1.55 'Inter';color:#6B6259">Coastal Italian and Sicilian seafood. Ten years in Palermo, four in Lisbon. Books up two weeks out.</div>
+          <div style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">body · 15/23 · Regular · n-700</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font:500 15px/1.5 'Inter'">From $95 per guest</div>
+          <div style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">body-strong · 15/23 · Medium</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font:500 13px/1.4 'Inter';color:#6B6259">4.9 · 128 dinners cooked</div>
+          <div style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">caption · 13/18 · Medium</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Available this weekend</div>
+          <div style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">label · 11/13 · SemiBold · +10% tracking</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:56px">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:22px">
+      <span style="font:500 11px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#A79E92">03</span>
+      <h2 style="margin:0;font:600 22px/1.2 'Poppins'">Buttons</h2>
+    </div>
+    <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:26px">
+      <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+        <button style="height:52px;padding:0 26px;border:none;border-radius:14px;background:#D85A30;color:#fff;font:600 16px/1 'Inter';cursor:pointer;transition:background .15s,transform .1s" style-hover="background:#C24E27" style-active="transform:scale(.98)">Book this chef</button>
+        <button style="height:52px;padding:0 26px;border:none;border-radius:14px;background:#0F6E56;color:#fff;font:600 16px/1 'Inter';cursor:pointer;transition:background .15s,transform .1s" style-hover="background:#0C5C48" style-active="transform:scale(.98)">Confirm booking</button>
+        <button style="height:52px;padding:0 26px;border:1.5px solid #D85A30;border-radius:14px;background:transparent;color:#D85A30;font:600 16px/1 'Inter';cursor:pointer;transition:background .15s" style-hover="background:#FBEDE7">Message chef</button>
+        <button style="height:52px;padding:0 26px;border:none;border-radius:14px;background:#FBEDE7;color:#B8481F;font:600 16px/1 'Inter';cursor:pointer;transition:background .15s" style-hover="background:#F7E1D8">View menu</button>
+        <button style="height:52px;padding:0 18px;border:none;border-radius:14px;background:transparent;color:#6B6259;font:500 16px/1 'Inter';cursor:pointer;transition:color .15s" style-hover="color:#2B2621">Not now</button>
+        <button disabled="true" style="height:52px;padding:0 26px;border:none;border-radius:14px;background:#EBE4D9;color:#A79E92;font:600 16px/1 'Inter';cursor:not-allowed">Unavailable</button>
+      </div>
+      <div style="height:1px;background:#F1EDE5"></div>
+      <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <button style="height:52px;padding:0 26px;border:none;border-radius:14px;background:#D85A30;color:#fff;font:600 16px/1 'Inter';cursor:pointer">Large</button>
+          <span style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">52pt · r14 · 16px</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <button style="height:44px;padding:0 20px;border:none;border-radius:12px;background:#D85A30;color:#fff;font:600 15px/1 'Inter';cursor:pointer">Medium</button>
+          <span style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">44pt · r12 · 15px</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <button style="height:36px;padding:0 16px;border:1px solid #DCD4C7;border-radius:10px;background:#fff;color:#2B2621;font:500 14px/1 'Inter';cursor:pointer">Small</button>
+          <span style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">36pt · r10 · 14px</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;gap:10px">
+            <button style="width:44px;height:44px;border:1px solid #DCD4C7;border-radius:12px;background:#fff;color:#2B2621;font:500 15px/1 'Inter';cursor:pointer;display:flex;align-items:center;justify-content:center">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><line x1="16" y1="16" x2="20.5" y2="20.5"></line></svg>
+            </button>
+            <button onClick="{{ toggleSave }}" style="width:44px;height:44px;border:1px solid #DCD4C7;border-radius:12px;background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;color:{{ saveColor }}">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,4 17,4 17,20.5 12,16 7,20.5"></polyline></svg>
+            </button>
+          </div>
+          <span style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">icon · 44×44 (save toggles)</span>
+        </div>
+      </div>
+      <div style="height:1px;background:#F1EDE5"></div>
+      <div style="max-width:360px;display:flex;flex-direction:column;gap:8px">
+        <button style="width:100%;height:52px;border:none;border-radius:14px;background:#D85A30;color:#fff;font:600 16px/1 'Inter';cursor:pointer">Request Sat 14 Sep · $380</button>
+        <span style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">full-width, sticky footer bar — 16pt side inset</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:56px">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:22px">
+      <span style="font:500 11px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#A79E92">04</span>
+      <h2 style="margin:0;font:600 22px/1.2 'Poppins'">Inputs</h2>
+    </div>
+    <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label style="font:500 13px/1.2 'Inter';color:#6B6259">Event date</label>
+        <input placeholder="Select a date" style="height:52px;padding:0 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#FAF7F2;font:400 15px/1 'Inter';color:#2B2621;transition:border-color .15s,box-shadow .15s" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7;background:#fff">
+        <span style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">default → focus (tap to see ring)</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label style="font:500 13px/1.2 'Inter';color:#6B6259">Guests</label>
+        <div style="display:flex;align-items:center;justify-content:space-between;height:52px;padding:0 8px 0 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#FAF7F2">
+          <span style="font:500 15px/1 'Inter'">{{ guests }} guests</span>
+          <div style="display:flex;gap:6px">
+            <button onClick="{{ dec }}" style="width:36px;height:36px;border:1px solid #DCD4C7;border-radius:10px;background:#fff;font:500 17px/1 'Inter';color:#2B2621;cursor:pointer">−</button>
+            <button onClick="{{ inc }}" style="width:36px;height:36px;border:1px solid #DCD4C7;border-radius:10px;background:#fff;font:500 17px/1 'Inter';color:#2B2621;cursor:pointer">+</button>
+          </div>
+        </div>
+        <span style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">stepper field</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label style="font:500 13px/1.2 'Inter';color:#6B6259">Search</label>
+        <div style="display:flex;align-items:center;gap:10px;height:52px;padding:0 16px;border:1.5px solid #DCD4C7;border-radius:14px;background:#FAF7F2">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#A79E92" stroke-width="1.8" stroke-linecap="round" style="flex:none"><circle cx="11" cy="11" r="6.5"></circle><line x1="16" y1="16" x2="20.5" y2="20.5"></line></svg>
+          <input value="{{ search }}" onChange="{{ onSearch }}" placeholder="Cuisine, chef, occasion" style="flex:1;min-width:0;height:100%;border:none;background:transparent;font:400 15px/1 'Inter';color:#2B2621">
+        </div>
+        <span style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">search field with leading icon · r14</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <label style="font:500 13px/1.2 'Inter';color:#6B6259">Postcode</label>
+        <input value="SW1" style="height:52px;padding:0 16px;border:1.5px solid #B33A28;border-radius:12px;background:#fff;font:400 15px/1 'Inter';color:#2B2621">
+        <span style="display:flex;align-items:center;gap:6px;font:400 13px/1.4 'Inter';color:#B33A28">
+          <span style="width:15px;height:15px;border-radius:50%;background:#B33A28;color:#fff;font:600 10px/15px 'Inter';text-align:center;flex:none">!</span>
+          No chefs cover this area yet
+        </span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;grid-column:1/-1;max-width:640px">
+        <label style="font:500 13px/1.2 'Inter';color:#6B6259">Notes for the chef</label>
+        <textarea placeholder="Allergies, kitchen quirks, what you're celebrating" rows="3" style="padding:14px 16px;border:1.5px solid #DCD4C7;border-radius:12px;background:#FAF7F2;font:400 15px/1.5 'Inter';color:#2B2621;resize:vertical;transition:border-color .15s,box-shadow .15s" style-focus="border-color:#D85A30;box-shadow:0 0 0 3px #FBEDE7;background:#fff"></textarea>
+        <span style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">textarea · 15/22 · min 3 rows</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;grid-column:1/-1">
+        <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Filter chips</span>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <button onClick="{{ pickChip0 }}" style="height:38px;padding:0 16px;border-radius:19px;border:1px solid {{ chip0b }};background:{{ chip0bg }};color:{{ chip0c }};font:500 14px/1 'Inter';cursor:pointer">Italian</button>
+          <button onClick="{{ pickChip1 }}" style="height:38px;padding:0 16px;border-radius:19px;border:1px solid {{ chip1b }};background:{{ chip1bg }};color:{{ chip1c }};font:500 14px/1 'Inter';cursor:pointer">Japanese</button>
+          <button onClick="{{ pickChip2 }}" style="height:38px;padding:0 16px;border-radius:19px;border:1px solid {{ chip2b }};background:{{ chip2bg }};color:{{ chip2c }};font:500 14px/1 'Inter';cursor:pointer">Vegetarian</button>
+          <button onClick="{{ pickChip3 }}" style="height:38px;padding:0 16px;border-radius:19px;border:1px solid {{ chip3b }};background:{{ chip3bg }};color:{{ chip3c }};font:500 14px/1 'Inter';cursor:pointer">Under $100/guest</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:56px">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:22px">
+      <span style="font:500 11px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#A79E92">05</span>
+      <h2 style="margin:0;font:600 22px/1.2 'Poppins'">Badges &amp; ratings</h2>
+    </div>
+    <div style="background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:26px">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+        <span style="display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px 0 9px;border-radius:15px;background:#E5F0EC;color:#0F6E56;font:600 13px/1 'Inter'">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="8,12.4 11,15.4 16.2,9.6"></polyline></svg>
+          Verified chef
+        </span>
+        <span style="display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:15px;background:#0F6E56;color:#fff;font:600 13px/1 'Inter'">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+          ID &amp; food safety checked
+        </span>
+        <span style="display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 12px;border-radius:15px;background:#F6EDDC;color:#7A5314;font:600 13px/1 'Inter'"><span style="color:#BA7517;font-size:14px">★</span> Top rated</span>
+        <span style="display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:15px;background:#FBEDE7;color:#B8481F;font:600 13px/1 'Inter'">New this month</span>
+        <span style="display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:15px;background:#F1EDE5;color:#6B6259;font:500 13px/1 'Inter'">Sicilian · Seafood</span>
+      </div>
+      <div style="height:1px;background:#F1EDE5"></div>
+      <div style="display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Avatar with verification</span>
+          <div style="display:flex;gap:18px;align-items:flex-end">
+            <div style="position:relative;width:64px;height:64px">
+              <div style="width:64px;height:64px;border-radius:50%;background:repeating-linear-gradient(135deg,#EBE4D9 0 6px,#F5F0E7 6px 12px);border:1px solid #DCD4C7"></div>
+              <div style="position:absolute;right:-2px;bottom:-2px;width:24px;height:24px;border-radius:50%;background:#0F6E56;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+              </div>
+            </div>
+            <div style="position:relative;width:44px;height:44px">
+              <div style="width:44px;height:44px;border-radius:50%;background:repeating-linear-gradient(135deg,#EBE4D9 0 6px,#F5F0E7 6px 12px);border:1px solid #DCD4C7"></div>
+              <div style="position:absolute;right:-2px;bottom:-2px;width:18px;height:18px;border-radius:50%;background:#0F6E56;border:2px solid #fff;display:flex;align-items:center;justify-content:center">
+                <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+              </div>
+            </div>
+          </div>
+          <span style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">64pt profile · 44pt list</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Rating — display</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="letter-spacing:2px;font-size:19px;color:#BA7517">★★★★</span><span style="letter-spacing:2px;font-size:19px;color:#DCD4C7">★</span>
+            <span style="font:600 15px/1 'Inter'">4.9</span>
+            <span style="font:400 14px/1 'Inter';color:#6B6259">(128)</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="color:#BA7517;font-size:14px">★</span>
+            <span style="font:600 13px/1 'Inter'">4.9</span>
+            <span style="font:400 13px/1 'Inter';color:#8A8177">· 128 dinners</span>
+          </div>
+          <span style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">full stars 19px · compact 13px</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Rating — input</span>
+          <div onMouseLeave="{{ clearHover }}" style="display:flex;gap:4px">
+            <sc-for list="{{ stars }}" as="s" hint-placeholder-count="5">
+              <button onClick="{{ s.onClick }}" onMouseEnter="{{ s.onEnter }}" style="width:44px;height:44px;border:none;background:transparent;cursor:pointer;font-size:30px;line-height:1;padding:0;color:{{ s.color }};transition:color .12s">★</button>
+            </sc-for>
+          </div>
+          <span style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">44pt targets · {{ ratingLabel }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:56px">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:22px">
+      <span style="font:500 11px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#A79E92">06</span>
+      <h2 style="margin:0;font:600 22px/1.2 'Poppins'">Cards</h2>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
+
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="width:360px;background:#fff;border:1px solid #EBE4D9;border-radius:16px;box-shadow:0 2px 8px rgba(43,38,33,.05);overflow:hidden">
+          <div style="position:relative;height:190px;background:repeating-linear-gradient(135deg,#EBE4D9 0 10px,#F3EEE5 10px 20px);display:flex;align-items:center;justify-content:center">
+            <span style="font:500 11px/1 ui-monospace,Menlo,monospace;color:#A0968A">chef photo · 16:9</span>
+            <span style="position:absolute;top:12px;left:12px;display:inline-flex;align-items:center;gap:5px;height:28px;padding:0 11px 0 8px;border-radius:14px;background:rgba(255,255,255,.94);color:#0F6E56;font:600 12px/1 'Inter'">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0F6E56" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="8,12.4 11,15.4 16.2,9.6"></polyline></svg>
+              Verified
+            </span>
+            <button onClick="{{ toggleSave }}" style="position:absolute;top:12px;right:12px;width:36px;height:36px;border:none;border-radius:12px;background:rgba(255,255,255,.94);cursor:pointer;display:flex;align-items:center;justify-content:center;color:{{ saveColor }}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="{{ saveFill }}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,4 17,4 17,20.5 12,16 7,20.5"></polyline></svg>
+            </button>
+          </div>
+          <div style="padding:16px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px">
+              <div style="display:flex;flex-direction:column;gap:3px">
+                <h3 style="margin:0;font:600 17px/1.3 'Poppins'">Marco Feliciano</h3>
+                <span style="font:400 13px/1.4 'Inter';color:#6B6259">Sicilian seafood · 2.4 km away</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;flex:none;padding-top:2px">
+                <span style="color:#BA7517;font-size:14px">★</span>
+                <span style="font:600 14px/1 'Inter'">4.9</span>
+                <span style="font:400 13px/1 'Inter';color:#8A8177">(128)</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px">
+              <span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:13px;background:#F1EDE5;color:#6B6259;font:500 12px/1 'Inter'">Tasting menu</span>
+              <span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:13px;background:#F6EDDC;color:#7A5314;font:500 12px/1 'Inter'">Free tasting call</span>
+            </div>
+            <div style="height:1px;background:#F1EDE5;margin-top:2px"></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+              <div style="display:flex;flex-direction:column;gap:1px">
+                <span style="font:600 16px/1.2 'Inter';color:#D85A30">$95</span>
+                <span style="font:400 12px/1.2 'Inter';color:#8A8177">per guest · min 4</span>
+              </div>
+              <button style="height:44px;padding:0 20px;border:none;border-radius:12px;background:#D85A30;color:#fff;font:600 15px/1 'Inter';cursor:pointer" style-hover="background:#C24E27">Book</button>
+            </div>
+          </div>
+        </div>
+        <span style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">chef card · r16 · e2 · 16pt padding</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="width:360px;background:#fff;border:1px solid #EBE4D9;border-radius:14px;padding:14px;display:flex;gap:14px;align-items:center;cursor:pointer;transition:border-color .15s" style-hover="border-color:#DCD4C7">
+            <div style="position:relative;width:56px;height:56px;flex:none">
+              <div style="width:56px;height:56px;border-radius:14px;background:repeating-linear-gradient(135deg,#EBE4D9 0 6px,#F5F0E7 6px 12px);border:1px solid #DCD4C7"></div>
+              <div style="position:absolute;right:-3px;bottom:-3px;width:20px;height:20px;border-radius:50%;background:#0F6E56;border:2px solid #fff;display:flex;align-items:center;justify-content:center">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6,12.6 10.4,17 18,8.4"></polyline></svg>
+              </div>
+            </div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+              <span style="font:600 15px/1.3 'Poppins'">Amara Osei</span>
+              <span style="font:400 13px/1.4 'Inter';color:#6B6259">West African · 5 slots this week</span>
+              <div style="display:flex;align-items:center;gap:5px"><span style="color:#BA7517;font-size:12px">★</span><span style="font:600 12px/1 'Inter'">4.8</span><span style="font:400 12px/1 'Inter';color:#8A8177">· 64 dinners</span></div>
+            </div>
+            <span style="font:600 14px/1 'Inter';color:#D85A30;flex:none">$78</span>
+          </div>
+          <span style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">list row card · r14 · 88pt tall</span>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="width:360px;background:#fff;border:1px solid #EBE4D9;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <span style="display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:13px;background:#E5F0EC;color:#0F6E56;font:600 12px/1 'Inter'">Confirmed</span>
+              <span style="font:500 12px/1 'Inter';color:#8A8177">#CF-20418</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <h3 style="margin:0;font:600 17px/1.3 'Poppins'">Anniversary dinner, 6 guests</h3>
+              <span style="font:400 14px/1.5 'Inter';color:#6B6259">Sat 14 Sep · 19:30 · Marco Feliciano</span>
+            </div>
+            <div style="display:flex;gap:10px">
+              <button style="flex:1;height:44px;border:1.5px solid #DCD4C7;border-radius:12px;background:#fff;color:#2B2621;font:600 15px/1 'Inter';cursor:pointer" style-hover="border-color:#A79E92">Message</button>
+              <button style="flex:1;height:44px;border:none;border-radius:12px;background:#FBEDE7;color:#B8481F;font:600 15px/1 'Inter';cursor:pointer" style-hover="background:#F7E1D8">View menu</button>
+            </div>
+          </div>
+          <span style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">booking card · status-led</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:56px">
+    <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:22px">
+      <span style="font:500 11px/1 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#A79E92">07</span>
+      <h2 style="margin:0;font:600 22px/1.2 'Poppins'">Bottom navigation</h2>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="width:390px;background:#FAF7F2;border:1px solid #EBE4D9;border-radius:20px;overflow:hidden">
+          <div style="height:150px;padding:18px;display:flex;flex-direction:column;gap:10px;background:linear-gradient(#FAF7F2,#F4EFE6)">
+            <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#A79E92">Screen content</span>
+            <span style="font:400 13px/1.5 'Inter';color:#8A8177">Tap a tab — active tint is terracotta, inactive n-500.</span>
+          </div>
+          <nav style="border-top:1px solid #EBE4D9;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);padding:8px 6px 0">
+            <div style="display:flex">
+              <button onClick="{{ tabs.0.onClick }}" style="flex:1;height:52px;border:none;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:{{ tabs.0.color }}">
+                <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{ tabs.0.sw }}" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,11 12,4 20,11"></polyline><rect x="7" y="11" width="10" height="9" rx="1.6"></rect></svg>
+                <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}"><span style="font:600 10.5px/1 'Inter'">Discover</span></sc-if>
+              </button>
+              <button onClick="{{ tabs.1.onClick }}" style="flex:1;height:52px;border:none;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:{{ tabs.1.color }}">
+                <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{ tabs.1.sw }}" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><line x1="16" y1="16" x2="20.5" y2="20.5"></line></svg>
+                <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}"><span style="font:600 10.5px/1 'Inter'">Search</span></sc-if>
+              </button>
+              <button onClick="{{ tabs.2.onClick }}" style="flex:1;height:52px;border:none;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:{{ tabs.2.color }};position:relative">
+                <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{ tabs.2.sw }}" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="15" rx="2.6"></rect><line x1="3.5" y1="10.5" x2="20.5" y2="10.5"></line><line x1="8.5" y1="3.5" x2="8.5" y2="6.5"></line><line x1="15.5" y1="3.5" x2="15.5" y2="6.5"></line></svg>
+                <span style="position:absolute;top:2px;right:50%;margin-right:-19px;min-width:17px;height:17px;padding:0 5px;border-radius:9px;background:#D85A30;color:#fff;font:600 10px/17px 'Inter';text-align:center">2</span>
+                <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}"><span style="font:600 10.5px/1 'Inter'">Bookings</span></sc-if>
+              </button>
+              <button onClick="{{ tabs.3.onClick }}" style="flex:1;height:52px;border:none;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:{{ tabs.3.color }}">
+                <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{ tabs.3.sw }}" stroke-linecap="round" stroke-linejoin="round"><polyline points="7,4 17,4 17,20.5 12,16 7,20.5"></polyline></svg>
+                <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}"><span style="font:600 10.5px/1 'Inter'">Saved</span></sc-if>
+              </button>
+              <button onClick="{{ tabs.4.onClick }}" style="flex:1;height:52px;border:none;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:{{ tabs.4.color }}">
+                <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{{ tabs.4.sw }}" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="3.6"></circle><path d="M5.6 19.6a6.6 6.6 0 0 1 12.8 0"></path></svg>
+                <sc-if value="{{ showLabels }}" hint-placeholder-val="{{ true }}"><span style="font:600 10.5px/1 'Inter'">Profile</span></sc-if>
+              </button>
+            </div>
+            <div style="height:22px;display:flex;align-items:center;justify-content:center">
+              <div style="width:132px;height:5px;border-radius:3px;background:#DCD4C7"></div>
+            </div>
+          </nav>
+        </div>
+        <span style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">5 tabs · 52pt row + 22pt home inset · active #D85A30</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px;padding:22px;background:#fff;border:1px solid #EBE4D9;border-radius:16px;width:360px">
+        <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Radius &amp; elevation</span>
+        <div style="display:flex;gap:12px">
+          <div style="flex:1;height:56px;border-radius:12px;background:#FAF7F2;border:1px solid #EBE4D9;display:flex;align-items:center;justify-content:center;font:500 11px/1 ui-monospace,Menlo,monospace;color:#8A8177">r12</div>
+          <div style="flex:1;height:56px;border-radius:14px;background:#FAF7F2;border:1px solid #EBE4D9;display:flex;align-items:center;justify-content:center;font:500 11px/1 ui-monospace,Menlo,monospace;color:#8A8177">r14</div>
+          <div style="flex:1;height:56px;border-radius:16px;background:#FAF7F2;border:1px solid #EBE4D9;display:flex;align-items:center;justify-content:center;font:500 11px/1 ui-monospace,Menlo,monospace;color:#8A8177">r16</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;padding-top:4px">
+          <div style="height:48px;border-radius:12px;background:#fff;border:1px solid #EBE4D9;display:flex;align-items:center;padding:0 14px;font:500 11px/1 ui-monospace,Menlo,monospace;color:#8A8177">e0 · hairline only</div>
+          <div style="height:48px;border-radius:12px;background:#fff;border:1px solid #EBE4D9;box-shadow:0 1px 3px rgba(43,38,33,.05);display:flex;align-items:center;padding:0 14px;font:500 11px/1 ui-monospace,Menlo,monospace;color:#8A8177">e1 · 0 1 3 / 5%</div>
+          <div style="height:48px;border-radius:12px;background:#fff;border:1px solid #EBE4D9;box-shadow:0 2px 8px rgba(43,38,33,.05);display:flex;align-items:center;padding:0 14px;font:500 11px/1 ui-monospace,Menlo,monospace;color:#8A8177">e2 · 0 2 8 / 5% — cards</div>
+          <div style="height:48px;border-radius:12px;background:#fff;border:1px solid #EBE4D9;box-shadow:0 6px 20px rgba(43,38,33,.07);display:flex;align-items:center;padding:0 14px;font:500 11px/1 ui-monospace,Menlo,monospace;color:#8A8177">e3 · 0 6 20 / 7% — sheets</div>
+        </div>
+        <div style="height:1px;background:#F1EDE5;margin-top:4px"></div>
+        <span style="font:600 11px/1.2 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#8A8177">Spacing</span>
+        <div style="display:flex;align-items:flex-end;gap:8px">
+          <div style="width:4px;height:4px;background:#D85A30"></div>
+          <div style="width:8px;height:8px;background:#D85A30"></div>
+          <div style="width:12px;height:12px;background:#D85A30"></div>
+          <div style="width:16px;height:16px;background:#D85A30"></div>
+          <div style="width:20px;height:20px;background:#D85A30"></div>
+          <div style="width:24px;height:24px;background:#D85A30"></div>
+          <div style="width:32px;height:32px;background:#D85A30"></div>
+        </div>
+        <span style="font:500 11px/1.3 ui-monospace,Menlo,monospace;color:#A79E92">4 · 8 · 12 · 16 · 20 · 24 · 32 — screen inset 16</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showNavLabels&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Bottom nav&quot;}}">
+class Component extends DCLogic {
+  state = { rating: 4, hover: 0, tab: 0, saved: true, guests: 6, search: '', chips: [true, false, false, false] };
+
+  renderVals() {
+    const p = this.props;
+    const shown = this.state.hover || this.state.rating;
+    const stars = [1, 2, 3, 4, 5].map(i => ({
+      color: i <= shown ? '#BA7517' : '#DCD4C7',
+      onClick: () => this.setState({ rating: i }),
+      onEnter: () => this.setState({ hover: i })
+    }));
+    const tabs = [0, 1, 2, 3, 4].map(i => ({
+      color: this.state.tab === i ? '#D85A30' : '#A79E92',
+      sw: this.state.tab === i ? 2.1 : 1.7,
+      onClick: () => this.setState({ tab: i })
+    }));
+    const chip = i => this.state.chips[i]
+      ? { b: '#D85A30', bg: '#FBEDE7', c: '#B8481F' }
+      : { b: '#DCD4C7', bg: '#fff', c: '#2B2621' };
+    const c = [chip(0), chip(1), chip(2), chip(3)];
+    const pick = i => () => this.setState(s => {
+      const next = s.chips.slice();
+      next[i] = !next[i];
+      return { chips: next };
+    });
+    return {
+      stars, tabs,
+      ratingLabel: this.state.rating + ' of 5 selected',
+      showLabels: p.showNavLabels ?? true,
+      saved: this.state.saved,
+      saveColor: this.state.saved ? '#D85A30' : '#6B6259',
+      saveFill: this.state.saved ? '#D85A30' : 'none',
+      toggleSave: () => this.setState(s => ({ saved: !s.saved })),
+      guests: this.state.guests,
+      inc: () => this.setState(s => ({ guests: Math.min(24, s.guests + 1) })),
+      dec: () => this.setState(s => ({ guests: Math.max(1, s.guests - 1) })),
+      search: this.state.search,
+      onSearch: e => this.setState({ search: e.target.value }),
+      clearHover: () => this.setState({ hover: 0 }),
+      chip0b: c[0].b, chip0bg: c[0].bg, chip0c: c[0].c,
+      chip1b: c[1].b, chip1bg: c[1].bg, chip1c: c[1].c,
+      chip2b: c[2].b, chip2bg: c[2].bg, chip2c: c[2].c,
+      chip3b: c[3].b, chip3bg: c[3].bg, chip3c: c[3].c,
+      pickChip0: pick(0), pickChip1: pick(1), pickChip2: pick(2), pickChip3: pick(3)
+    };
+  }
+}
+</script>
+</body>
+</html>
